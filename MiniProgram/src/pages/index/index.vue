@@ -7,7 +7,7 @@
       <text class="title">扫码一下 自助点餐</text>
       <text class="subtitle">自由 随心 的电子菜单</text>
     </div>
-    <button class="btn-scan">
+    <button class="btn-scan" @click="onHandleScan">
       <img src="/static/images/icon-scan-code.svg" class="icon"/>
       <text>开始点餐</text>
     </button>
@@ -19,7 +19,13 @@
       return {}
     },
     components: {},
-    methods: {},
+    methods: {
+      onHandleScan () {
+        wx.navigateTo({
+          url: '../meal/main'
+        })
+      }
+    },
     created () {
     }
   }
