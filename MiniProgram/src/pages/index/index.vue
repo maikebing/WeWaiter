@@ -29,7 +29,7 @@
 
   .we-img-box {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 30px;
     image {
       width: 100%;
     }
@@ -37,22 +37,22 @@
 
   .we-des {
     width: 100%;
-    margin: 45px auto;
+    margin: 89px auto;
     text-align: center;
     .title {
       /* 扫码一下 自助点餐: */
       display: block;
-      font-size: 25px;
+      font-size: 49px;
       color: $primary-black;
       letter-spacing: 0;
     }
     .subtitle {
       /* 自由 随心 的电子菜单: */
       display: block;
-      margin-top: 5px;
-      font-size: 18px;
+      margin-top: 10px;
+      font-size: 36px;
       color: #9A9A9A;
-      letter-spacing: 2.3px;
+      letter-spacing: 4.6px;
     }
   }
 
@@ -60,21 +60,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3px 53px;
+    padding: 6px 106px;
     /* Rectangle 6: */
     background-image: linear-gradient(-90deg, #FE9270 0%, #F26032 100%);
-    border-radius: 6px;
+    border-radius: 12px;
     text {
       /* 开始点餐: */
-      font-size: 24px;
+      font-size: 48px;
       color: $primary-white;
     }
     .icon {
       display: block;
-      width: 24px;
-      height: 24px;
-      margin-right: 15px;
-      line-height: 33px;
+      width: 48px;
+      height: 48px;
+      margin-right: 30px;
+      line-height: 67px;
     }
   }
 </style>
