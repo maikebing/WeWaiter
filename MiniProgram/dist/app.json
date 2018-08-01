@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/mine/main",
+    "pages/order/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeWaiter",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#909090",
+    "selectedColor": "#ED5933",
+    "backgroundColor": "#fff",
+    "boxShadow": "0 0 4px #000",
+    "list": [
+      {
+        "pagePath": "pages/index/main",
+        "iconPath": "static/images/home.png",
+        "selectedIconPath": "static/images/home.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/main",
+        "iconPath": "static/images/order.png",
+        "selectedIconPath": "static/images/order.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/mine/main",
+        "iconPath": "static/images/mine.png",
+        "selectedIconPath": "static/images/mine.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
