@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div class="we-img-box">
-      <img src="../../../static/images/background.png"/>
+      <img src="/static/images/background.png"/>
     </div>
     <div class="we-des">
       <text class="title">扫码一下 自助点餐</text>
       <text class="subtitle">自由 随心 的电子菜单</text>
     </div>
     <button class="btn-scan">
-      <img src="../../../static/images/icon-scan-code.svg" class="icon"/>
+      <img src="/static/images/icon-scan-code.svg" class="icon"/>
       <text>开始点餐</text>
     </button>
   </div>
