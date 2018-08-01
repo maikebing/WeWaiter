@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wxd21da5b7dfbf8d56",
 	"projectname": "we-waiter",
 	"condition": {
 		"search": {
