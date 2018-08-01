@@ -22,7 +22,7 @@ export default {
       color: '#909090',
       selectedColor: '#ED5933',
       borderStyle: 'white',
-      backgroundColor: '#fff',
+      backgroundColor: '#F7F7FA',
       list: [
         {
           pagePath: 'pages/index/main',
