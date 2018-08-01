@@ -376,3 +376,13 @@ crashlytics-build.properties
 fabric.properties
 
 dist
+node_modules/
+npm-debug.log
+npm-debug.log.*
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+.netlify
+.idea
+.gitlab-ci.yml
+gitlab-ci.yml
