@@ -1,0 +1,20 @@
+
+@charset "UTF-8";
+.we-img-box {
+  width: 100%;
+  margin-top: 30rpx;
+}
+.we-img-box image {
+  width: 100%;
+}
+.we-des {
+  width: 100%;
+  margin: 89rpx auto;
+  text-align: center;
+}
+.we-des .title {
+  display: block;
+  font-size: 49rpx;
+  color: #000000;
+  letter-spacing: 0;
+}

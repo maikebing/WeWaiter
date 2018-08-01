@@ -1,0 +1,11 @@
+<template name="index$fb055ca2">
+  <view class="_div data-v-6daecce4 container">
+    <view class="_div data-v-6daecce4 we-img-box">
+      <image src="../../../static/images/background.png" class="_image data-v-6daecce4"></image>
+    </view>
+    <view class="_div data-v-6daecce4 we-des">
+      <text class="_text data-v-6daecce4 title">扫码一下 自助点餐</text>
+      <text class="_text data-v-6daecce4">自由 随心 的电子菜单</text>
+    </view>
+  </view>
+</template>
