@@ -1,9 +1,9 @@
 <!--公用组件：桌号
       /**
-      * @desc 点餐桌号
-      * @param {number} [tableNumber]    - 桌号
+      * @desc 订单列表项
+      * @param {array} [order]    - id, 状态, 菜单列表, 金额
       * @example 调用示例
-      *  <table-number :table-number="tableNumber""></table-number>
+      *  <order-item :order="order""></order-item>
       **/
 -->
 <template>
@@ -15,7 +15,7 @@
         </div>
         <div class="we-des">
           <text class="we-des-name">一家人美味饭馆</text>
-          <text :class="['we-order-status', 'status-' + order.currentStatus]">{{ status }}</text>
+          <text :class="['we-order-status', 'status-' + status]">{{ statusText }}</text>
         </div>
       </div>
       <div class="we-order-des">
@@ -26,8 +26,15 @@
         </div>
       </div>
       <div class="we-btn-group">
-        <button class="we-btn-pay">立即支付</button>
-        <button class="we-btn-default">加菜</button>
+        <button
+          class="we-btn-pay"
+          v-if="order.currentStatus === 0">立即支付</button>
+        <button
+          class="we-btn-default"
+          v-if="order.currentStatus === 0 || order.currentStatus === 1">加菜</button>
+        <button
+          class="we-btn-default"
+          v-if="order.currentStatus !== 0">再来一单</button>
       </div>
     </div>
   </div>
@@ -43,15 +50,29 @@
     computed: {
       status: function () {
         switch (this.order.currentStatus) {
-          case 'unpaid':
+          case 0:
+            return 'unpaid'
+          case 1:
+            return 'paid'
+          case 2:
+            return 'completed'
+          case 3:
+            return 'undone'
+          case 4:
+            return 'refunded'
+        }
+      },
+      statusText: function () {
+        switch (this.order.currentStatus) {
+          case 0:
             return '待支付'
-          case 'paid':
+          case 1:
             return '已支付'
-          case 'completed':
+          case 2:
             return '订单已完成'
-          case 'undone':
+          case 3:
             return '订单已取消'
-          case 'refunded':
+          case 4:
             return '退款成功'
         }
       }
@@ -146,7 +167,7 @@
         justify-content: flex-end;
         margin-left: 114px;
         .we-sum {
-          margin-left: 12px;
+          margin-left: 20px;
           font-size: 36px;
           font-weight: bold;
         }
@@ -162,6 +183,9 @@
       }
       button {
         line-height: 80px;
+        font-size: 32px;
+        padding-left: 30px;
+        padding-right: 30px;
       }
       .we-btn-pay {
         float: right;

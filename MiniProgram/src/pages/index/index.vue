@@ -35,7 +35,7 @@
 
   .we-img-box {
     width: 100%;
-    margin-top: 30px;
+    margin-top: 20px;
     image {
       width: 100%;
     }
@@ -66,13 +66,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 106px;
+    line-height: 123px;
+    padding-left: 106px;
+    padding-right: 106px;
+    font-size: 48px;
     /* Rectangle 6: */
     background-image: linear-gradient(-90deg, #FE9270 0%, #F26032 100%);
     border-radius: 12px;
     text {
       /* 开始点餐: */
-      font-size: 48px;
       color: $primary-white;
     }
     .icon {
