@@ -26,15 +26,18 @@
         </div>
       </div>
       <div class="we-btn-group">
-        <button
-          class="we-btn-pay"
-          v-if="order.currentStatus === 0">立即支付</button>
-        <button
-          class="we-btn-default"
-          v-if="order.currentStatus === 0 || order.currentStatus === 1">加菜</button>
-        <button
-          class="we-btn-default"
-          v-if="order.currentStatus !== 0">再来一单</button>
+        <div
+          class="we-btn we-btn-pay"
+          v-if="order.currentStatus === 0"
+          @click="onPay(order.id)">立即支付</div>
+        <div
+          class="we-btn we-btn-default"
+          v-if="order.currentStatus === 0 || order.currentStatus === 1"
+          @click="onOrderDishes(order.id)">加菜</div>
+        <div
+          class="we-btn we-btn-default"
+          v-if="order.currentStatus !== 0"
+          @click="onOneMoreOrder">再来一单</div>
       </div>
     </div>
   </div>
@@ -46,7 +49,23 @@
     data () {
       return {}
     },
-    methods: {},
+    methods: {
+      onPay (id) {
+        wx.navigateTo({
+          url: `../order/mainZ?id=${id}`
+        })
+      },
+      onOrderDishes (id) {
+        wx.navigateTo({
+          url: `../meal/main?id=${id}`
+        })
+      },
+      onOneMoreOrder () {
+        wx.navigateTo({
+          url: '../meal/main'
+        })
+      }
+    },
     computed: {
       status: function () {
         switch (this.order.currentStatus) {
@@ -178,14 +197,12 @@
       margin-top: 30px;
       font-size: 32px;
       overflow: hidden;
-      button::after{
-        border: none;
-      }
-      button {
-        line-height: 80px;
-        font-size: 32px;
+      .we-btn {
         padding-left: 30px;
         padding-right: 30px;
+        line-height: 80px;
+        font-size: 32px;
+        border-radius: 10px;
       }
       .we-btn-pay {
         float: right;
