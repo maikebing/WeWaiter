@@ -14,9 +14,9 @@
     components: {
       TableNumber
     },
-    methods: {},
-    created () {
-    }
+    methods: {
+    },
+    created () {}
   }
 </script>
 <style lang="scss" scoped>

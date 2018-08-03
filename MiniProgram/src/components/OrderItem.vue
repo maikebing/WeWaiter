@@ -1,4 +1,4 @@
-<!--公用组件：桌号
+<!--公用组件：订单列表项
       /**
       * @desc 订单列表项
       * @param {array} [order]    - id, 状态, 菜单列表, 金额
@@ -9,7 +9,7 @@
 <template>
   <div>
     <div class="we-box">
-      <div class="we-order-status">
+      <div class="we-order-status" @click="onRedirectToDetail(order.id)">
         <div class="we-icon-box">
           <img src="/static/images/icon-logo.svg" class="we-icon"/>
         </div>
@@ -18,7 +18,7 @@
           <text :class="['we-order-status', 'status-' + status]">{{ statusText }}</text>
         </div>
       </div>
-      <div class="we-order-des">
+      <div class="we-order-des"  @click="onRedirectToDetail(order.id)">
         <text>{{ order.menuList[0] }} 等 {{ order.menuList.length}} 份美食</text>
         <div class="we-pay">
           <text>共计</text>
@@ -50,9 +50,14 @@
       return {}
     },
     methods: {
+      onRedirectToDetail (id) {
+        wx.navigateTo({
+          url: `../order-detail/main?id=${id}`
+        })
+      },
       onPay (id) {
         wx.navigateTo({
-          url: `../order/mainZ?id=${id}`
+          url: `../order/main?id=${id}`
         })
       },
       onOrderDishes (id) {

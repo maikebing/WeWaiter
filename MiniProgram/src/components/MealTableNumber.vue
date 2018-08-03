@@ -8,12 +8,12 @@
 -->
 <template>
   <div>
-    <div class="we-box">
+    <div class="we-table-number-box">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
           <img src="/static/images/icon-logo.svg" class="we-icon"/>
         </div>
-        <div class="we-des">
+        <div class="we-table-des">
           <text class="we-des-name">一家人美味饭馆</text>
           <text class="we-des-info">餐厅描述</text>
         </div>
@@ -35,7 +35,7 @@
 <style lang="scss">
   @import "~@/styles/variable";
 
-  .we-box {
+  .we-table-number-box {
     padding: 22px 30px;
     display: flex;
     justify-content: space-between;
@@ -57,7 +57,7 @@
           height: 72px;
         }
       }
-      .we-des {
+      .we-table-des {
         margin-left: 22px;
         .we-des-name {
           /* 一家人美味饭庄: */
