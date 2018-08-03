@@ -8,7 +8,7 @@
 -->
 <template>
   <div>
-    <div class="we-table-number-box">
+    <div class="we-table-box">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
           <img src="/static/images/icon-logo.svg" class="we-icon"/>
@@ -19,8 +19,11 @@
         </div>
       </div>
       <div class="we-table-number-box">
-        <text class="we-identifier">#</text>
-        {{ tableNumber }}
+        <div class="we-text-box">
+          <text class="we-identifier">#</text>
+          <text class="we-identifier">桌号</text>
+        </div>
+        <div>{{ tableNumber }}</div>
       </div>
     </div>
   </div>
@@ -35,8 +38,8 @@
 <style lang="scss">
   @import "~@/styles/variable";
 
-  .we-table-number-box {
-    padding: 22px 30px;
+  .we-table-box {
+    padding: 30px;
     display: flex;
     justify-content: space-between;
     background-color: $primary-grey;
@@ -76,13 +79,23 @@
     }
     .we-table-number-box {
       /* 23: */
+      display: flex;
+      align-items: center;
       font-size: 77px;
       color: $primary-white;
       letter-spacing: -1.2px;
+      .we-text-box {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 11px;
+      }
       .we-identifier {
         /* #: */
+        line-height: 30px;
         opacity: 0.56;
-        font-size: 36px;
+        font-size: 29px;
         color: $primary-white;
         letter-spacing: -0.3px;
       }
