@@ -13,7 +13,6 @@ export default {
 
 <style>
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,4 +26,8 @@ export default {
   -webkit-transition: width 2s;
   -o-transition: width 2s;
 }
+  page {
+    background-color: #F3EFEE;
+    height: 100%;
+  }
 </style>

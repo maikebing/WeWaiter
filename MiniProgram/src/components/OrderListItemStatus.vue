@@ -8,17 +8,18 @@
 -->
 <template>
   <div>
-    <div class="we-status-box">
-      <div class="we-status-text">{{statusText}}</div>
-      <div class="we-status-des">
-        <block v-if="status === 1">
-          <text>餐厅开始制作您的美食， 请耐心等待</text>
-        </block>
-        <block v-if="status === 0">
-          <text>5分钟内未完成支付，超时自动取消订单</text>
-          <text class="we-countdown">{{countDownValue}}</text>
-        </block>
-
+    <div class="we-container">
+      <div class="we-status-box">
+        <div :class="['we-status-text', status === 1 ? 'status-paid' : '']">{{statusText}}</div>
+        <div class="we-status-des">
+          <block v-if="status === 1">
+            <text>餐厅开始制作您的美食， 请耐心等待</text>
+          </block>
+          <block v-if="status === 0">
+            <text>5分钟内未完成支付，超时自动取消订单</text>
+            <text class="we-countdown">{{countDownValue}}</text>
+          </block>
+        </div>
       </div>
     </div>
   </div>
@@ -71,6 +72,9 @@
 
 <style lang="scss">
   @import "~@/styles/variable";
+  .status-paid {
+    border-bottom-color: $primary-green!important;
+  }
 
   .we-status-box {
     width: 100%;

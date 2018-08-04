@@ -1,3 +1,4 @@
+
 <!--公用组件：订单列表项
       /**
       * @desc 订单列表项
@@ -19,7 +20,7 @@
         </div>
       </div>
       <div class="we-order-des"  @click="onRedirectToDetail(order.id)">
-        <text>{{ order.menuList[0] }} 等 {{ order.menuList.length}} 份美食</text>
+        <text>{{ order.menuList[0].name }} 等 {{ order.menuList.length}} 份美食</text>
         <div class="we-pay">
           <text>共计</text>
           <text class="we-sum">¥ {{ order.consumption }}</text>

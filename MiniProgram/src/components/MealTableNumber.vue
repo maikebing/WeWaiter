@@ -8,7 +8,7 @@
 -->
 <template>
   <div>
-    <div class="we-table-box">
+    <div :class="['we-table-box', status === 1 ? 'status-paid-box' : '']">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
           <img src="/static/images/icon-logo.svg" class="we-icon"/>
@@ -31,12 +31,21 @@
 
 <script>
   export default {
-    props: ['tableNumber']
+    props: ['tableNumber', 'status'],
+    data () {
+      return {}
+    },
+    methods: {},
+    computed: {}
   }
 </script>
 
 <style lang="scss">
   @import "~@/styles/variable";
+
+  .status-paid-box {
+    background-color: $primary-green!important;
+  }
 
   .we-table-box {
     padding: 30px;

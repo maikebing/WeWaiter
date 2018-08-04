@@ -1,28 +1,138 @@
 export const orderList = [
   {
     id: 1,
+    tableNumber: 23,
     currentStatus: 0,
-    menuList: ['西蓝花', '鱼丸', '虾丸', '鱼豆腐'],
+    menuList: [{
+      id: 6,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-01.png',
+      name: '西蓝花',
+      norm: 'large',
+      price: 18,
+      amount: 3
+    }, {
+      id: 7,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-02.png',
+      name: '千叶豆腐',
+      norm: 'middle',
+      price: 26,
+      amount: 4
+    }, {
+      id: 8,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-food-03.png',
+      name: '鱼丸虾丸',
+      norm: 'small',
+      price: 20,
+      amount: 3
+    }],
     consumption: 99
   }, {
     id: 2,
+    tableNumber: 23,
     currentStatus: 1,
-    menuList: ['西蓝花', '鱼丸', '虾丸', '千页豆腐'],
+    menuList: [{
+      id: 6,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-01.png',
+      name: '西蓝花',
+      norm: 'large',
+      price: 18,
+      amount: 2
+    }, {
+      id: 7,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-02.png',
+      name: '千叶豆腐',
+      norm: 'middle',
+      price: 26,
+      amount: 5
+    }, {
+      id: 8,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-food-03.png',
+      name: '鱼丸虾丸',
+      norm: 'small',
+      price: 20,
+      amount: 3
+    }],
     consumption: 199
   }, {
     id: 3,
+    tableNumber: 23,
     currentStatus: 2,
-    menuList: ['鱼丸', '西蓝花', '虾丸'],
+    menuList: [{
+      id: 6,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-01.png',
+      name: '西蓝花',
+      norm: 'large',
+      price: 18,
+      amount: 2
+    }, {
+      id: 7,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-02.png',
+      name: '千叶豆腐',
+      norm: 'middle',
+      price: 26,
+      amount: 1
+    }, {
+      id: 8,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-food-03.png',
+      name: '鱼丸虾丸',
+      norm: 'small',
+      price: 20,
+      amount: 3
+    }],
     consumption: 299
   }, {
     id: 4,
+    tableNumber: 23,
     currentStatus: 3,
-    menuList: ['千页豆腐', '西蓝花', '鱼丸', '虾丸'],
+    menuList: [{
+      id: 6,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-01.png',
+      name: '西蓝花',
+      norm: 'large',
+      price: 18,
+      amount: 1
+    }, {
+      id: 7,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-02.png',
+      name: '千叶豆腐',
+      norm: 'middle',
+      price: 26,
+      amount: 4
+    }, {
+      id: 8,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-food-03.png',
+      name: '鱼丸虾丸',
+      norm: 'small',
+      price: 20,
+      amount: 3
+    }],
     consumption: 399
   }, {
     id: 5,
+    tableNumber: 23,
     currentStatus: 4,
-    menuList: ['毛肚', '西蓝花', '鱼丸', '虾丸', '千页豆腐'],
+    menuList: [{
+      id: 6,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-01.png',
+      name: '西蓝花',
+      norm: 'large',
+      price: 18,
+      amount: 1
+    }, {
+      id: 7,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-meal-02.png',
+      name: '千叶豆腐',
+      norm: 'middle',
+      price: 26,
+      amount: 2
+    }, {
+      id: 8,
+      iconUrl: 'http://ow43yt5wd.bkt.clouddn.com/icon-food-03.png',
+      name: '鱼丸虾丸',
+      norm: 'small',
+      price: 20,
+      amount: 3
+    }],
     consumption: 499
   }
 ]
