@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  wws.server:
-    image: ${DOCKER_REGISTRY}wwsserver
-    build:
-      context: .
-      dockerfile: WWS.Server/Dockerfile
