@@ -1,0 +1,31 @@
+@mixin border-bottom-1px ($color) {
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    width:100%;
+    border-bottom: 1px solid $color;
+    position: absolute;
+    left:0;bottom: 0;
+  }
+  @media only screen and (-webkit-min-device-pixel-ratio: 2.0){
+    //dpr为2的手机上
+    &:after{
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+    }
+  }
+  @media only screen and (-webkit-min-device-pixel-ratio: 3.0){
+    //dpr为3的手机上
+    &:after{
+      -webkit-transform: scaleY(0.33);
+      transform: scaleY(0.33);
+    }
+  }
+}
+@mixin clear_bottom_1px () {
+  &:after{
+    display: none;
+  }
+}
+.clearfix:after{content:"";display: table;clear:both;}

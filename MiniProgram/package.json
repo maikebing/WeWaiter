@@ -11,8 +11,10 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "better-scroll": "^1.12.1",
     "mpvue": "^1.0.11",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "minapp-api-promise": "^1.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -40,6 +42,7 @@
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
+    "flyio": "^0.6.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "glob": "^7.1.2",
     "html-webpack-plugin": "^3.2.0",
@@ -66,7 +69,9 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware-hard-disk": "^1.12.0",
     "webpack-merge": "^4.1.0",
-    "webpack-mpvue-asset-plugin": "0.0.2"
+    "webpack-mpvue-asset-plugin": "0.0.2",
+    "stylus": "0.54.5",
+    "stylus-loader": "^2.1.1"
   },
   "engines": {
     "node": ">= 4.0.0",
