@@ -1,6 +1,7 @@
-let Fly = require('./wx') //wx.js为您下载的源码文件
-let baseURL = `https://www.easy-mock.com/mock/5b625eb1c906ba51424f8f6f/wewaiter`
-let fly = new Fly() //创建fly实例
+/* eslint-disable */
+const Fly = require('flyio/dist/npm/wx')
+const fly = new Fly()
+let baseURL = `https://www.easy-mock.com/mock/5aded45053796b38dd26e970/`
 const app = getApp()
 //添加拦截器
 fly.interceptors.request.use((request) => {

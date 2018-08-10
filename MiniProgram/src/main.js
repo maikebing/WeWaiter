@@ -1,12 +1,26 @@
 import Vue from 'vue'
 import App from './App'
-
+import fly from '@/libs/fly'
+Vue.prototype.$http = fly // 将fly实例挂在vue原型上
 Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue(App)
 app.$mount()
-
+Vue.prototype.getList = function () {
+  wx.showLoading({
+    title: '加载中',
+  })
+  this.$http.get('sell#!method=get').then((res)=>{
+    this.restaurant = res.data.data.restaurant;
+    this.goods = res.data.data.goods;
+    this.seller = res.data.data.seller;
+    this.ratings= res.data.data.ratings
+    wx.hideLoading();
+  }).catch((e)=>{
+    console.log(e)
+  })
+}
 export default {
   // 这个字段走 app.json
   config: {
