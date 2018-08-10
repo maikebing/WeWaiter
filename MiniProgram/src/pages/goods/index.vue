@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <!--<v-header :seller="seller"></v-header>-->
+    <!--<div class="container">-->
+
+    <!--</div>-->
+    <meal-table-number :table-number="tableNumber"></meal-table-number>
     <div class="tab">
       <div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"
            :data-current="index" @click="swichNav">
@@ -19,6 +22,7 @@
   import ratings from '@/components/ratings/ratings'
   import seller from '@/components/seller/seller'
   import fly from '@/utils/fly'
+  import MealTableNumber from '@/components/MealTableNumber'
 
   export default {
     data () {
@@ -27,7 +31,8 @@
         seller: {},
         navList: [{name: '菜单'}, {name: '评价'}, {name: '商家'}],
         changeNav: 0,
-        current: null
+        current: null,
+        tableNumber: 23
       }
     },
     methods: {
@@ -49,6 +54,7 @@
       })
     },
     components: {
+      MealTableNumber,
       'v-header': header,
       goods: goods,
       ratings: ratings,
