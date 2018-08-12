@@ -1,7 +1,7 @@
 <template>
 <div>
 <div class="goods">
-   <scroll-view :scroll-y="true" class="menu-wrapp">
+   <scroll-view :scroll-y="true" class="menu-wrapp" style="background-color: white">
        <ul>
            <li  class="menu-item" :class="{'active':changeGoods === item.id}" v-for="(item,index) in goods" :key="index" :data-id="item.id"
             @click="switchGoods">
@@ -17,7 +17,7 @@
                <h1 class="title">{{item.name}}</h1>
                <ul>
                    <li v-for="(food, index) in item.foods" :key="index" :data-id="index"  @click="selectFood(food,event)" class="food-item  border-1px">
-                      
+
                        <div class="icon">
                            <image :src="food.icon" style="width:114rpx;height:114rpx" />
                        </div>
@@ -61,7 +61,7 @@
                 <cartcontrol :food="selectedFood"></cartcontrol>
             </div>
         </div>
-       
+
     </div>
     <div class="close" @click="close">
         <span class="text">x</span>
@@ -106,15 +106,15 @@ export default {
             this.foodFlg = false
         },
         goodsScrollAct(e) {
-         
-            
+
+
             var height =  e.mp.detail.scrollHeight;
-            
+
             const scrollTop = e.mp.detail.scrollTop
-         
+
             console.log(scrollTop)
         }
-        
+
     },
    computed: {
         selectFoods() {
@@ -140,35 +140,35 @@ export default {
   @import "../../common/stylus/mixin";
     .goods
         display flex
-        position absoult 
+        position absoult
         top 348rpx
         bottom 92rpx
         height 100vh
         overflow hidden
         .menu-wrapp
-            flex 0 0 160rpx
-            width 160rpx
+            flex 0 0 160px
+            width 160px
             background #f7f8f9
             .active
                 position relative
                 background #ffffff
                 z-index 10
-                margin-top -2rpx
+                margin-top -2px
                 font-weight 700
                 .text
                     border-none()
             .menu-item
                 display table
-                height 108rpx
-                width 112rpx
-                line-height 28rpx
-                padding 0 24rpx
+                height 108px
+                width 112px
+                line-height 28px
+                padding 0 24px
                 .icon
-                    width 32rpx
-                    height 32rpx
+                    width 32px
+                    height 32px
                     vertical-align top
-                    margin-right 4rpx
-                    background-size 32rpx 32rpx
+                    margin-right 4px
+                    background-size 32px 32px
                     background-repeat no-repeat
                     &.decrease
                         bg-image('decrease_3')
@@ -204,7 +204,7 @@ export default {
                 &:last-child
                     border-none()
                     margin-bottom 0
-                .icon 
+                .icon
                     flex 0 0 114rpx
                     margin-right 20rpx
                 .content
@@ -223,7 +223,7 @@ export default {
                     .extra
                         .count
                             margin-right 24rpx
-                          
+
                     .price
                         font-weight 700
                         line-height 48rpx
@@ -237,7 +237,7 @@ export default {
                             font-size 20rpx
                             color rgb(147,153,159)
                     .cartcontrol-wrapper
-                        position absolute 
+                        position absolute
                         right 0
                         top 0
                         bottom 30rpx
@@ -251,7 +251,7 @@ export default {
         top 0
         bottom 0
         width 670rpx
-        height 840rpx 
+        height 840rpx
         .content
             height 210rpx
             width 100%
@@ -263,7 +263,7 @@ export default {
                 padding-left 16rpx
                 height 120rpx
                 background #fff
-                .name 
+                .name
                     display block
                     font-size 30rpx
                     line-height 30rpx
@@ -275,8 +275,8 @@ export default {
                         line-height 23rpx
                         color #8c8c8c
                     .rating
-                       
-                        padding-left 30rpx 
+
+                        padding-left 30rpx
             .price
                 height 90rpx
                 background #fafafa
@@ -291,7 +291,7 @@ export default {
         .close
             margin-top 40rpx
             margin-left auto
-            margin-right auto 
+            margin-right auto
             width 80rpx
             height 80rpx
             line-height 80rpx
@@ -319,5 +319,5 @@ export default {
 
 
 
-                        
+
 </style>

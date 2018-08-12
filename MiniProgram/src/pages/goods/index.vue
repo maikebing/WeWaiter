@@ -63,10 +63,14 @@
   }
 </script>
 <style lang="stylus" scoped>
+
+  page
+    background-color white
   #app
     height 100vh
     width 100%
     overflow hidden
+
     .tab
       display flex
       justify-content space-around
