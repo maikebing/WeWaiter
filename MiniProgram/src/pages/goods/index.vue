@@ -4,15 +4,16 @@
 
     <!--</div>-->
     <meal-table-number :table-number="tableNumber"></meal-table-number>
-    <div class="tab">
-      <div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"
-           :data-current="index" @click="swichNav">
-        {{item.name}}
-      </div>
-    </div>
-    <goods v-if="changeNav==0"></goods>
-    <ratings v-if="current==1" :seller="seller"></ratings>
-    <seller v-if="current==2" :seller="seller"></seller>
+    <!--<div class="tab">-->
+      <!--<div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"-->
+           <!--:data-current="index" @click="swichNav">-->
+        <!--{{item.name}}-->
+      <!--</div>-->
+    <!--</div>-->
+    <goods></goods>
+    <!--<goods v-if="changeNav==0"></goods>-->
+    <!--<ratings v-if="current==1" :seller="seller"></ratings>-->
+    <!--<seller v-if="current==2" :seller="seller"></seller>-->
   </div>
 
 </template>

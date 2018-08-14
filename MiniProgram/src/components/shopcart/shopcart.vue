@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="shopcart-list" v-show="listShow">
              <notice></notice>
             <div class="list-header">
@@ -43,15 +43,15 @@
         </div>
      </div>
      <div class="list-mask" v-show="listShow" @click="toggleList"></div>
-    </div>   
+    </div>
 </template>
 
 <script>
     import cartcontrol  from "../cartcontrol/cartcontrol"
     import notice  from "../notice/notice"
-     
+
 export default {
-   
+
     data() {
         return {
              flod:true,
@@ -62,7 +62,7 @@ export default {
              type: Array,
              default() {
                  return [
-                     {  
+                     {
                         price: 0,
                         count: 0
                      }
@@ -77,7 +77,7 @@ export default {
              type:  Number,
              default: 0
          },
-        
+
     },
     methods: {
         toggleList() {
@@ -95,14 +95,14 @@ export default {
 
             try {
                 wx.setStorageSync('selectFoods', this.selectFoods)
-            } catch (e) {   
-                console.log(e) 
+            } catch (e) {
+                console.log(e)
             }
             wx.switchTab({
             url: '/pages/order/main',
         })
         }
-     
+
     },
      components: {
         cartcontrol,
@@ -187,14 +187,14 @@ export default {
                         background #2b343c
                         text-align center
                         &.highlight
-                            background #ffd161
+                            background linear-gradient(-90deg, #FE9270 0%, #F26032 100%)
                             transform scale(1.2)
                         .icon
                             line-height 88rpx
                             font-size 48rpx
                             color #80858a
                             &.highlight
-                                color #000
+                                color #fff
                     .num
                         position absolute
                         top 0
@@ -243,8 +243,8 @@ export default {
                     font-weight 700
                     background #2b333b
                     &.enough
-                        background  #ffd161
-                        color #000
+                        background  linear-gradient(-90deg, #FE9270 0%, #F26032 100%)
+                        color #fff
         .shopcart-list
             position absolute
             top  0
@@ -269,7 +269,7 @@ export default {
                         height 35rpx
                         background url(./delete.png)
                         background-repeat no-repeat
-                        background-size 100% 100%  
+                        background-size 100% 100%
                     .empty
                         font-size 30rpx
                         padding-left 10rpx

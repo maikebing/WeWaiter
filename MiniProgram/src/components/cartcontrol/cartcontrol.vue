@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Vue from 'vue' 
+import Vue from 'vue'
 export default {
      data() {
         return{
@@ -35,8 +35,8 @@ export default {
         }
     },
     created() {
-       
-    }   
+
+    }
 }
 </script>
 
@@ -63,6 +63,7 @@ export default {
             color rgb(147,153,159)
         .cart-add
             display inline-block
-            color #ffd161
-        
+            color #ED5933
+
+
 </style>
