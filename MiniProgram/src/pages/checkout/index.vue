@@ -35,6 +35,32 @@
     methods: {
       getOrderData (id) {
         return orderList.find((order) => String(order.id) === id)
+      },
+      toPay () {
+        console.log('toPay@40 ==========> 提交订单，服务器端生成订单之后，给前端返回微信支付信息')
+        let params = {
+          timeStamp: '',
+          nonceStr: '',
+          package: '',
+          signType: 'MD5',
+          paySign: '',
+        }
+        wx.showToast({
+          title: '正在生成订单',
+          icon: 'loading',
+          duration: 1000
+        })
+        wx.requestPayment({
+          ...params,
+          success(res) {
+            console.log('success@19')
+          },
+          fail(res) {
+          }
+        })
+        setTimeout(()=>{
+          wx.navigateTo({url: '/pages/order-detail/main?id=2'})
+        }, 1000)
       }
     },
     created () {
