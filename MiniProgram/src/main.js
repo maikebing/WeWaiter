@@ -40,20 +40,20 @@ export default {
       list: [
         {
           pagePath: 'pages/index/main',
-          iconPath: 'static/images/home.png',
-          selectedIconPath: 'static/images/home.png',
+          iconPath: 'static/images/tabbar-icons/home.png',
+          selectedIconPath: 'static/images/tabbar-icons/home-active.png',
           text: '首页'
         },
         {
           pagePath: 'pages/order/main',
-          iconPath: 'static/images/order.png',
-          selectedIconPath: 'static/images/order.png',
+          iconPath: 'static/images/tabbar-icons/tips.png',
+          selectedIconPath: 'static/images/tabbar-icons/tips-active.png',
           text: '订单'
         },
         {
           pagePath: 'pages/mine/main',
-          iconPath: 'static/images/mine.png',
-          selectedIconPath: 'static/images/mine.png',
+          iconPath: 'static/images/tabbar-icons/me.png',
+          selectedIconPath: 'static/images/tabbar-icons/me-active.png',
           text: '我的'
         }
       ]
