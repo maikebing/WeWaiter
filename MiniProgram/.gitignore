@@ -386,3 +386,4 @@ selenium-debug.log
 .idea
 .gitlab-ci.yml
 gitlab-ci.yml
+project.config.json

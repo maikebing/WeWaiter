@@ -37,10 +37,11 @@
     background-color: $primary-white!important;
     .container {
       background-color: $primary-white;
+      padding-bottom: 80px;
     }
     .we-img-box {
       width: 100%;
-      margin-top: 20px;
+      /*margin-top: 20px;*/
       image {
         width: 100%;
       }
@@ -48,7 +49,7 @@
 
     .we-des {
       width: 100%;
-      margin: 89px auto;
+      margin: 30px auto;
       text-align: center;
       .title {
         /* 扫码一下 自助点餐: */
@@ -56,6 +57,7 @@
         font-size: 49px;
         color: $primary-black;
         letter-spacing: 0;
+        font-weight: bold;
       }
       .subtitle {
         /* 自由 随心 的电子菜单: */
