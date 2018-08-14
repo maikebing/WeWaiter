@@ -22,14 +22,9 @@
 <script>
   import MenuItem from '@/components/MealMenuListItem'
   export default {
-    props: ['menuList'],
+    props: ['menuList', 'total'],
     data () {
       return {
-      }
-    },
-    computed:{
-      total: function() {
-        return this.menuList.reduce((acc, current) => acc += current.price, 0)
       }
     },
     components: {
@@ -52,7 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 0 30px;
+    padding: 18px 30px;
     background-color: $primary-white;
     line-height: 104px;
     text {

@@ -2,25 +2,11 @@
   <div class="container">
     <!--<order-status :status="order.currentStatus"></order-status>-->
     <table-number :table-number="order.tableNumber" :status="order.currentStatus"></table-number>
-    <div class="we-order-btn-group">
-      <div
-        class="we-btn we-btn-default"
-        v-if="order.currentStatus !== 0"
-        @click="onOneMoreOrder">再来一单
-      </div>
-      <div
-        class="we-btn we-btn-default"
-        v-if="order.currentStatus === 0 || order.currentStatus === 1"
-        @click="onOrderDishes(order.id)">加菜
-      </div>
-      <div
-        class="we-btn we-btn-pay"
-        v-if="order.currentStatus === 0"
-        @click="onPay(order.id)">立即支付
-      </div>
+    <div class="we-order-menu-list" style="margin-top: 20rpx">
+      <menu-list :menu-list="selectedFoods" :total="total"></menu-list>
     </div>
-    <div class="we-order-menu-list">
-      <menu-list :menu-list="selectedFoods" :total="order.consumption"></menu-list>
+    <div class="we-button-fixed-bottom" @click="toPay()">
+      微信支付 ￥{{total}}
     </div>
   </div>
 </template>
@@ -33,7 +19,12 @@
     data () {
       return {
         order: {},
-        selectedFoods: []
+        selectedFoods: [],
+      }
+    },
+    computed:{
+      total: function() {
+        return this.selectedFoods.reduce((acc, current) => acc += current.price, 0)
       }
     },
     components: {
@@ -57,6 +48,19 @@
 </script>
 <style lang="scss" scoped>
   @import "~@/styles/variable";
+
+  .we-button-fixed-bottom {
+    /* Rectangle: */
+    background: #13CE66;
+    font-size: 36px;
+    text-align: center;
+    color: white;
+    height: 110px;
+    line-height: 110px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 
   .we-order-btn-group {
     margin: 20px;

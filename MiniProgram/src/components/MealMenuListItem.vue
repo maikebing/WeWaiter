@@ -15,7 +15,7 @@
       </div>
       <div class="we-menu-other">
         <!--<text class="we-menu-norm">{{norm}}份</text>-->
-        <text class="we-menu-norm">x {{menu.count}}</text>
+        <text class="we-menu-norm">x {{menu.amount}}</text>
         <text class="we-menu-price">￥ {{menu.price}}</text>
       </div>
     </div>
@@ -52,10 +52,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 18px 3px;
-    border-bottom: 1px solid #D3D3D3;
+    border-bottom: 1px solid $border-bottom-light;
     font-size: 32px;
     color: #1F1F21;
-    letter-spacing: -0.27px;
     .we-menu-graphic {
       display: flex;
       align-items: center;
@@ -74,7 +73,6 @@
       /* 大份: */
       font-size: 28px;
       color: #9B9B9B;
-      letter-spacing: -0.23px;
       .we-menu-norm {
         margin-right: 40px;
       }
