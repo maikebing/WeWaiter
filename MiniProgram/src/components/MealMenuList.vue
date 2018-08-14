@@ -22,10 +22,14 @@
 <script>
   import MenuItem from '@/components/MealMenuListItem'
   export default {
-    props: ['menuList', 'total'],
+    props: ['menuList'],
     data () {
       return {
-        total: 0
+      }
+    },
+    computed:{
+      total: function() {
+        return this.menuList.reduce((acc, current) => acc += current.price, 0)
       }
     },
     components: {
