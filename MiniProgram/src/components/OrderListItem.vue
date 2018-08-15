@@ -27,25 +27,16 @@
         </div>
       </div>
       <div class="we-btn-group">
-        <div
-          class="we-btn we-btn-pay"
-          v-if="order.status.code === 0"
-          @click="onPay(order.id)">立即支付</div>
-        <div
-          class="we-btn we-btn-default"
-          v-if="order.status.code === 0 || order.currentStatus === 1"
-          @click="onOrderDishes(order.id)">加菜</div>
-        <div
-          class="we-btn we-btn-default"
-          v-if="order.status.code !== 0"
-          @click="onOneMoreOrder">再来一单</div>
+        <order-action :order="order"></order-action>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import OrderAction from '@/components/OrderAction'
   export default {
+    components: {OrderAction},
     props: ['order'],
     data () {
       return {}

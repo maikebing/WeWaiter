@@ -20,6 +20,9 @@
       return {
         order: {},
         selectFoods: [],
+        seller: {
+          avatar: ''
+        }
       }
     },
     computed:{
@@ -33,8 +36,12 @@
       MenuList
     },
     methods: {
-      getOrderData (id) {
-        return orderList.find((order) => String(order.id) === id)
+      async getData (id) {
+        console.log('getData@37', id)
+        let orderRes = await this.$http.get(`order/${id}`)
+        this.seller = orderRes.data.seller
+        this.order = orderRes.data
+        this.selectFoods = orderRes.data.foods
       },
       async toPay () {
         wx.showLoading({
@@ -48,20 +55,10 @@
         let orderRes = await this.$http.post('order', orderParams)
         console.log('toPay@44', orderRes)
         wx.hideLoading()
-        let params = {
-          timeStamp: '',
-          nonceStr: '',
-          package: '',
-          signType: 'MD5',
-          paySign: '',
-        }
-        wx.showToast({
-          title: '正在生成订单',
-          icon: 'loading',
-          duration: 1000
-        })
+
+        let payRes = await this.$http.get(`pay/${orderRes.data.id}`)
         wx.requestPayment({
-          ...params,
+          ...payRes.data,
           success(res) {
             console.log('success@19')
           },
@@ -71,15 +68,14 @@
         wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.data.id}`})
       }
     },
-    created () {
-    },
-    mounted () {
-    },
-    onShow() {
-      this.selectFoods = wx.getStorageSync('selectFoods')
-      this.seller = wx.getStorageSync('seller')
-    },
     onLoad (options) {
+      console.log('onLoad@85', options)
+      if (options.order_id) {
+        this.getData(options.order_id)
+      } else {
+        this.selectFoods = wx.getStorageSync('selectFoods')
+        this.seller = wx.getStorageSync('seller')
+      }
     }
   }
 </script>

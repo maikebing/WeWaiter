@@ -1,0 +1,96 @@
+<template>
+  <div>
+    <div
+      class="we-btn we-btn-default"
+      v-if="order.status && order.status.code !== 0"
+      @click="onOneMoreOrder(order.id)">再来一单
+    </div>
+    <div
+      class="we-btn we-btn-default"
+      v-if=" order.status && ( order.status.code === 0 || order.status.code === 1)"
+      @click="onOrderDishes(order.id)">加菜
+    </div>
+    <div
+      class="we-btn we-btn-pay"
+      v-if="order.status && order.status.code === 0"
+      @click="onPay(order.id)">立即支付
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    name: 'order-action',
+    props: {
+      order: {
+        type: Object
+      }
+    },
+    methods: {
+      onRedirectToDetail (id) {
+        wx.navigateTo({
+          url: `../order-detail/main?id=${id}`
+        })
+      },
+      async onPay (id) {
+        wx.showLoading({
+          title: '正在加载',
+        })
+        let payRes = await this.$http.get(`pay/${id}/`)
+        wx.requestPayment({
+          ...payRes.data,
+          success(res) {
+            console.log('success@19')
+          },
+          fail(res) {
+          }
+        })
+        wx.hideLoading()
+        wx.navigateTo({url: `/pages/order-detail/main?id=${id}`})
+      },
+      onOrderDishes (id) {
+        wx.navigateTo({
+          url: `../goods/main?id=${id}`
+        })
+      },
+      onOneMoreOrder (id) {
+        wx.navigateTo({
+          url: `../checkout/main?order_id=${id}`
+        })
+      }
+    }
+  }
+</script>
+<style lang="scss" scoped>
+  @import "../styles/variable";
+
+  .we-order-btn-group {
+    margin: 20px;
+    padding: 23px;
+    background-color: $primary-white;
+    .we-btn {
+      padding-left: 30px;
+      padding-right: 30px;
+      line-height: 80px;
+      font-size: 32px;
+      border-radius: 10px;
+    }
+    .we-btn-pay {
+      float: left;
+      /* Rectangle 6: */
+      position: static;
+      margin-right: 30px;
+      background-image: linear-gradient(-94deg, #FE9270 0%, #F26032 100%);
+      color: $primary-white;
+    }
+    .we-btn-default {
+      float: left;
+      position: static;
+      margin-right: 30px;
+      color: $primary-black;
+      border: 1px solid #9B9B9B;
+      background-color: transparent;
+    }
+  }
+
+
+</style>

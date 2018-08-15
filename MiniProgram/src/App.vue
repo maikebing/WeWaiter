@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   @import './common/fonts/iconfont3.css';
   @import './common/fonts/iconfont2.css';
   @import './common/fonts/iconfont.css';
