@@ -10,7 +10,7 @@
             <div class="num" v-show="totalCount>0">{{totalCount}}</div>
           </div>
           <div class="price" :class="{'highlight': totalCount>0}">￥{{totalPrice}}</div>
-          <div class="desc">另需配送费{{deliveryPrice}}元</div>
+          <!--<div class="desc">另需配送费{{deliveryPrice}}元</div>-->
         </div>
         <div class="content-right">
           <div class="pay" :class="{'enough':totalPrice>=minPrice}" @click.stop="toPay">
@@ -124,10 +124,10 @@
       },
       payDesc () {
         if (this.totalPrice === 0) {
-          return `￥${this.minPrice}元起送`
+          return `￥满${this.minPrice}元即可下单`
         } else if (this.totalPrice < this.minPrice) {
           let diff = this.minPrice - this.totalPrice
-          return `还差￥${diff}元起送`
+          return `还差￥${diff}元即可下单`
         } else {
           return '选好了'
         }

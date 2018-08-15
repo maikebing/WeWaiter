@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <!--<order-status :status="order.currentStatus"></order-status>-->
-    <table-number :table-number="order.tableNumber" :status="order.currentStatus"></table-number>
+    <table-number :seller="seller"></table-number>
     <div class="we-order-menu-list" style="margin-top: 20rpx">
-      <menu-list :menu-list="selectedFoods" :total="total"></menu-list>
+      <menu-list :menu-list="selectFoods" :total="total"></menu-list>
     </div>
     <div class="we-button-fixed-bottom" @click="toPay()">
       微信支付 ￥{{total}}
@@ -19,12 +19,12 @@
     data () {
       return {
         order: {},
-        selectedFoods: [],
+        selectFoods: [],
       }
     },
     computed:{
       total: function() {
-        return this.selectedFoods.reduce((acc, current) => acc += current.price, 0)
+        return this.selectFoods.reduce((acc, current) => acc += current.price * current.count, 0)
       }
     },
     components: {
@@ -36,8 +36,18 @@
       getOrderData (id) {
         return orderList.find((order) => String(order.id) === id)
       },
-      toPay () {
-        console.log('toPay@40 ==========> 提交订单，服务器端生成订单之后，给前端返回微信支付信息')
+      async toPay () {
+        wx.showLoading({
+          title: '订单创建中',
+        })
+        let orderParams = {
+          codeid: 'ww12354325431',
+          openid: 'wx12314351432',
+          foods: this.selectFoods
+        }
+        let orderRes = await this.$http.post('order', orderParams)
+        console.log('toPay@44', orderRes)
+        wx.hideLoading()
         let params = {
           timeStamp: '',
           nonceStr: '',
@@ -58,15 +68,16 @@
           fail(res) {
           }
         })
-        setTimeout(()=>{
-          wx.navigateTo({url: '/pages/order-detail/main?id=2'})
-        }, 1000)
+        wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.data.id}`})
       }
     },
     created () {
-      let selectedFoods = wx.getStorageSync('selectFoods')
-      console.log('created@50', selectedFoods)
-      this.selectedFoods = selectedFoods
+    },
+    mounted () {
+    },
+    onShow() {
+      this.selectFoods = wx.getStorageSync('selectFoods')
+      this.seller = wx.getStorageSync('seller')
     },
     onLoad (options) {
     }

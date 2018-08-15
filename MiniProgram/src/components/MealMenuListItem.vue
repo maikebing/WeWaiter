@@ -15,7 +15,7 @@
       </div>
       <div class="we-menu-other">
         <!--<text class="we-menu-norm">{{norm}}份</text>-->
-        <text class="we-menu-norm">x {{menu.amount}}</text>
+        <text class="we-menu-norm">x {{menu.count}}</text>
         <text class="we-menu-price">￥ {{menu.price}}</text>
       </div>
     </div>

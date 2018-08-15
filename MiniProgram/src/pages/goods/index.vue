@@ -49,6 +49,7 @@
         this.goods = res.data.goods
         this.seller = res.data.seller
         this.tableNumber = res.data.table_number
+        wx.setStorageSync('seller', res.data.seller)
       }
 
     },

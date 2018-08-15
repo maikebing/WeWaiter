@@ -23,7 +23,7 @@
           <text class="we-identifier">#</text>
           <text class="we-identifier">桌号</text>
         </div>
-        <div>{{ tableNumber }}</div>
+        <div>{{ seller.table_number }}</div>
       </div>
     </div>
   </div>
