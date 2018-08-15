@@ -52,6 +52,6 @@ export default {
 }
   page {
     background-color: #F3EFEE;
-    height: 100%;
+    /*height: 100%;*/
   }
 </style>
