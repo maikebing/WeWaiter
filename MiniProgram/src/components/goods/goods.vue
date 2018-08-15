@@ -79,9 +79,10 @@
   import fly from '@/utils/fly'
 
   export default {
+    props: ['goods'],
     data () {
       return {
-        goods: [],
+        // goods: [],
         seller: {},
         changeGoods: 'hot',
         whereFood: 'hot',
@@ -90,13 +91,16 @@
       }
     },
     onLoad () {
-      this.getList()
+      // this.getList()
     },
     components: {
       shopcart,
       cartcontrol
     },
     methods: {
+      getData () {
+
+      },
       switchGoods (e) {
         const current = e.currentTarget.dataset.id
         this.changeGoods = current

@@ -1,11 +1,11 @@
 /* eslint-disable */
 const Fly = require('flyio/dist/npm/wx')
 const fly = new Fly()
-let baseURL = `https://www.easy-mock.com/mock/5aded45053796b38dd26e970/`
-const app = getApp()
+let baseURL = `http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=`
+// const app = getApp()
 //添加拦截器
 fly.interceptors.request.use((request) => {
-  console.log('@9', app)
+  // console.log('@9', app)
   let token = wx.getStorageSync('token')
   if (token) {
     //给所有请求添加自定义header

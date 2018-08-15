@@ -22,7 +22,7 @@
     methods: {
       onHandleScan () {
         wx.navigateTo({
-          url: '../goods/main'
+          url: '../goods/main?id=1'
         })
       }
     },

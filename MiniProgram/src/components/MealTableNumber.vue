@@ -11,11 +11,11 @@
     <div :class="['we-table-box', status === 1 ? 'status-paid-box' : '']">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
-          <img src="/static/images/icon-logo.svg" class="we-icon"/>
+          <img :src="seller.avatar" class="we-icon"/>
         </div>
         <div class="we-table-des">
-          <text class="we-des-name">一家人美味饭馆</text>
-          <text class="we-des-info">餐厅描述</text>
+          <text class="we-des-name">{{seller.name}}</text>
+          <text class="we-des-info">{{seller.description}}</text>
         </div>
       </div>
       <div class="we-table-number-box">
@@ -31,7 +31,7 @@
 
 <script>
   export default {
-    props: ['tableNumber', 'status'],
+    props: ['tableNumber', 'status', 'seller'],
     data () {
       return {}
     },

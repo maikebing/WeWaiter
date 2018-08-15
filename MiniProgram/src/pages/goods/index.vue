@@ -3,14 +3,14 @@
     <!--<div class="container">-->
 
     <!--</div>-->
-    <meal-table-number :table-number="tableNumber"></meal-table-number>
+    <meal-table-number :table-number="tableNumber" :seller="seller"></meal-table-number>
     <!--<div class="tab">-->
       <!--<div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"-->
            <!--:data-current="index" @click="swichNav">-->
         <!--{{item.name}}-->
       <!--</div>-->
     <!--</div>-->
-    <goods></goods>
+    <goods :goods="goods"></goods>
     <!--<goods v-if="changeNav==0"></goods>-->
     <!--<ratings v-if="current==1" :seller="seller"></ratings>-->
     <!--<seller v-if="current==2" :seller="seller"></seller>-->
@@ -22,7 +22,7 @@
   import goods from '@/components/goods/goods'
   import ratings from '@/components/ratings/ratings'
   import seller from '@/components/seller/seller'
-  import fly from '@/utils/fly'
+  import fly from '@/libs/fly'
   import MealTableNumber from '@/components/MealTableNumber'
 
   export default {
@@ -33,7 +33,8 @@
         navList: [{name: '菜单'}, {name: '评价'}, {name: '商家'}],
         changeNav: 0,
         current: null,
-        tableNumber: 23
+        tableNumber: 23,
+        id: null
       }
     },
     methods: {
@@ -41,18 +42,18 @@
         const current = e.currentTarget.dataset.current
         this.changeNav = current
         this.current = current
-        //  console.log(current)
+      },
+      async getData (id) {
+        let res = await fly.get('/qrcode', {id: 12})
+        console.log('getData@48', res.data)
+        this.goods = res.data.goods
+        this.seller = res.data.seller
+        this.tableNumber = res.data.table_number
       }
 
     },
     created () {
-      fly.get('sell#!method=get').then((res) => {
-        console.log('@43', res)
-        this.goods = res.data.data.goods
-        this.seller = res.data.data.seller
-      }).catch((e) => {
-        console.log(e)
-      })
+      this.getData(this.id)
     },
     components: {
       MealTableNumber,
@@ -60,6 +61,9 @@
       goods: goods,
       ratings: ratings,
       seller: seller
+    },
+    onLoad(options){
+      this.id = options.id
     }
   }
 </script>
