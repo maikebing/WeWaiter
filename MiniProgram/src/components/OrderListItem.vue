@@ -12,32 +12,32 @@
     <div class="we-box">
       <div class="we-order-status" @click="onRedirectToDetail(order.id)">
         <div class="we-icon-box">
-          <img src="/static/images/icon-logo.svg" class="we-icon"/>
+          <img :src="order.seller.avatar" class="we-icon"/>
         </div>
         <div class="we-des">
-          <text class="we-des-name">一家人美味饭馆</text>
+          <text class="we-des-name">{{order.seller.name}}</text>
           <text :class="['we-order-status', 'status-' + status]">{{ statusText }}</text>
         </div>
       </div>
       <div class="we-order-des"  @click="onRedirectToDetail(order.id)">
-        <text>{{ order.menuList[0].name }} 等 {{ order.menuList.length}} 份美食</text>
+        <text>{{ order.foods[0].name }} 等 {{ order.foods.length}} 份美食</text>
         <div class="we-pay">
           <text>共计</text>
-          <text class="we-sum">¥ {{ order.consumption }}</text>
+          <text class="we-sum">¥ {{ order.total_price }}</text>
         </div>
       </div>
       <div class="we-btn-group">
         <div
           class="we-btn we-btn-pay"
-          v-if="order.currentStatus === 0"
+          v-if="order.status.code === 0"
           @click="onPay(order.id)">立即支付</div>
         <div
           class="we-btn we-btn-default"
-          v-if="order.currentStatus === 0 || order.currentStatus === 1"
+          v-if="order.status.code === 0 || order.currentStatus === 1"
           @click="onOrderDishes(order.id)">加菜</div>
         <div
           class="we-btn we-btn-default"
-          v-if="order.currentStatus !== 0"
+          v-if="order.status.code !== 0"
           @click="onOneMoreOrder">再来一单</div>
       </div>
     </div>
@@ -74,7 +74,7 @@
     },
     computed: {
       status: function () {
-        switch (this.order.currentStatus) {
+        switch (this.order.status.code) {
           case 0:
             return 'unpaid'
           case 1:
@@ -88,7 +88,7 @@
         }
       },
       statusText: function () {
-        switch (this.order.currentStatus) {
+        switch (this.order.status.code) {
           case 0:
             return '待支付'
           case 1:

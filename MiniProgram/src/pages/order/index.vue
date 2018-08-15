@@ -7,19 +7,31 @@
 </template>
 <script>
   import OrderItem from '@/components/OrderListItem'
-  import { orderList } from '@/mock/mockOrderData'
+  // import { orderList } from '@/mock/mockOrderData'
   export default {
     data () {
       return {
-        orderList: orderList
+        orderList: []
       }
     },
     components: {
       OrderItem
     },
     methods: {
+      async getData() {
+        console.log('getData@22 获取订单')
+        let params = { openid: 'wx12334fdsaf'}
+        let orderListRes = await this.$http.get('order/', params)
+        console.log('getData@24', orderListRes.data)
+        this.orderList = orderListRes.data
+      }
     },
-    created () {}
+    created () {
+
+    },
+    onShow() {
+      this.getData()
+    }
   }
 </script>
 <style lang="scss" scoped>
