@@ -5,7 +5,7 @@
         <div class="content-left">
           <div class="logo-wrapper" :class="{'highlight': totalCount>0}">
             <div class="logo" :class="{'highlight': totalCount>0}">
-              <i class="iconfont icon-gouwuche icon" :class="{'highlight': totalCount>0}"></i>
+              <i class="iconfont .icon-diancantianchong icon" :class="{'highlight': totalCount>0}"></i>
             </div>
             <div class="num" v-show="totalCount>0">{{totalCount}}</div>
           </div>

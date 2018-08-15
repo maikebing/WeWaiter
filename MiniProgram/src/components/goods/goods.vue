@@ -21,7 +21,7 @@
                   class="food-item  border-1px">
 
                 <div class="icon">
-                  <image :src="food.icon" style="width:114rpx;height:114rpx"/>
+                  <image :src="food.icon" style="width:72px;height:72px;"/>
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
@@ -159,8 +159,10 @@
       .active
         position relative
         background #ffffff !important
+        color #ED5933
         z-index 10
         margin-top -2px
+        border-left 2px solid #ED5933
         font-weight 700
         .text
           border-none()

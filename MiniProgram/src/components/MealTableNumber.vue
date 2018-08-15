@@ -65,23 +65,32 @@
         border-radius: 12px;
         .we-icon {
           /* Rectangle 9: */
-          width: 65px;
-          height: 72px;
+          width: 120px;
+          height: 120px;
         }
       }
       .we-table-des {
+        max-width: 370px;
         margin-left: 22px;
         .we-des-name {
           /* 一家人美味饭庄: */
           display: block;
           font-size: 36px;
+          line-height: 42px;
           letter-spacing: -0.3px;
         }
         .we-des-info {
           /* 餐厅描述: */
-          display: block;
-          margin-top: 7px;
+          width: 100%;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          margin-top: 8px;
           font-size: 25px;
+          line-height: 35px;
+          color: #9A9A9A;
           letter-spacing: -0.2px;
         }
       }

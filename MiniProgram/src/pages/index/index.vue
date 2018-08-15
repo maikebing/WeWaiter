@@ -44,12 +44,13 @@
       /*margin-top: 20px;*/
       image {
         width: 100%;
+        height: 559px;
       }
     }
 
     .we-des {
       width: 100%;
-      margin: 30px auto;
+      margin: 40px auto;
       text-align: center;
       .title {
         /* 扫码一下 自助点餐: */

@@ -74,6 +74,7 @@
   #app
     height 100vh
     width 100%
+    padding-bottom 65px
     overflow hidden
 
     .tab
