@@ -14,8 +14,8 @@
           <img :src="seller.avatar" class="we-icon"/>
         </div>
         <div class="we-table-des">
-          <text class="we-des-name">{{seller.name}}</text>
-          <text class="we-des-info">{{seller.description}}</text>
+          <text class="we-table-des-name">{{seller.name}}</text>
+          <text class="we-table-des-info">{{seller.description}}</text>
         </div>
       </div>
       <div class="we-table-number-box">
@@ -72,14 +72,15 @@
       .we-table-des {
         max-width: 370px;
         margin-left: 22px;
-        .we-des-name {
+        .we-table-des-name {
           /* 一家人美味饭庄: */
           display: block;
+          font-weight: 400;
           font-size: 36px;
           line-height: 42px;
           letter-spacing: -0.3px;
         }
-        .we-des-info {
+        .we-table-des-info {
           /* 餐厅描述: */
           width: 100%;
           overflow: hidden;
@@ -102,12 +103,14 @@
       font-size: 77px;
       color: $primary-white;
       letter-spacing: -1.2px;
+      font-weight: 400;
       .we-text-box {
         display: flex;
         align-items: flex-end;
         flex-direction: column;
         justify-content: center;
         margin-right: 11px;
+        font-weight: normal;
       }
       .we-identifier {
         /* #: */

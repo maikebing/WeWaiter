@@ -62,5 +62,6 @@
 
   .we-order-menu-list {
     padding: 0 20px;
+    margin-bottom: 20px;
   }
 </style>
