@@ -5,11 +5,11 @@
       v-if="order.status && order.status.code !== 0"
       @click="onOneMoreOrder(order.id)">再来一单
     </div>
-    <div
-      class="we-btn we-btn-default"
-      v-if=" order.status && ( order.status.code === 0 || order.status.code === 1)"
-      @click="onOrderDishes(order.id)">加菜
-    </div>
+    <!--<div-->
+      <!--class="we-btn we-btn-default"-->
+      <!--v-if=" order.status &&  order.status.code === 0"-->
+      <!--@click="onOrderDishes(order.id)">加菜-->
+    <!--</div>-->
     <div
       class="we-btn we-btn-pay"
       v-if="order.status && order.status.code === 0"
@@ -44,12 +44,14 @@
           fail(res) {
           }
         })
-        wx.hideLoading()
+        setTimeout(function(){
+          wx.hideLoading()
+        },2000)
         wx.navigateTo({url: `/pages/order-detail/main?id=${id}`})
       },
       onOrderDishes (id) {
         wx.navigateTo({
-          url: `../goods/main?id=${id}`
+          url: `../goods/main?order_id=${id}`
         })
       },
       onOneMoreOrder (id) {

@@ -56,7 +56,7 @@
         console.log('toPay@44', orderRes)
         wx.hideLoading()
 
-        let payRes = await this.$http.get(`pay/${orderRes.data.id}`)
+        let payRes = await this.$http.get(`pay/${orderRes.data.id}/`)
         wx.requestPayment({
           ...payRes.data,
           success(res) {

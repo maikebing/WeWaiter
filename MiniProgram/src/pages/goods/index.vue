@@ -5,10 +5,10 @@
     <!--</div>-->
     <meal-table-number :table-number="tableNumber" :seller="seller"></meal-table-number>
     <!--<div class="tab">-->
-      <!--<div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"-->
-           <!--:data-current="index" @click="swichNav">-->
-        <!--{{item.name}}-->
-      <!--</div>-->
+    <!--<div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"-->
+    <!--:data-current="index" @click="swichNav">-->
+    <!--{{item.name}}-->
+    <!--</div>-->
     <!--</div>-->
     <goods :goods="goods"></goods>
     <!--<goods v-if="changeNav==0"></goods>-->
@@ -44,7 +44,14 @@
         this.current = current
       },
       async getData (id) {
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
         let res = await fly.get('/qrcode', {id: 12})
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 5000)
         this.goods = res.data.goods
         this.seller = res.data.seller
         this.tableNumber = res.data.table_number
@@ -53,7 +60,6 @@
 
     },
     created () {
-      this.getData(this.id)
     },
     components: {
       MealTableNumber,
@@ -62,8 +68,13 @@
       ratings: ratings,
       seller: seller
     },
-    onLoad(options){
+    onLoad (options) {
+      console.log('onLoad@66', this.id)
       this.id = options.id
+      this.getData(this.id)
+    },
+    onShow () {
+      console.log('onShow@77')
     }
   }
 </script>
@@ -71,6 +82,7 @@
 
   page
     background-color white
+
   #app
     height 100vh
     width 100%
@@ -82,7 +94,7 @@
       justify-content space-around
       align-items center
       width 100%
-      height 80 px
+      height 80px
       text-align center
       position relative
       &:after
@@ -94,9 +106,9 @@
         border-top 1px solid rgba(7, 17, 27, 0.1)
         content ''
       .tab-item
-        font-size 28 px
+        font-size 28px
         color rgb(77, 85, 93)
-        line-height 28 px
+        line-height 28px
       .active
         color rgb(240, 20, 20)
         font-weight 500
