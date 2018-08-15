@@ -45,7 +45,6 @@
       },
       async getData (id) {
         let res = await fly.get('/qrcode', {id: 12})
-        console.log('getData@48', res.data)
         this.goods = res.data.goods
         this.seller = res.data.seller
         this.tableNumber = res.data.table_number

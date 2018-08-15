@@ -1,26 +1,26 @@
 <template>
   <div class="container">
-    <order-status :status="order.currentStatus"></order-status>
-    <table-number :table-number="order.tableNumber" :status="order.currentStatus"></table-number>
+    <order-status :status="order.status.code"></order-status>
+    <table-number :status="order.status.code" :seller="seller"></table-number>
     <div class="we-order-btn-group">
       <div
         class="we-btn we-btn-default"
-        v-if="order.currentStatus !== 0"
+        v-if="order.status.code !== 0"
         @click="onOneMoreOrder">再来一单
       </div>
       <div
         class="we-btn we-btn-default"
-        v-if="order.currentStatus === 0 || order.currentStatus === 1"
+        v-if="order.status.code === 0 || order.status.code === 1"
         @click="onOrderDishes(order.id)">加菜
       </div>
       <div
         class="we-btn we-btn-pay"
-        v-if="order.currentStatus === 0"
+        v-if="order.status.code === 0"
         @click="onPay(order.id)">立即支付
       </div>
     </div>
     <div class="we-order-menu-list">
-      <menu-list :menu-list="order.menuList" :total="order.consumption"></menu-list>
+      <menu-list :menu-list="order.foods" :total="order.total_price"></menu-list>
     </div>
   </div>
 </template>
@@ -32,7 +32,9 @@
   export default {
     data () {
       return {
-        order: {}
+        order: {},
+        seller: {},
+        foods: []
       }
     },
     components: {
@@ -41,14 +43,24 @@
       MenuList
     },
     methods: {
-      getOrderData (id) {
-        return orderList.find((order) => String(order.id) === id)
+      // getOrderData (id) {
+      //   return orderList.find((order) => String(order.id) === id)
+      // }
+      async getData (id) {
+        let orderRes = await this.$http.get(`order/${id}`)
+        console.log('getData@49:index', orderRes)
+        this.seller = orderRes.data.seller
+        this.order = orderRes.data
       }
     },
     created () {
     },
     onLoad (options) {
-      this.order = this.getOrderData(options.id)
+      // this.order = this.getOrderData(options.id)
+      this.getData(options.id)
+    },
+    onShow() {
+
     }
   }
 </script>
