@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WeWaiterModel.Store" Provider="Npgsql" ProviderManifestToken="10.4" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BuyItem">
+          <Key>
+            <PropertyRef Name="BuyItemID" />
+          </Key>
+          <Property Name="BuyItemID" Type="text" Nullable="false" />
+          <Property Name="OrderID" Type="text" />
+          <Property Name="GoodsID" Type="text" />
+          <Property Name="UnitPrice" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Amount" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodsID" />
+          </Key>
+          <Property Name="GoodsID" Type="text" Nullable="false" />
+          <Property Name="BarCode" Type="text" />
+          <Property Name="QRCode" Type="text" />
+          <Property Name="FullName" Type="text" />
+          <Property Name="ShortName" Type="text" />
+          <Property Name="PictureURL" Type="text" />
+          <Property Name="PurchasePrice" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SellingPrice" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="MinSellingPrice" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Status" Type="int4" Nullable="false" />
+          <Property Name="Stock" Type="int4" Nullable="false" />
+          <Property Name="SoldOut" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="text" Nullable="false" />
+          <Property Name="SellerID" Type="text" />
+          <Property Name="UserID" Type="text" />
+          <Property Name="SellerOrderIndex" Type="int4" Nullable="false" />
+          <Property Name="Create" Type="timestamp" Nullable="false" />
+          <Property Name="Payable" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ActPay" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PayOrderID" Type="text" />
+          <Property Name="PayType" Type="text" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="text" Nullable="false" />
+          <Property Name="FullName" Type="text" />
+          <Property Name="ShortName" Type="text" />
+          <Property Name="Address" Type="text" />
+          <Property Name="MapURL" Type="text" />
+          <Property Name="LogoURL" Type="text" />
+          <Property Name="OwnerWeixinID" Type="text" />
+          <Property Name="OwnerPhone" Type="text" />
+          <Property Name="OwnerName" Type="text" />
+          <Property Name="OwnerIDNumber" Type="text" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="WeixinID" />
+          </Key>
+          <Property Name="WeixinID" Type="text" Nullable="false" />
+          <Property Name="Phone" Type="text" />
+          <Property Name="NickName" Type="text" />
+          <Property Name="JoinIn" Type="timestamp" Nullable="false" />
+          <Property Name="LastActive" Type="timestamp" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="WeWaiterModelStoreContainer">
+          <EntitySet Name="BuyItem" EntityType="Self.BuyItem" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" Schema="public" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="public" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeWaiterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BuyItem">
+          <Key>
+            <PropertyRef Name="BuyItemID" />
+          </Key>
+          <Property Name="BuyItemID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodsID" />
+          </Key>
+          <Property Name="GoodsID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BarCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PictureURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SellingPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="MinSellingPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="SoldOut" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SellerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SellerOrderIndex" Type="Int32" Nullable="false" />
+          <Property Name="Create" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="Payable" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ActPay" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PayOrderID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PayType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MapURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LogoURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerWeixinID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerIDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="WeixinID" />
+          </Key>
+          <Property Name="WeixinID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JoinIn" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="LastActive" Type="DateTime" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="WeWaiterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BuyItem" EntityType="Self.BuyItem" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" />
+          <EntitySet Name="User" EntityType="Self.User" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeWaiterModelStoreContainer" CdmEntityContainer="WeWaiterEntities">
+          <EntitySetMapping Name="BuyItem">
+            <EntityTypeMapping TypeName="WeWaiterModel.BuyItem">
+              <MappingFragment StoreEntitySet="BuyItem">
+                <ScalarProperty Name="BuyItemID" ColumnName="BuyItemID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="WeWaiterModel.Goods">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
+                <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+                <ScalarProperty Name="QRCode" ColumnName="QRCode" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="MinSellingPrice" ColumnName="MinSellingPrice" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="SoldOut" ColumnName="SoldOut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="WeWaiterModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SellerOrderIndex" ColumnName="SellerOrderIndex" />
+                <ScalarProperty Name="Create" ColumnName="Create" />
+                <ScalarProperty Name="Payable" ColumnName="Payable" />
+                <ScalarProperty Name="ActPay" ColumnName="ActPay" />
+                <ScalarProperty Name="PayOrderID" ColumnName="PayOrderID" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller">
+            <EntityTypeMapping TypeName="WeWaiterModel.Seller">
+              <MappingFragment StoreEntitySet="Seller">
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MapURL" ColumnName="MapURL" />
+                <ScalarProperty Name="LogoURL" ColumnName="LogoURL" />
+                <ScalarProperty Name="OwnerWeixinID" ColumnName="OwnerWeixinID" />
+                <ScalarProperty Name="OwnerPhone" ColumnName="OwnerPhone" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="OwnerIDNumber" ColumnName="OwnerIDNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="WeWaiterModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="WeixinID" ColumnName="WeixinID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="JoinIn" ColumnName="JoinIn" />
+                <ScalarProperty Name="LastActive" ColumnName="LastActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -16,10 +16,10 @@ namespace WWM
             InitializeComponent();
         }
 
-        private async  void barButtonItem1_ItemClickAsync(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnSellerAdmin_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            WWMClient wWM = new WWMClient(new Uri("http://localhost:5000"), new Microsoft.Rest.TokenCredentials("header"));
-            this.Text = await wWM.ApiValuesByIdGetAsync(1, "header");
+            frmSeller seller = new frmSeller() { MdiParent = this };
+            seller.Show( );
         }
     }
 }
