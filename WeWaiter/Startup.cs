@@ -32,7 +32,7 @@ namespace WeWaiter
               services.AddSwaggerGen(c =>
             {
                 //配置第一个Doc
-                c.SwaggerDoc("v1", new Info { Title = "My API_1", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "WeWaiter Server", Version = "v1" });
             
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WeWaiter.xml"));
                 c.OperationFilter<AddAuthTokenHeaderParameter>();
@@ -63,10 +63,9 @@ namespace WeWaiter
                 c.ShowExtensions();
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 c.RoutePrefix = "swagger";
-
             });
 
-
+         
             app.UseHttpsRedirection();
             app.UseMvc();
         }
