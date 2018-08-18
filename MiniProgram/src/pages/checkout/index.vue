@@ -2,8 +2,11 @@
   <div class="container">
     <!--<order-status :status="order.currentStatus"></order-status>-->
     <table-number :seller="seller"></table-number>
-    <div class="we-order-menu-list" style="margin-top: 20rpx">
+    <div class="we-order-menu-list">
       <menu-list :menu-list="selectFoods" :total="total"></menu-list>
+    </div>
+    <div class="we-dining-details-box">
+      <dining-details></dining-details>
     </div>
     <div class="we-button-fixed-bottom" @click="toPay()">
       微信支付 ￥{{total}}
@@ -13,6 +16,7 @@
 <script type="text/babel">
   import OrderStatus from '@/components/OrderListItemStatus'
   import TableNumber from '@/components/MealTableNumber'
+  import DiningDetails from '@/components/diningdetails/diningdetails'
   import {orderList} from '@/mock/mockOrderData'
   import MenuList from '@/components/MealMenuList'
   export default {
@@ -33,7 +37,8 @@
     components: {
       TableNumber,
       OrderStatus,
-      MenuList
+      MenuList,
+      DiningDetails
     },
     methods: {
       async getData (id) {
@@ -125,5 +130,10 @@
   }
   .we-order-menu-list {
     padding: 0 20px;
+    margin-top: 20px;
+  }
+  .we-dining-details-box {
+    padding: 0 20px;
+    margin-top: 20px;
   }
 </style>

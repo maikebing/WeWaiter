@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import fly from '@/libs/fly'
+import '@/weui.css'
 Vue.prototype.$http = fly // 将fly实例挂在vue原型上
 Vue.config.productionTip = false
 App.mpType = 'app'
