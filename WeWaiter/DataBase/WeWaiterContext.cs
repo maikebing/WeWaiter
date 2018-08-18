@@ -18,6 +18,8 @@ namespace WeWaiter.DataBase
         public DbSet<Order> Order { get; set; }
         public DbSet<Seller> Seller { get; set; }
         public DbSet<BuyItem> BuyItem { get; set; }
+        public DbSet<Printer> Printer { get; set; }
+        public DbSet<SellerInfo> SellerInfo { get; set; }
     }
 
 }

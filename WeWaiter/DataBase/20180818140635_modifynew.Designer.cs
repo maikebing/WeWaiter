@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeWaiter.DataBase;
@@ -9,9 +10,10 @@ using WeWaiter.DataBase;
 namespace WeWaiter.DataBase
 {
     [DbContext(typeof(WeWaiterContext))]
-    partial class WeWaiterContextModelSnapshot : ModelSnapshot
+    [Migration("20180818140635_modifynew")]
+    partial class modifynew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,24 +108,6 @@ namespace WeWaiter.DataBase
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("WeWaiter.DataBase.Printer", b =>
-                {
-                    b.Property<string>("PrinterID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApiURL");
-
-                    b.Property<string>("Desc");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PrinterType");
-
-                    b.HasKey("PrinterID");
-
-                    b.ToTable("Printer");
-                });
-
             modelBuilder.Entity("WeWaiter.DataBase.Seller", b =>
                 {
                     b.Property<string>("SellerID")
@@ -162,30 +146,6 @@ namespace WeWaiter.DataBase
                     b.HasKey("SellerID");
 
                     b.ToTable("Seller");
-                });
-
-            modelBuilder.Entity("WeWaiter.DataBase.SellerInfo", b =>
-                {
-                    b.Property<string>("SellerID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("LogoURL");
-
-                    b.Property<string>("MapURL");
-
-                    b.Property<string>("OwnerIDNumber");
-
-                    b.Property<string>("OwnerName");
-
-                    b.Property<string>("OwnerPhone");
-
-                    b.Property<string>("OwnerWeixinID");
-
-                    b.HasKey("SellerID");
-
-                    b.ToTable("SellerInfo");
                 });
 
             modelBuilder.Entity("WeWaiter.DataBase.User", b =>

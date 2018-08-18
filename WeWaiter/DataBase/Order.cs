@@ -11,12 +11,13 @@ namespace WeWaiter.DataBase
         public string OrderID { get; set; }
         public string SellerID { get; set; }
         public string UserID { get; set; }
-
-        public int SellerOrderIndex { get; set; }
+        public int OrderIndex { get; set; }
         public DateTime Create { get; set; }
         public decimal Payable { get; set; }
         public decimal ActPay { get; set; }
         public string PayOrderID { get; set; }
         public string PayType { get; set; }
+        public decimal TotalPrice { get; set; }
+        public int OrderStatus { get; set; }
     }
 }

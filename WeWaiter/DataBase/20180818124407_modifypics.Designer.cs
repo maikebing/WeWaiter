@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeWaiter.DataBase;
@@ -9,9 +10,10 @@ using WeWaiter.DataBase;
 namespace WeWaiter.DataBase
 {
     [DbContext(typeof(WeWaiterContext))]
-    partial class WeWaiterContextModelSnapshot : ModelSnapshot
+    [Migration("20180818124407_modifypics")]
+    partial class modifypics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,6 +42,21 @@ namespace WeWaiter.DataBase
                     b.ToTable("BuyItem");
                 });
 
+            modelBuilder.Entity("WeWaiter.DataBase.Files", b =>
+                {
+                    b.Property<string>("FileID");
+
+                    b.Property<string>("FileExt");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FilePath");
+
+                    b.HasKey("FileID");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("WeWaiter.DataBase.Goods", b =>
                 {
                     b.Property<string>("GoodsID")
@@ -47,29 +64,29 @@ namespace WeWaiter.DataBase
 
                     b.Property<string>("BarCode");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<string>("Description");
 
-                    b.Property<string>("Icon");
-
-                    b.Property<string>("Image");
+                    b.Property<string>("FullName");
 
                     b.Property<decimal>("MinSellingPrice");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("PictureURL");
 
                     b.Property<decimal>("PurchasePrice");
 
-                    b.Property<int>("Rating");
+                    b.Property<string>("QRCode");
 
                     b.Property<string>("Seller");
 
                     b.Property<decimal>("SellingPrice");
 
-                    b.Property<int>("Stock");
+                    b.Property<string>("ShortName");
 
-                    b.Property<bool>("Visible");
+                    b.Property<int>("SoldOut");
+
+                    b.Property<int>("Status");
+
+                    b.Property<int>("Stock");
 
                     b.HasKey("GoodsID");
 
@@ -85,10 +102,6 @@ namespace WeWaiter.DataBase
 
                     b.Property<DateTime>("Create");
 
-                    b.Property<int>("OrderIndex");
-
-                    b.Property<int>("OrderStatus");
-
                     b.Property<string>("PayOrderID");
 
                     b.Property<string>("PayType");
@@ -97,31 +110,13 @@ namespace WeWaiter.DataBase
 
                     b.Property<string>("SellerID");
 
-                    b.Property<decimal>("TotalPrice");
+                    b.Property<int>("SellerOrderIndex");
 
                     b.Property<string>("UserID");
 
                     b.HasKey("OrderID");
 
                     b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("WeWaiter.DataBase.Printer", b =>
-                {
-                    b.Property<string>("PrinterID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApiURL");
-
-                    b.Property<string>("Desc");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PrinterType");
-
-                    b.HasKey("PrinterID");
-
-                    b.ToTable("Printer");
                 });
 
             modelBuilder.Entity("WeWaiter.DataBase.Seller", b =>
@@ -133,8 +128,6 @@ namespace WeWaiter.DataBase
 
                     b.Property<string>("Bulletin");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<string>("Description");
 
                     b.Property<int>("FoodScore");
@@ -142,10 +135,6 @@ namespace WeWaiter.DataBase
                     b.Property<float>("MinPrice");
 
                     b.Property<string>("Name");
-
-                    b.Property<string[]>("Pics");
-
-                    b.Property<string>("PrintID");
 
                     b.Property<int>("RankRate");
 
@@ -164,30 +153,6 @@ namespace WeWaiter.DataBase
                     b.ToTable("Seller");
                 });
 
-            modelBuilder.Entity("WeWaiter.DataBase.SellerInfo", b =>
-                {
-                    b.Property<string>("SellerID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("LogoURL");
-
-                    b.Property<string>("MapURL");
-
-                    b.Property<string>("OwnerIDNumber");
-
-                    b.Property<string>("OwnerName");
-
-                    b.Property<string>("OwnerPhone");
-
-                    b.Property<string>("OwnerWeixinID");
-
-                    b.HasKey("SellerID");
-
-                    b.ToTable("SellerInfo");
-                });
-
             modelBuilder.Entity("WeWaiter.DataBase.User", b =>
                 {
                     b.Property<string>("WeixinID")
@@ -204,6 +169,14 @@ namespace WeWaiter.DataBase
                     b.HasKey("WeixinID");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("WeWaiter.DataBase.Files", b =>
+                {
+                    b.HasOne("WeWaiter.DataBase.Seller")
+                        .WithMany("Pics")
+                        .HasForeignKey("FileID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace WeWaiter.DataBase
@@ -9,29 +10,24 @@ namespace WeWaiter.DataBase
     {
         [Key]
         public string GoodsID { get; set; }
+        public string Seller { get; set; }
         public string BarCode { get; set; }
-        public string QRCode { get; set; }
-        public string FullName { get; set; }
-        public string ShortName { get; set; }
-        public string PictureURL { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
 
+        public string Icon { get; set; }
+
+        public int Rating { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal SellingPrice { get; set; }
 
         public decimal MinSellingPrice { get; set; }
-        /// <summary>
-        /// 商品描述
-        /// </summary>
+
         public string Description { get; set; }
 
-        public int Status { get; set; }
-        /// <summary>
-        /// 库存
-        /// </summary>
         public int Stock { get; set; }
-        /// <summary>
-        /// 已售出
-        /// </summary>
-        public int SoldOut { get; set; }
+
+        public bool Visible { get; set; }
+        public bool Deleted { get; set; }
     }
 }

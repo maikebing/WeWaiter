@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeWaiter.DataBase;
@@ -9,9 +10,10 @@ using WeWaiter.DataBase;
 namespace WeWaiter.DataBase
 {
     [DbContext(typeof(WeWaiterContext))]
-    partial class WeWaiterContextModelSnapshot : ModelSnapshot
+    [Migration("20180818112706_goods")]
+    partial class goods
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,29 +49,29 @@ namespace WeWaiter.DataBase
 
                     b.Property<string>("BarCode");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<string>("Description");
 
-                    b.Property<string>("Icon");
-
-                    b.Property<string>("Image");
+                    b.Property<string>("FullName");
 
                     b.Property<decimal>("MinSellingPrice");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("PictureURL");
 
                     b.Property<decimal>("PurchasePrice");
 
-                    b.Property<int>("Rating");
+                    b.Property<string>("QRCode");
 
                     b.Property<string>("Seller");
 
                     b.Property<decimal>("SellingPrice");
 
-                    b.Property<int>("Stock");
+                    b.Property<string>("ShortName");
 
-                    b.Property<bool>("Visible");
+                    b.Property<int>("SoldOut");
+
+                    b.Property<int>("Status");
+
+                    b.Property<int>("Stock");
 
                     b.HasKey("GoodsID");
 
@@ -85,10 +87,6 @@ namespace WeWaiter.DataBase
 
                     b.Property<DateTime>("Create");
 
-                    b.Property<int>("OrderIndex");
-
-                    b.Property<int>("OrderStatus");
-
                     b.Property<string>("PayOrderID");
 
                     b.Property<string>("PayType");
@@ -97,7 +95,7 @@ namespace WeWaiter.DataBase
 
                     b.Property<string>("SellerID");
 
-                    b.Property<decimal>("TotalPrice");
+                    b.Property<int>("SellerOrderIndex");
 
                     b.Property<string>("UserID");
 
@@ -106,70 +104,14 @@ namespace WeWaiter.DataBase
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("WeWaiter.DataBase.Printer", b =>
-                {
-                    b.Property<string>("PrinterID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApiURL");
-
-                    b.Property<string>("Desc");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PrinterType");
-
-                    b.HasKey("PrinterID");
-
-                    b.ToTable("Printer");
-                });
-
             modelBuilder.Entity("WeWaiter.DataBase.Seller", b =>
                 {
                     b.Property<string>("SellerID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Avatar");
-
-                    b.Property<string>("Bulletin");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("FoodScore");
-
-                    b.Property<float>("MinPrice");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string[]>("Pics");
-
-                    b.Property<string>("PrintID");
-
-                    b.Property<int>("RankRate");
-
-                    b.Property<int>("RatingCount");
-
-                    b.Property<int>("Score");
-
-                    b.Property<int>("SellCount");
-
-                    b.Property<int>("ServiceScore");
-
-                    b.Property<int>("TableNumber");
-
-                    b.HasKey("SellerID");
-
-                    b.ToTable("Seller");
-                });
-
-            modelBuilder.Entity("WeWaiter.DataBase.SellerInfo", b =>
-                {
-                    b.Property<string>("SellerID")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<string>("Address");
+
+                    b.Property<string>("FullName");
 
                     b.Property<string>("LogoURL");
 
@@ -183,9 +125,11 @@ namespace WeWaiter.DataBase
 
                     b.Property<string>("OwnerWeixinID");
 
+                    b.Property<string>("ShortName");
+
                     b.HasKey("SellerID");
 
-                    b.ToTable("SellerInfo");
+                    b.ToTable("Seller");
                 });
 
             modelBuilder.Entity("WeWaiter.DataBase.User", b =>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace WeWaiter.DataBase
@@ -9,17 +10,22 @@ namespace WeWaiter.DataBase
     {
         [Key]
         public string SellerID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set;}
+        public int Score { get; set; }
+        public int ServiceScore { get; set; }
+        public int FoodScore { get; set; }
+        public int RankRate { get; set; }
+        public float MinPrice { get; set; }
+        public int SellCount { get; set; }
+        public int RatingCount { get; set; }
+        public string Bulletin { set; get; }
+        public int TableNumber { get; set; }
 
-        public string FullName { get; set; }
-        public string ShortName { get; set; }
-        public string Address { get; set; }
-        public string MapURL { get; set; }
-        public string LogoURL { get; set; }
+        public string Avatar  { get; set; }
+        public  string[] Pics { get; set; }
 
-        public string OwnerWeixinID { get; set; }
-        public string  OwnerPhone { get; set; }
-        public string OwnerName { get; set; }
-        public string OwnerIDNumber { get; set; }
-
+        public string PrintID { get; set; }
+        public bool Deleted { get; set; }
     }
 }
