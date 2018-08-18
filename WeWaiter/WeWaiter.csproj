@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1.1" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="2.3.0" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="2.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
  
   </ItemGroup>
