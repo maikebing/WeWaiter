@@ -14,18 +14,25 @@ using DevExpress.XtraEditors;
 
 namespace WWM
 {
-    public partial class frmSeller : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class frmGoods : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        public frmSeller()
+        public frmGoods()
         {
             InitializeComponent();
         }
         EFDB db = new EFDB();
-        private void btnReload_ItemClick(object sender, ItemClickEventArgs e)
+        private void frmGoods_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+        public string OwnnerID { get; set; }
+        public void LoadData()
         {
             db = new EFDB();
-            db.Seller.Load();
-            sellerBindingSource.DataSource = db.Seller.Local.ToBindingList();
+          
+            var gd = from g in db.Goods where g.Seller == OwnnerID orderby g.FullName  select g ;
+            gd.Load();
+            goodsBindingSource.DataSource = db.Goods.Local.ToBindingList();
         }
 
         private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
@@ -46,34 +53,24 @@ namespace WWM
             {
                 XtraMessageBox.Show("没有需要保存的数据。");
             }
-
-        }
-
-        private void frmSeller_Load(object sender, EventArgs e)
-        {
-            btnReload.PerformClick();
         }
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle, colSellerID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle,  colGoodsID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle, colSeller,  OwnnerID);
         }
 
         private void btnAdd_ItemClick(object sender, ItemClickEventArgs e)
         {
             gridView1.AddNewRow();
             gridView1.ShowEditForm();
-
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-
             gridView1.ShowEditForm();
-
         }
-
-
 
         private void gridView1_EditFormPrepared(object sender, DevExpress.XtraGrid.Views.Grid.EditFormPreparedEventArgs e)
         {
@@ -82,25 +79,15 @@ namespace WWM
 
         private void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (XtraMessageBox.Show("是否确定删除所选商家", "删除", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (XtraMessageBox.Show("是否确定删除所选商品", "删除", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 gridView1.DeleteSelectedRows();
             }
-
         }
 
-        private void btnAdmin_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnReload_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (gridView1.GetFocusedRow() is Seller pjt)
-            {
-                new frmGoods()
-                {
-                    MdiParent = this.MdiParent,
-                    OwnnerID = pjt.SellerID,
-                    Text = $"编辑[{pjt.FullName}]的商品"
-                }.Show();
-            }
-
+            LoadData();
         }
     }
 }

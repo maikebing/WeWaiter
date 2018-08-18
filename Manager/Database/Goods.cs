@@ -27,5 +27,6 @@ namespace WWM.Database
         public int Status { get; set; }
         public int Stock { get; set; }
         public int SoldOut { get; set; }
+        public string Seller { get; set; }
     }
 }

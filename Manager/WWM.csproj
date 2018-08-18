@@ -124,6 +124,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WWDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="frmGoods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGoods.Designer.cs">
+      <DependentUpon>frmGoods.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\XtraTabbedMdiManagerEX.resx">
       <DependentUpon>XtraTabbedMdiManagerEX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGoods.resx">
+      <DependentUpon>frmGoods.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -167,6 +176,7 @@
       <DependentUpon>WWDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\WWM.Database.Goods.datasource" />
     <None Include="Properties\DataSources\WWM.Database.Seller.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -190,6 +200,8 @@
       <DependentUpon>WWDB.edmx</DependentUpon>
       <LastGenOutput>WWDB.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\product_16x16.png" />
+    <None Include="Resources\product_32x32.png" />
     <None Include="Resources\edit_16x16.png" />
     <None Include="Resources\edit_32x32.png" />
     <None Include="Resources\add_16x16.png" />

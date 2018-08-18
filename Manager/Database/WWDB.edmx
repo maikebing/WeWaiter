@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WeWaiterModel.Store" Provider="Npgsql" ProviderManifestToken="10.4" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WeWaiterModel.Store" Provider="Npgsql" ProviderManifestToken="10.4" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BuyItem">
           <Key>
             <PropertyRef Name="BuyItemID" />
@@ -33,6 +33,7 @@
           <Property Name="Status" Type="int4" Nullable="false" />
           <Property Name="Stock" Type="int4" Nullable="false" />
           <Property Name="SoldOut" Type="int4" Nullable="false" />
+          <Property Name="Seller" Type="text" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -80,8 +81,7 @@
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="public" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="public" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WeWaiterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -113,6 +113,7 @@
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
           <Property Name="SoldOut" Type="Int32" Nullable="false" />
+          <Property Name="Seller" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -181,6 +182,7 @@
           <EntitySetMapping Name="Goods">
             <EntityTypeMapping TypeName="WeWaiterModel.Goods">
               <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="Seller" ColumnName="Seller" />
                 <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
                 <ScalarProperty Name="BarCode" ColumnName="BarCode" />
                 <ScalarProperty Name="QRCode" ColumnName="QRCode" />
