@@ -12,7 +12,7 @@
     <AssemblyName>WWM</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -131,6 +131,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WWDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="frmPrinter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrinter.Designer.cs">
+      <DependentUpon>frmPrinter.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGoods.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\XtraTabbedMdiManagerEX.resx">
       <DependentUpon>XtraTabbedMdiManagerEX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPrinter.resx">
+      <DependentUpon>frmPrinter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGoods.resx">
       <DependentUpon>frmGoods.cs</DependentUpon>
@@ -184,6 +193,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\WWM.Database.Goods.datasource" />
+    <None Include="Properties\DataSources\WWM.Database.Printer.datasource" />
     <None Include="Properties\DataSources\WWM.Database.Seller.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
