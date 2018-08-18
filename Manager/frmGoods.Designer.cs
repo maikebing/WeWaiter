@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnReload = new DevExpress.XtraBars.BarButtonItem();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -40,22 +39,22 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.goodsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.goodsBindingSource = new System.Windows.Forms.BindingSource();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colGoodsID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBarCode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colQRCode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFullName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colShortName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPictureURL = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colImage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIcon = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPurchasePrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSellingPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMinSellingPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRating = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStock = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSoldOut = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSeller = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colVisible = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource)).BeginInit();
@@ -116,7 +115,7 @@
             // 
             this.btnDelete.Caption = "删除";
             this.btnDelete.Id = 5;
-            this.btnDelete.ImageOptions.LargeImage = global::WWM.Properties.Resources.recurrence_32x32;
+            this.btnDelete.ImageOptions.LargeImage = global::WWM.Properties.Resources.removeitem_32x32;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
             // 
@@ -171,18 +170,18 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colGoodsID,
             this.colBarCode,
-            this.colQRCode,
-            this.colFullName,
-            this.colShortName,
-            this.colPictureURL,
+            this.colImage,
+            this.colName,
+            this.colIcon,
             this.colPurchasePrice,
             this.colSellingPrice,
             this.colMinSellingPrice,
             this.colDescription,
-            this.colStatus,
+            this.colRating,
             this.colStock,
-            this.colSoldOut,
-            this.colSeller});
+            this.colSeller,
+            this.colDeleted,
+            this.colVisible});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
@@ -199,105 +198,94 @@
             // 
             // colBarCode
             // 
-            this.colBarCode.Caption = "条形码";
             this.colBarCode.FieldName = "BarCode";
             this.colBarCode.Name = "colBarCode";
             this.colBarCode.Visible = true;
             this.colBarCode.VisibleIndex = 0;
             // 
-            // colQRCode
+            // colImage
             // 
-            this.colQRCode.Caption = "二维码";
-            this.colQRCode.FieldName = "QRCode";
-            this.colQRCode.Name = "colQRCode";
-            this.colQRCode.Visible = true;
-            this.colQRCode.VisibleIndex = 1;
+            this.colImage.FieldName = "Image";
+            this.colImage.Name = "colImage";
+            this.colImage.Visible = true;
+            this.colImage.VisibleIndex = 1;
             // 
-            // colFullName
+            // colName
             // 
-            this.colFullName.Caption = "全名";
-            this.colFullName.FieldName = "FullName";
-            this.colFullName.Name = "colFullName";
-            this.colFullName.Visible = true;
-            this.colFullName.VisibleIndex = 2;
+            this.colName.FieldName = "Name";
+            this.colName.Name = "colName";
+            this.colName.Visible = true;
+            this.colName.VisibleIndex = 2;
             // 
-            // colShortName
+            // colIcon
             // 
-            this.colShortName.Caption = "简称";
-            this.colShortName.FieldName = "ShortName";
-            this.colShortName.Name = "colShortName";
-            this.colShortName.Visible = true;
-            this.colShortName.VisibleIndex = 3;
-            // 
-            // colPictureURL
-            // 
-            this.colPictureURL.Caption = "图片";
-            this.colPictureURL.FieldName = "PictureURL";
-            this.colPictureURL.Name = "colPictureURL";
-            this.colPictureURL.Visible = true;
-            this.colPictureURL.VisibleIndex = 4;
+            this.colIcon.FieldName = "Icon";
+            this.colIcon.Name = "colIcon";
+            this.colIcon.Visible = true;
+            this.colIcon.VisibleIndex = 3;
             // 
             // colPurchasePrice
             // 
-            this.colPurchasePrice.Caption = "进货价";
             this.colPurchasePrice.FieldName = "PurchasePrice";
             this.colPurchasePrice.Name = "colPurchasePrice";
             this.colPurchasePrice.Visible = true;
-            this.colPurchasePrice.VisibleIndex = 5;
+            this.colPurchasePrice.VisibleIndex = 4;
             // 
             // colSellingPrice
             // 
-            this.colSellingPrice.Caption = "售价";
             this.colSellingPrice.FieldName = "SellingPrice";
             this.colSellingPrice.Name = "colSellingPrice";
             this.colSellingPrice.Visible = true;
-            this.colSellingPrice.VisibleIndex = 6;
+            this.colSellingPrice.VisibleIndex = 5;
             // 
             // colMinSellingPrice
             // 
-            this.colMinSellingPrice.Caption = "最小售价";
             this.colMinSellingPrice.FieldName = "MinSellingPrice";
             this.colMinSellingPrice.Name = "colMinSellingPrice";
             this.colMinSellingPrice.Visible = true;
-            this.colMinSellingPrice.VisibleIndex = 7;
+            this.colMinSellingPrice.VisibleIndex = 6;
             // 
             // colDescription
             // 
-            this.colDescription.Caption = "描述";
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 8;
+            this.colDescription.VisibleIndex = 7;
             // 
-            // colStatus
+            // colRating
             // 
-            this.colStatus.Caption = "状态";
-            this.colStatus.FieldName = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.Visible = true;
-            this.colStatus.VisibleIndex = 9;
+            this.colRating.FieldName = "Rating";
+            this.colRating.Name = "colRating";
+            this.colRating.Visible = true;
+            this.colRating.VisibleIndex = 8;
             // 
             // colStock
             // 
-            this.colStock.Caption = "库存";
             this.colStock.FieldName = "Stock";
             this.colStock.Name = "colStock";
             this.colStock.Visible = true;
-            this.colStock.VisibleIndex = 10;
-            // 
-            // colSoldOut
-            // 
-            this.colSoldOut.Caption = "停售";
-            this.colSoldOut.FieldName = "SoldOut";
-            this.colSoldOut.Name = "colSoldOut";
-            this.colSoldOut.Visible = true;
-            this.colSoldOut.VisibleIndex = 11;
+            this.colStock.VisibleIndex = 9;
             // 
             // colSeller
             // 
-            this.colSeller.Caption = "gridColumn1";
             this.colSeller.FieldName = "Seller";
             this.colSeller.Name = "colSeller";
+            this.colSeller.Visible = true;
+            this.colSeller.VisibleIndex = 10;
+            // 
+            // colDeleted
+            // 
+            this.colDeleted.FieldName = "Deleted";
+            this.colDeleted.Name = "colDeleted";
+            this.colDeleted.Visible = true;
+            this.colDeleted.VisibleIndex = 11;
+            // 
+            // colVisible
+            // 
+            this.colVisible.FieldName = "Visible";
+            this.colVisible.Name = "colVisible";
+            this.colVisible.Visible = true;
+            this.colVisible.VisibleIndex = 12;
             // 
             // frmGoods
             // 
@@ -338,17 +326,17 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Columns.GridColumn colGoodsID;
         private DevExpress.XtraGrid.Columns.GridColumn colBarCode;
-        private DevExpress.XtraGrid.Columns.GridColumn colQRCode;
-        private DevExpress.XtraGrid.Columns.GridColumn colFullName;
-        private DevExpress.XtraGrid.Columns.GridColumn colShortName;
-        private DevExpress.XtraGrid.Columns.GridColumn colPictureURL;
+        private DevExpress.XtraGrid.Columns.GridColumn colImage;
+        private DevExpress.XtraGrid.Columns.GridColumn colName;
+        private DevExpress.XtraGrid.Columns.GridColumn colIcon;
         private DevExpress.XtraGrid.Columns.GridColumn colPurchasePrice;
         private DevExpress.XtraGrid.Columns.GridColumn colSellingPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colMinSellingPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colDescription;
-        private DevExpress.XtraGrid.Columns.GridColumn colStatus;
+        private DevExpress.XtraGrid.Columns.GridColumn colRating;
         private DevExpress.XtraGrid.Columns.GridColumn colStock;
-        private DevExpress.XtraGrid.Columns.GridColumn colSoldOut;
         private DevExpress.XtraGrid.Columns.GridColumn colSeller;
+        private DevExpress.XtraGrid.Columns.GridColumn colDeleted;
+        private DevExpress.XtraGrid.Columns.GridColumn colVisible;
     }
 }

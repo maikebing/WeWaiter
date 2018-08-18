@@ -28,7 +28,9 @@ namespace WWM.Database
         public virtual DbSet<BuyItem> BuyItem { get; set; }
         public virtual DbSet<Goods> Goods { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<Printer> Printer { get; set; }
         public virtual DbSet<Seller> Seller { get; set; }
+        public virtual DbSet<SellerInfo> SellerInfo { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }

@@ -97,7 +97,7 @@ namespace WWM
                 {
                     MdiParent = this.MdiParent,
                     OwnnerID = pjt.SellerID,
-                    Text = $"编辑[{pjt.FullName}]的商品"
+                    Text = $"编辑[{pjt.Name}]的商品"
                 }.Show();
             }
 

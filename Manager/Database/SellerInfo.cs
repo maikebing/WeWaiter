@@ -12,18 +12,15 @@ namespace WWM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class SellerInfo
     {
-        public string OrderID { get; set; }
         public string SellerID { get; set; }
-        public string UserID { get; set; }
-        public int OrderStatus { get; set; }
-        public System.DateTime Create { get; set; }
-        public decimal Payable { get; set; }
-        public decimal ActPay { get; set; }
-        public string PayOrderID { get; set; }
-        public string PayType { get; set; }
-        public int OrderIndex { get; set; }
-        public decimal TotalPrice { get; set; }
+        public string Address { get; set; }
+        public string MapURL { get; set; }
+        public string LogoURL { get; set; }
+        public string OwnerWeixinID { get; set; }
+        public string OwnerPhone { get; set; }
+        public string OwnerName { get; set; }
+        public string OwnerIDNumber { get; set; }
     }
 }

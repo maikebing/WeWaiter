@@ -30,7 +30,7 @@ namespace WWM
         {
             db = new EFDB();
           
-            var gd = from g in db.Goods where g.Seller == OwnnerID orderby g.FullName  select g ;
+            var gd = from g in db.Goods where g.Seller == OwnnerID orderby g.Name  select g ;
             gd.Load();
             goodsBindingSource.DataSource = db.Goods.Local.ToBindingList();
         }
