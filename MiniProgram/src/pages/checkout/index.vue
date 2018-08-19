@@ -6,7 +6,10 @@
       <menu-list :menu-list="selectFoods" :total="total"></menu-list>
     </div>
     <div class="we-dining-details-box">
-      <dining-details></dining-details>
+    <dining-details
+      :dining-details-list="diningDetailsList"
+      @select-meal-style="onSelectMealStyle"
+      @select-tableware="onSelectTableWare"></dining-details>
     </div>
     <div class="we-button-fixed-bottom" @click="toPay()">
       微信支付 ￥{{total}}
@@ -16,21 +19,32 @@
 <script type="text/babel">
   import OrderStatus from '@/components/OrderListItemStatus'
   import TableNumber from '@/components/MealTableNumber'
-  import DiningDetails from '@/components/diningdetails/diningdetails'
   import {orderList} from '@/mock/mockOrderData'
+  import DiningDetails from '@/components/diningdetails/diningdetails'
   import MenuList from '@/components/MealMenuList'
   export default {
     data () {
       return {
         order: {},
         selectFoods: [],
+        // 餐具数量id
+        tableWareId: '',
+        // 用餐方式
+        mealStyleId: '',
         seller: {
           avatar: ''
-        }
+        },
+        index: 0,
+        diningDetailsList: [
+          {
+            id: '',
+            name: ''
+          }
+        ]
       }
     },
-    computed:{
-      total: function() {
+    computed: {
+      total: function () {
         return this.selectFoods.reduce((acc, current) => acc += current.price * current.count, 0)
       }
     },
@@ -41,6 +55,17 @@
       DiningDetails
     },
     methods: {
+      bindPickerChange: function (e) {
+        console.log('picker发送选择改变，携带值为', e.detail)
+      },
+      onSelectMealStyle (value) {
+        console.warn('发生用餐方式选择事件', value)
+        this.mealStyleId = value
+      },
+      onSelectTableWare (value) {
+        console.warn('发生餐具选择事件', value)
+        this.tableWareId = value
+      },
       async getData (id) {
         console.log('getData@37', id)
         let orderRes = await this.$http.get(`order/${id}`)
@@ -48,14 +73,20 @@
         this.order = orderRes.data
         this.selectFoods = orderRes.data.foods
       },
+      async getDiningDetailsListData () {
+        let diningDetailsListRes = await this.$http.get('diningdeails')
+        this.diningDetailsList = diningDetailsListRes.data
+      },
       async toPay () {
         wx.showLoading({
-          title: '订单创建中',
+          title: '订单创建中'
         })
         let orderParams = {
           codeid: 'ww12354325431',
           openid: 'wx12314351432',
-          foods: this.selectFoods
+          foods: this.selectFoods,
+          tableWareId: this.tableWareId,
+          mealStyleId: this.mealStyleId
         }
         let orderRes = await this.$http.post('order', orderParams)
         console.log('toPay@44', orderRes)
@@ -81,6 +112,7 @@
         this.selectFoods = wx.getStorageSync('selectFoods')
         this.seller = wx.getStorageSync('seller')
       }
+      this.getDiningDetailsListData()
     }
   }
 </script>
