@@ -55,8 +55,8 @@
     methods: {
       bindPickerChange: function (e) {
         console.log('picker发送选择改变，携带值为', e.target.value)
-        let index = e.target.value
-        this.$emit('select-tableware', this.diningDetailsList[index].id)
+        this.index = e.target.value
+        this.$emit('select-tableware', this.diningDetailsList[this.index].id)
       },
       bindRadioChange: function (e) {
         console.log('radio发生change事件，携带value值为：', e)
