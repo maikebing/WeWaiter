@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -15,5 +16,13 @@ namespace WeWaiter.DataBase
         public decimal Amount { get; set; }
         public int Total { get; set; }
        
+    }
+    public class NewBuyItem:BuyItem
+    {
+        [JsonIgnore]
+        private new  decimal UnitPrice { get; set; }
+        [JsonIgnore]
+        private new decimal Amount { get; set; }
+  
     }
 }

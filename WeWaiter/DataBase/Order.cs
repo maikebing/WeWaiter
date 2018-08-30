@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -19,5 +20,26 @@ namespace WeWaiter.DataBase
         public string PayType { get; set; }
         public decimal TotalPrice { get; set; }
         public int OrderStatus { get; set; }
+    }
+    public class NewOrder: Order
+    {
+        [JsonIgnore]
+        private new int OrderIndex { get; set; }
+        [JsonIgnore]
+        private new DateTime Create { get; set; }
+        [JsonIgnore]
+        private new decimal Payable { get; set; }
+        [JsonIgnore]
+        private new decimal ActPay { get; set; }
+        [JsonIgnore]
+        private new string PayOrderID { get; set; }
+        [JsonIgnore]
+        private new string PayType { get; set; }
+        [JsonIgnore]
+        private new decimal TotalPrice { get; set; }
+        [JsonIgnore]
+        private new int OrderStatus { get; set; }
+
+        public List<NewBuyItem> BuyItems { get; set; }
     }
 }

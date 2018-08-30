@@ -19,17 +19,21 @@ namespace WeWaiter.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Orders
-        [HttpGet]
-        public IEnumerable<Order> GetOrder()
+        [HttpGet("GetMyOrders")]
+        public IEnumerable<Order> GetMyOrders([FromQuery] string userid)
         {
-            return _context.Order;
+            return _context.Order.Where(o => o.UserID == userid).OrderByDescending(o => o.Create);
+        }
+
+        [HttpGet("GetMyOrdersInSeller")]
+        public IEnumerable<Order> GetMyOrdersInSeller([FromQuery] string sellerid, [FromQuery] string userid)
+        {
+            return _context.Order.Where(o=> o.UserID==userid && o.SellerID==sellerid).OrderByDescending(o=>o.Create);
         }
 
         // GET: api/Orders/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrder([FromRoute] string id)
+        [HttpGet("GetSingerOrder")]
+        public async Task<IActionResult> GetSingerOrder([FromQuery] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -45,77 +49,54 @@ namespace WeWaiter.Controllers
 
             return Ok(order);
         }
-
-        // PUT: api/Orders/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder([FromRoute] string id, [FromBody] Order order)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != order.OrderID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+ 
         // POST: api/Orders
-        [HttpPost]
-        public async Task<IActionResult> PostOrder([FromBody] Order order)
+        [HttpPost("CreateOrder")]
+        public async Task<IActionResult> CreateOrder([FromBody] NewOrder order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            order.OrderID = Guid.NewGuid().ToString();
+            order.Create = DateTime.Now;
+            order.BuyItems.ForEach(async a =>
+            {
+                a.BuyItemID = Guid.NewGuid().ToString();
+                a.OrderID = order.OrderID;
+                var goods = await _context.Goods.FindAsync(a.GoodsID);
+                a.UnitPrice = goods.SellingPrice;
+                a.Amount = a.UnitPrice * a.Total;
+                _context.BuyItem.Add(a);
+                order.TotalPrice += a.Amount;
+                });
+         int  sellerordercount = await _context.Order.CountAsync(o => o.SellerID == order.SellerID && o.Create.Date.Equals(DateTime.Now.Date));
+            order.OrderIndex = sellerordercount+1;
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetOrder", new { id = order.OrderID }, order);
         }
 
-        // DELETE: api/Orders/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder([FromRoute] string id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// DELETE: api/Orders/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteOrder([FromRoute] string id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var order = await _context.Order.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
+        //    var order = await _context.Order.FindAsync(id);
+        //    if (order == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Order.Remove(order);
-            await _context.SaveChangesAsync();
+        //    _context.Order.Remove(order);
+        //    await _context.SaveChangesAsync();
 
-            return Ok(order);
-        }
+        //    return Ok(order);
+        //}
 
         private bool OrderExists(string id)
         {
