@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeWaiter.DataBase;
@@ -9,9 +10,10 @@ using WeWaiter.DataBase;
 namespace WeWaiter.DataBase
 {
     [DbContext(typeof(WeWaiterContext))]
-    partial class WeWaiterContextModelSnapshot : ModelSnapshot
+    [Migration("20180830135653_addseat")]
+    partial class addseat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

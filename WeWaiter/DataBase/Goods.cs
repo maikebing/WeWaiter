@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,7 +28,10 @@ namespace WeWaiter.DataBase
 
         public int Stock { get; set; }
 
+        [JsonIgnore]
         public bool Visible { get; set; }
+
+        [JsonIgnore]
         public bool Deleted { get; set; }
     }
 }
