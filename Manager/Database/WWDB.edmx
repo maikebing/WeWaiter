@@ -61,6 +61,15 @@
           <Property Name="Desc" Type="text" />
           <Property Name="ApiURL" Type="text" />
         </EntityType>
+        <EntityType Name="Seat">
+          <Key>
+            <PropertyRef Name="SeatId" />
+          </Key>
+          <Property Name="SeatId" Type="text" Nullable="false" />
+          <Property Name="Seller" Type="text" />
+          <Property Name="Seats" Type="int4" Nullable="false" />
+          <Property Name="Sit" Type="bool" Nullable="false" />
+        </EntityType>
         <!--生成过程中发现错误:
 警告 6005: 目标实体框架版本目前不支持数据类型“_text”；已排除表“WeWaiter.public.Seller”中的列“Pics”。-->
         <EntityType Name="Seller">
@@ -111,6 +120,7 @@
           <EntitySet Name="Goods" EntityType="Self.Goods" Schema="public" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="public" store:Type="Tables" />
           <EntitySet Name="Printer" EntityType="Self.Printer" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Seat" EntityType="Self.Seat" Schema="public" store:Type="Tables" />
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="public" store:Type="Tables" />
           <EntitySet Name="SellerInfo" EntityType="Self.SellerInfo" Schema="public" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="public" store:Type="Tables" />
@@ -127,6 +137,7 @@
           <EntitySet Name="Seller" EntityType="WeWaiterModel.Seller" />
           <EntitySet Name="SellerInfo" EntityType="WeWaiterModel.SellerInfo" />
           <EntitySet Name="User" EntityType="WeWaiterModel.User" />
+          <EntitySet Name="Seat" EntityType="WeWaiterModel.Seat" />
         </EntityContainer>
         <EntityType Name="BuyItem">
           <Key>
@@ -226,6 +237,15 @@
           <Property Name="NickName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="JoinIn" Type="DateTime" Nullable="false" Precision="6" />
           <Property Name="LastActive" Type="DateTime" Nullable="false" Precision="6" />
+        </EntityType>
+        <EntityType Name="Seat">
+          <Key>
+            <PropertyRef Name="SeatId" />
+          </Key>
+          <Property Name="SeatId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Seller" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Seats" Type="Int32" Nullable="false" />
+          <Property Name="Sit" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -336,6 +356,16 @@
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="WeixinID" ColumnName="WeixinID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seat">
+            <EntityTypeMapping TypeName="WeWaiterModel.Seat">
+              <MappingFragment StoreEntitySet="Seat">
+                <ScalarProperty Name="Sit" ColumnName="Sit" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+                <ScalarProperty Name="Seller" ColumnName="Seller" />
+                <ScalarProperty Name="SeatId" ColumnName="SeatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

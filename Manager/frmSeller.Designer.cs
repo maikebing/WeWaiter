@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnReload = new DevExpress.XtraBars.BarButtonItem();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -35,11 +36,14 @@
             this.btnAdd = new DevExpress.XtraBars.BarButtonItem();
             this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
             this.btnAdmin = new DevExpress.XtraBars.BarButtonItem();
+            this.btnAdminSeat = new DevExpress.XtraBars.BarButtonItem();
+            this.btnRed = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.sellerBindingSource = new System.Windows.Forms.BindingSource();
+            this.sellerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSellerID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -72,9 +76,11 @@
             this.btnDelete,
             this.btnAdd,
             this.btnEdit,
-            this.btnAdmin});
+            this.btnAdmin,
+            this.btnAdminSeat,
+            this.btnRed});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 8;
+            this.ribbon.MaxItemId = 10;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -135,10 +141,28 @@
             this.btnAdmin.Name = "btnAdmin";
             this.btnAdmin.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAdmin_ItemClick);
             // 
+            // btnAdminSeat
+            // 
+            this.btnAdminSeat.Caption = "管理座位";
+            this.btnAdminSeat.Id = 8;
+            this.btnAdminSeat.ImageOptions.Image = global::WWM.Properties.Resources.tablecellmargins_16x16;
+            this.btnAdminSeat.ImageOptions.LargeImage = global::WWM.Properties.Resources.tablecellmargins_32x32;
+            this.btnAdminSeat.Name = "btnAdminSeat";
+            this.btnAdminSeat.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAdminSeat_ItemClick);
+            // 
+            // btnRed
+            // 
+            this.btnRed.Caption = "管理红包";
+            this.btnRed.Id = 9;
+            this.btnRed.ImageOptions.Image = global::WWM.Properties.Resources.currency_16x16;
+            this.btnRed.ImageOptions.LargeImage = global::WWM.Properties.Resources.currency_32x32;
+            this.btnRed.Name = "btnRed";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1});
+            this.ribbonPageGroup1,
+            this.ribbonPageGroup2});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "商家信息管理";
             // 
@@ -148,10 +172,17 @@
             this.ribbonPageGroup1.ItemLinks.Add(this.btnSave);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnAdd);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnEdit);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnAdmin);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnDelete);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "管理";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnAdmin);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnAdminSeat);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnRed);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "管理";
             // 
             // ribbonStatusBar
             // 
@@ -361,5 +392,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTableNumber;
         private DevExpress.XtraGrid.Columns.GridColumn colDeleted;
         private DevExpress.XtraGrid.Columns.GridColumn colPrintID;
+        private DevExpress.XtraBars.BarButtonItem btnAdminSeat;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.BarButtonItem btnRed;
     }
 }

@@ -14,25 +14,24 @@ using DevExpress.XtraEditors;
 
 namespace WWM
 {
-    public partial class frmGoods : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class frmSeat : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        public frmGoods()
+        public frmSeat()
         {
             InitializeComponent();
         }
         EFDB db = new EFDB();
-        private void frmGoods_Load(object sender, EventArgs e)
-        {
-            LoadData();
-        }
         public string SellerID { get; set; }
-        public void LoadData()
+        void LoadData()
         {
             db = new EFDB();
-          
-            var gd = from g in db.Goods where g.Seller == SellerID orderby g.Name  select g ;
+            var gd = from g in db.Seat where g.Seller == SellerID orderby g.Seats select g;
             gd.Load();
-            goodsBindingSource.DataSource = db.Goods.Local.ToBindingList();
+            this.seatBindingSource .DataSource = db.Seat.Local.ToBindingList();
+        }
+        private void btnLoad_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            LoadData();
         }
 
         private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
@@ -57,8 +56,8 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle,  colGoodsID, Guid.NewGuid().ToString().Replace("-", ""));
-            gridView1.SetRowCellValue(e.RowHandle, colSeller,  SellerID);
+            gridView1.SetRowCellValue(e.RowHandle,  colSeatId , Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle, colSeller, SellerID);
         }
 
         private void btnAdd_ItemClick(object sender, ItemClickEventArgs e)
@@ -79,13 +78,13 @@ namespace WWM
 
         private void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (XtraMessageBox.Show("是否确定删除所选商品", "删除", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (XtraMessageBox.Show("是否确定删除所选座位", "删除", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 gridView1.DeleteSelectedRows();
             }
         }
 
-        private void btnReload_ItemClick(object sender, ItemClickEventArgs e)
+        private void frmSeat_Load(object sender, EventArgs e)
         {
             LoadData();
         }

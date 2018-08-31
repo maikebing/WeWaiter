@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnReload = new DevExpress.XtraBars.BarButtonItem();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -39,7 +40,7 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.goodsBindingSource = new System.Windows.Forms.BindingSource();
+            this.goodsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colGoodsID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBarCode = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -195,6 +196,8 @@
             // 
             this.colGoodsID.FieldName = "GoodsID";
             this.colGoodsID.Name = "colGoodsID";
+            this.colGoodsID.Visible = true;
+            this.colGoodsID.VisibleIndex = 13;
             // 
             // colBarCode
             // 

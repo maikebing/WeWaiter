@@ -96,11 +96,24 @@ namespace WWM
                 new frmGoods()
                 {
                     MdiParent = this.MdiParent,
-                    OwnnerID = pjt.SellerID,
+                    SellerID = pjt.SellerID,
                     Text = $"编辑[{pjt.Name}]的商品"
                 }.Show();
             }
 
+        }
+
+        private void btnAdminSeat_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridView1.GetFocusedRow() is Seller pjt)
+            {
+                new frmSeat()
+                {
+                    MdiParent = this.MdiParent,
+                    SellerID = pjt.SellerID,
+                    Text = $"编辑[{pjt.Name}]的座位"
+                }.Show();
+            }
         }
     }
 }
