@@ -60,6 +60,8 @@
             this.colTableNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPrintID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnUploadHeadPic = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sellerBindingSource)).BeginInit();
@@ -78,9 +80,10 @@
             this.btnEdit,
             this.btnAdmin,
             this.btnAdminSeat,
-            this.btnRed});
+            this.btnRed,
+            this.btnUploadHeadPic});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 10;
+            this.ribbon.MaxItemId = 11;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -162,7 +165,8 @@
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
-            this.ribbonPageGroup2});
+            this.ribbonPageGroup2,
+            this.ribbonPageGroup3});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "商家信息管理";
             // 
@@ -340,6 +344,19 @@
             this.colPrintID.Visible = true;
             this.colPrintID.VisibleIndex = 13;
             // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadHeadPic);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            // 
+            // btnUploadHeadPic
+            // 
+            this.btnUploadHeadPic.Caption = "上传店铺顶部图片";
+            this.btnUploadHeadPic.Id = 10;
+            this.btnUploadHeadPic.Name = "btnUploadHeadPic";
+            this.btnUploadHeadPic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadHeadPic_ItemClick);
+            // 
             // frmSeller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -395,5 +412,7 @@
         private DevExpress.XtraBars.BarButtonItem btnAdminSeat;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnRed;
+        private DevExpress.XtraBars.BarButtonItem btnUploadHeadPic;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
     }
 }

@@ -11,6 +11,7 @@ using DevExpress.XtraBars;
 using WWM.Database;
 using System.Data.Entity;
 using DevExpress.XtraEditors;
+using System.IO;
 
 namespace WWM
 {
@@ -88,6 +89,40 @@ namespace WWM
         private void btnReload_ItemClick(object sender, ItemClickEventArgs e)
         {
             LoadData();
+        }
+
+        private void btnUploadIcon_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridView1.GetFocusedRow() is Goods pjt)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filename =$"{pjt.Seller}/Goods/{pjt.GoodsID}_Icon{ new FileInfo(openFileDialog.FileName).Extension}";
+                    if (Utils.OSS.UploadFile(openFileDialog.FileName, filename))
+                    {
+                        pjt.Icon = filename;
+                        //   gridView1.SetFocusedRowCellValue(colAvatar, filename);
+                    }
+                }
+            }
+        }
+
+        private void btnUploadImage_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridView1.GetFocusedRow() is Goods pjt)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filename = $"{pjt.Seller}/Goods/{pjt.GoodsID}_Image{ new FileInfo(openFileDialog.FileName).Extension}";
+                    if (Utils.OSS.UploadFile(openFileDialog.FileName, filename))
+                    {
+                        pjt.Image = filename;
+                        //   gridView1.SetFocusedRowCellValue(colAvatar, filename);
+                    }
+                }
+            }
         }
     }
 }

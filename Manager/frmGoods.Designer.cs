@@ -56,6 +56,9 @@
             this.colSeller = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVisible = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnUploadIcon = new DevExpress.XtraBars.BarButtonItem();
+            this.btnUploadImage = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource)).BeginInit();
@@ -71,9 +74,11 @@
             this.btnSave,
             this.btnAdd,
             this.btnEdit,
-            this.btnDelete});
+            this.btnDelete,
+            this.btnUploadIcon,
+            this.btnUploadImage});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 6;
+            this.ribbon.MaxItemId = 8;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.btnGoogls});
@@ -123,7 +128,8 @@
             // btnGoogls
             // 
             this.btnGoogls.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1});
+            this.ribbonPageGroup1,
+            this.ribbonPageGroup3});
             this.btnGoogls.Name = "btnGoogls";
             this.btnGoogls.Text = "商家商品管理";
             // 
@@ -290,6 +296,27 @@
             this.colVisible.Visible = true;
             this.colVisible.VisibleIndex = 12;
             // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadIcon);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadImage);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            // 
+            // btnUploadIcon
+            // 
+            this.btnUploadIcon.Caption = "上传图标";
+            this.btnUploadIcon.Id = 6;
+            this.btnUploadIcon.Name = "btnUploadIcon";
+            this.btnUploadIcon.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadIcon_ItemClick);
+            // 
+            // btnUploadImage
+            // 
+            this.btnUploadImage.Caption = "上传大图";
+            this.btnUploadImage.Id = 7;
+            this.btnUploadImage.Name = "btnUploadImage";
+            this.btnUploadImage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadImage_ItemClick);
+            // 
             // frmGoods
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -341,5 +368,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colSeller;
         private DevExpress.XtraGrid.Columns.GridColumn colDeleted;
         private DevExpress.XtraGrid.Columns.GridColumn colVisible;
+        private DevExpress.XtraBars.BarButtonItem btnUploadIcon;
+        private DevExpress.XtraBars.BarButtonItem btnUploadImage;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
     }
 }

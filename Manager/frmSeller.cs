@@ -11,6 +11,7 @@ using DevExpress.XtraBars;
 using WWM.Database;
 using System.Data.Entity;
 using DevExpress.XtraEditors;
+using System.IO;
 
 namespace WWM
 {
@@ -113,6 +114,23 @@ namespace WWM
                     SellerID = pjt.SellerID,
                     Text = $"编辑[{pjt.Name}]的座位"
                 }.Show();
+            }
+        }
+
+        private void btnUploadHeadPic_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridView1.GetFocusedRow() is Seller pjt)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filename = $"{pjt.SellerID}/Avatar{new FileInfo(openFileDialog.FileName).Extension}";
+                    if (Utils.OSS.UploadFile(openFileDialog.FileName,  filename))
+                    {
+                        pjt.Avatar = filename;
+                     //   gridView1.SetFocusedRowCellValue(colAvatar, filename);
+                    }
+                }
             }
         }
     }
