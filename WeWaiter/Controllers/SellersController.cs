@@ -20,14 +20,13 @@ namespace WeWaiter.Controllers
             _context = context;
         }
 
-        //// GET: api/Sellers
-        //[HttpGet]
-        //public IEnumerable<Seller> GetSeller()
-        //{
-        //    return _context.Seller;
-        //}
-
-        // GET: api/Sellers/5
+     
+        /// <summary>
+        /// 获取商家信息
+        /// </summary>
+        /// <param name="id">商家编码</param>
+        /// <param name="seatid">座位编码，如果没有座位，则座位信息为空</param>
+        /// <returns></returns>
         [HttpGet()]
         public async Task<IActionResult> GetSeller([FromQuery] string id, [FromQuery] string seatid)
         {
@@ -47,78 +46,7 @@ namespace WeWaiter.Controllers
             var data = new { seller, goods = await goods.ToArrayAsync(), Seat=await sits.FirstOrDefaultAsync() };
             return Ok(data);
         }
-
-        //// PUT: api/Sellers/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutSeller([FromRoute] string id, [FromBody] Seller seller)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != seller.SellerID)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(seller).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!SellerExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Sellers
-        //[HttpPost]
-        //public async Task<IActionResult> PostSeller([FromBody] Seller seller)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _context.Seller.Add(seller);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetSeller", new { id = seller.SellerID }, seller);
-        //}
-
-        //// DELETE: api/Sellers/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteSeller([FromRoute] string id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var seller = await _context.Seller.FindAsync(id);
-        //    if (seller == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Seller.Remove(seller);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(seller);
-        //}
-
+         
         private bool SellerExists(string id)
         {
             return _context.Seller.Any(e => e.SellerID == id);

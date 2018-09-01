@@ -25,7 +25,7 @@ namespace WeWaiter.DataBase
 
         public string Avatar  { get; set; }
         public  string[] Pics { get; set; }
-
+        [JsonIgnore]
         public string PrintID { get; set; }
         [JsonIgnore]
         public bool Deleted { get; set; }

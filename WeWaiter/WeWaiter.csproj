@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>e52d7709-0bd0-45b4-9d89-91e8129737c0</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.1\WeWaiter.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\WeWaiter\WeWaiterServer\WeWaiter\WeWaiter.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +29,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1.1" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="6.0.10" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="3.5.0" />
     <PackageReference Include="Senparc.Weixin.TenPay" Version="0.1.0" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="2.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />

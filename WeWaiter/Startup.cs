@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Senparc.CO2NET;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.WxOpen;
 using Swashbuckle.AspNetCore.Swagger;
 using WeWaiter.DataBase;
 
@@ -37,16 +46,28 @@ namespace WeWaiter
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WeWaiter.xml"));
                 c.OperationFilter<AddAuthTokenHeaderParameter>();
             });
-           
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMemoryCache();//使用本地缓存必须添加
+            services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
+                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
+            services.AddSession();//使用Session
             services.AddMvcCore().AddApiExplorer();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             var connectionString = Configuration.GetConnectionString("WeWaiterContext");
             services.AddEntityFrameworkNpgsql().AddDbContext<WeWaiterContext>(options => options.UseNpgsql(connectionString));
+            services.AddOptions();
+            services.Configure<SenparcSetting>(Configuration.GetSection("SenparcSetting"));
+            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,6 +89,44 @@ namespace WeWaiter
          
             app.UseHttpsRedirection();
             app.UseMvc();
+            var senparcWeixinSetting= Configuration.Get<SenparcWeixinSetting>();
+            var snparcSetting = Configuration.Get<SenparcSetting>();
+            IRegisterService register = RegisterService.Start(env, Configuration.Get<SenparcSetting>())
+                                                 .UseSenparcGlobal();
+
+            register.UseSenparcWeixin(senparcWeixinSetting, snparcSetting)
+             //注意：上一行没有 ; 下面可接着写 .RegisterXX()
+
+            #region 注册公众号或小程序（按需）
+
+             //注册公众号（可注册多个）
+             .RegisterMpAccount(senparcWeixinSetting, "鸿运博纳")
+             //注册多个公众号或小程序（可注册多个）
+             .RegisterWxOpenAccount(senparcWeixinSetting, "WeWaiter");
+
+             //除此以外，仍然可以在程序任意地方注册公众号或小程序：
+             //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
+            #endregion
+
+            #region 注册企业号（按需）
+
+             //注册企业微信（可注册多个）
+            // .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
+
+             //除此以外，仍然可以在程序任意地方注册企业微信：
+             //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
+            #endregion
+
+            #region 注册微信支付（按需）
+
+             //注册旧微信支付版本（V2）（可注册多个）
+          //   .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+
+             //注册最新微信支付版本（V3）（可注册多个）
+            // .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+
+            #endregion
+
         }
     }
 }

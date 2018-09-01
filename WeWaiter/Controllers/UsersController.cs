@@ -20,12 +20,7 @@ namespace WeWaiter.Controllers
             _context = context;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public IEnumerable<User> GetUser()
-        {
-            return _context.User;
-        }
+      
 
         // GET: api/Users/5
         [HttpGet("{id}")]
@@ -89,33 +84,13 @@ namespace WeWaiter.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            user.JoinIn = DateTime.Now;
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.WeixinID }, user);
         }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] string id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return Ok(user);
-        }
+ 
 
         private bool UserExists(string id)
         {
