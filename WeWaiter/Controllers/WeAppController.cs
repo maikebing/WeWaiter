@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        [HttpPost]
+        [HttpPost("RequestData")]
         public ActionResult RequestData([FromBody]string nickName)
         {
             var data = new
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("OnLogin")]
         public ActionResult OnLogin([FromBody]string code)
         {
             var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        [HttpPost]
+        [HttpPost("CheckWxOpenSignature")]
         public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
         {
             try
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        [HttpPost]
+        [HttpPost("DecodeEncryptedData")]
         public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             DecodeEntityBase decodedEntity = null;
@@ -175,7 +175,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             });
         }
 
-        [HttpPost]
+        [HttpPost("TemplateTest")]
         public ActionResult TemplateTest(string sessionId, string formId)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
             }
         }
-
+        [HttpPost("DecryptPhoneNumber")]
         public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
             }
         }
-
+        [HttpPost("GetPrepayid")]
         public ActionResult GetPrepayid(string sessionId)
         {
             try
