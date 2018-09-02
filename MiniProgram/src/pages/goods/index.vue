@@ -5,10 +5,10 @@
     <!--</div>-->
     <meal-table-number :table-number="tableNumber" :seller="seller"></meal-table-number>
     <!--<div class="tab">-->
-      <!--<div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"-->
-           <!--:data-current="index" @click="swichNav">-->
-        <!--{{item.name}}-->
-      <!--</div>-->
+    <!--<div class="tab-item" style="" :class="{active:changeNav == index}" v-for="(item,index) in navList" :key="index"-->
+    <!--:data-current="index" @click="swichNav">-->
+    <!--{{item.name}}-->
+    <!--</div>-->
     <!--</div>-->
     <goods :goods="goods"></goods>
     <!--<goods v-if="changeNav==0"></goods>-->
@@ -44,13 +44,14 @@
         this.current = current
       },
       async getData (id) {
-        let res = await fly.get('/qrcode', {id: 12})
-        this.goods = res.data.goods
-        this.seller = res.data.seller
+        let res = await fly.get('api/Sellers',
+          {id: this.$store.getters.id, seatid: this.$store.getters.seatId})
+        console.warn(res)
+        this.goods = res.goods
+        this.seller = res.seller
         this.tableNumber = res.data.table_number
-        wx.setStorageSync('seller', res.data.seller)
+        wx.setStorageSync('seller', res.seller)
       }
-
     },
     created () {
       this.getData(this.id)
@@ -71,6 +72,7 @@
 
   page
     background-color white
+
   #app
     height 100vh
     width 100%
@@ -82,7 +84,7 @@
       justify-content space-around
       align-items center
       width 100%
-      height 80 px
+      height 80px
       text-align center
       position relative
       &:after
@@ -94,9 +96,9 @@
         border-top 1px solid rgba(7, 17, 27, 0.1)
         content ''
       .tab-item
-        font-size 28 px
+        font-size 28px
         color rgb(77, 85, 93)
-        line-height 28 px
+        line-height 28px
       .active
         color rgb(240, 20, 20)
         font-weight 500

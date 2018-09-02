@@ -19,9 +19,9 @@
         </div>
       </div>
       <div class="ball-container">
-        <div v-for="ball in balls">
+        <div v-for="(item, index) in balls" :key="index">
           <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
-            <div class="ball" v-show="ball.show">
+            <div class="ball" v-show="item.show">
               <div class="inner inner-hook"></div>
             </div>
           </transition>
@@ -43,7 +43,7 @@
                 <span>￥{{food.price*food.count}}</span>
               </div>
               <div class="cartcontrol-wrapper">
-                <cartcontrol :food="food" @add="addFood"></cartcontrol>
+                <cart-control :food="food" @add-shop-cart="addFood"></cart-control>
               </div>
             </li>
           </ul>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import cartcontrol from '../cartcontrol/cartcontrol'
+  import CartControl from '@/components/cartcontrol/cartcontrol'
   import notice from '../notice/notice'
 
   export default {
@@ -109,7 +109,6 @@
       drop (el) {
         for (let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i]
-          console.error('ball')
           if (!ball.show) {
             ball.show = true
             ball.el = el
@@ -129,9 +128,9 @@
           food.count = 0
         })
       },
-      addFood (target) {
+      addFood (value) {
         console.warn('1')
-        this.drop(target)
+        this.drop(value)
       },
       beforeDrop (el) {
         let count = this.balls.length
@@ -182,7 +181,7 @@
 
     },
     components: {
-      cartcontrol,
+      CartControl,
       notice
     },
     computed: {

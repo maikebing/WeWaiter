@@ -1,7 +1,7 @@
 /* eslint-disable */
 const Fly = require('flyio/dist/npm/wx')
 const fly = new Fly()
-let baseURL = `http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=`
+let baseURL = 'https://api.cokco.cn'
 // const app = getApp()
 //添加拦截器
 fly.interceptors.request.use((request) => {
