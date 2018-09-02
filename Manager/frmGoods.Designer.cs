@@ -35,8 +35,11 @@
             this.btnAdd = new DevExpress.XtraBars.BarButtonItem();
             this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
+            this.btnUploadIcon = new DevExpress.XtraBars.BarButtonItem();
+            this.btnUploadImage = new DevExpress.XtraBars.BarButtonItem();
             this.btnGoogls = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -56,13 +59,19 @@
             this.colSeller = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVisible = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnUploadIcon = new DevExpress.XtraBars.BarButtonItem();
-            this.btnUploadImage = new DevExpress.XtraBars.BarButtonItem();
+            this.colCatalogID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.repositoryItemGridLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.catalogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.catalogBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -125,6 +134,20 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
             // 
+            // btnUploadIcon
+            // 
+            this.btnUploadIcon.Caption = "上传图标";
+            this.btnUploadIcon.Id = 6;
+            this.btnUploadIcon.Name = "btnUploadIcon";
+            this.btnUploadIcon.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadIcon_ItemClick);
+            // 
+            // btnUploadImage
+            // 
+            this.btnUploadImage.Caption = "上传大图";
+            this.btnUploadImage.Id = 7;
+            this.btnUploadImage.Name = "btnUploadImage";
+            this.btnUploadImage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadImage_ItemClick);
+            // 
             // btnGoogls
             // 
             this.btnGoogls.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -142,6 +165,13 @@
             this.ribbonPageGroup1.ItemLinks.Add(this.btnDelete);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "商品管理";
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadIcon);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadImage);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
             // 
             // ribbonStatusBar
             // 
@@ -163,6 +193,9 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.MenuManager = this.ribbon;
             this.gridControl1.Name = "gridControl1";
+            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemComboBox1,
+            this.repositoryItemGridLookUpEdit1});
             this.gridControl1.Size = new System.Drawing.Size(833, 287);
             this.gridControl1.TabIndex = 2;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -188,7 +221,8 @@
             this.colStock,
             this.colSeller,
             this.colDeleted,
-            this.colVisible});
+            this.colVisible,
+            this.colCatalogID});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
@@ -203,119 +237,135 @@
             this.colGoodsID.FieldName = "GoodsID";
             this.colGoodsID.Name = "colGoodsID";
             this.colGoodsID.Visible = true;
-            this.colGoodsID.VisibleIndex = 13;
+            this.colGoodsID.VisibleIndex = 0;
             // 
             // colBarCode
             // 
             this.colBarCode.FieldName = "BarCode";
             this.colBarCode.Name = "colBarCode";
             this.colBarCode.Visible = true;
-            this.colBarCode.VisibleIndex = 0;
+            this.colBarCode.VisibleIndex = 1;
             // 
             // colImage
             // 
             this.colImage.FieldName = "Image";
             this.colImage.Name = "colImage";
             this.colImage.Visible = true;
-            this.colImage.VisibleIndex = 1;
+            this.colImage.VisibleIndex = 2;
             // 
             // colName
             // 
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
             this.colName.Visible = true;
-            this.colName.VisibleIndex = 2;
+            this.colName.VisibleIndex = 3;
             // 
             // colIcon
             // 
             this.colIcon.FieldName = "Icon";
             this.colIcon.Name = "colIcon";
             this.colIcon.Visible = true;
-            this.colIcon.VisibleIndex = 3;
+            this.colIcon.VisibleIndex = 4;
             // 
             // colPurchasePrice
             // 
             this.colPurchasePrice.FieldName = "PurchasePrice";
             this.colPurchasePrice.Name = "colPurchasePrice";
             this.colPurchasePrice.Visible = true;
-            this.colPurchasePrice.VisibleIndex = 4;
+            this.colPurchasePrice.VisibleIndex = 5;
             // 
             // colSellingPrice
             // 
             this.colSellingPrice.FieldName = "SellingPrice";
             this.colSellingPrice.Name = "colSellingPrice";
             this.colSellingPrice.Visible = true;
-            this.colSellingPrice.VisibleIndex = 5;
+            this.colSellingPrice.VisibleIndex = 6;
             // 
             // colMinSellingPrice
             // 
             this.colMinSellingPrice.FieldName = "MinSellingPrice";
             this.colMinSellingPrice.Name = "colMinSellingPrice";
             this.colMinSellingPrice.Visible = true;
-            this.colMinSellingPrice.VisibleIndex = 6;
+            this.colMinSellingPrice.VisibleIndex = 7;
             // 
             // colDescription
             // 
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 7;
+            this.colDescription.VisibleIndex = 8;
             // 
             // colRating
             // 
             this.colRating.FieldName = "Rating";
             this.colRating.Name = "colRating";
             this.colRating.Visible = true;
-            this.colRating.VisibleIndex = 8;
+            this.colRating.VisibleIndex = 9;
             // 
             // colStock
             // 
             this.colStock.FieldName = "Stock";
             this.colStock.Name = "colStock";
             this.colStock.Visible = true;
-            this.colStock.VisibleIndex = 9;
+            this.colStock.VisibleIndex = 10;
             // 
             // colSeller
             // 
             this.colSeller.FieldName = "Seller";
             this.colSeller.Name = "colSeller";
             this.colSeller.Visible = true;
-            this.colSeller.VisibleIndex = 10;
+            this.colSeller.VisibleIndex = 11;
             // 
             // colDeleted
             // 
             this.colDeleted.FieldName = "Deleted";
             this.colDeleted.Name = "colDeleted";
             this.colDeleted.Visible = true;
-            this.colDeleted.VisibleIndex = 11;
+            this.colDeleted.VisibleIndex = 12;
             // 
             // colVisible
             // 
             this.colVisible.FieldName = "Visible";
             this.colVisible.Name = "colVisible";
             this.colVisible.Visible = true;
-            this.colVisible.VisibleIndex = 12;
+            this.colVisible.VisibleIndex = 13;
             // 
-            // ribbonPageGroup3
+            // colCatalogID
             // 
-            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadIcon);
-            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadImage);
-            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            this.colCatalogID.ColumnEdit = this.repositoryItemGridLookUpEdit1;
+            this.colCatalogID.FieldName = "CatalogID";
+            this.colCatalogID.Name = "colCatalogID";
+            this.colCatalogID.Visible = true;
+            this.colCatalogID.VisibleIndex = 14;
             // 
-            // btnUploadIcon
+            // repositoryItemComboBox1
             // 
-            this.btnUploadIcon.Caption = "上传图标";
-            this.btnUploadIcon.Id = 6;
-            this.btnUploadIcon.Name = "btnUploadIcon";
-            this.btnUploadIcon.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadIcon_ItemClick);
+            this.repositoryItemComboBox1.AutoHeight = false;
+            this.repositoryItemComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox1.Name = "repositoryItemComboBox1";
             // 
-            // btnUploadImage
+            // repositoryItemGridLookUpEdit1
             // 
-            this.btnUploadImage.Caption = "上传大图";
-            this.btnUploadImage.Id = 7;
-            this.btnUploadImage.Name = "btnUploadImage";
-            this.btnUploadImage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadImage_ItemClick);
+            this.repositoryItemGridLookUpEdit1.AutoHeight = false;
+            this.repositoryItemGridLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemGridLookUpEdit1.DataSource = this.catalogBindingSource;
+            this.repositoryItemGridLookUpEdit1.DisplayMember = "CatalogName";
+            this.repositoryItemGridLookUpEdit1.Name = "repositoryItemGridLookUpEdit1";
+            this.repositoryItemGridLookUpEdit1.PopupView = this.repositoryItemGridLookUpEdit1View;
+            this.repositoryItemGridLookUpEdit1.ValueMember = "CatalogID";
+            // 
+            // repositoryItemGridLookUpEdit1View
+            // 
+            this.repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
+            this.repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.repositoryItemGridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // catalogBindingSource
+            // 
+            this.catalogBindingSource.DataSource = typeof(WWM.Database.Catalog);
             // 
             // frmGoods
             // 
@@ -334,6 +384,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.catalogBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,6 +408,9 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private System.Windows.Forms.BindingSource goodsBindingSource;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraBars.BarButtonItem btnUploadIcon;
+        private DevExpress.XtraBars.BarButtonItem btnUploadImage;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraGrid.Columns.GridColumn colGoodsID;
         private DevExpress.XtraGrid.Columns.GridColumn colBarCode;
         private DevExpress.XtraGrid.Columns.GridColumn colImage;
@@ -368,8 +425,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn colSeller;
         private DevExpress.XtraGrid.Columns.GridColumn colDeleted;
         private DevExpress.XtraGrid.Columns.GridColumn colVisible;
-        private DevExpress.XtraBars.BarButtonItem btnUploadIcon;
-        private DevExpress.XtraBars.BarButtonItem btnUploadImage;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraGrid.Columns.GridColumn colCatalogID;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repositoryItemGridLookUpEdit1;
+        private System.Windows.Forms.BindingSource catalogBindingSource;
+        private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemGridLookUpEdit1View;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
     }
 }

@@ -38,9 +38,12 @@
             this.btnAdmin = new DevExpress.XtraBars.BarButtonItem();
             this.btnAdminSeat = new DevExpress.XtraBars.BarButtonItem();
             this.btnRed = new DevExpress.XtraBars.BarButtonItem();
+            this.btnUploadHeadPic = new DevExpress.XtraBars.BarButtonItem();
+            this.btnCatalog = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.sellerBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -60,8 +63,6 @@
             this.colTableNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPrintID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnUploadHeadPic = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sellerBindingSource)).BeginInit();
@@ -81,13 +82,14 @@
             this.btnAdmin,
             this.btnAdminSeat,
             this.btnRed,
-            this.btnUploadHeadPic});
+            this.btnUploadHeadPic,
+            this.btnCatalog});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 11;
+            this.ribbon.MaxItemId = 12;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbon.Size = new System.Drawing.Size(813, 183);
+            this.ribbon.Size = new System.Drawing.Size(1038, 183);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // btnReload
@@ -161,6 +163,24 @@
             this.btnRed.ImageOptions.LargeImage = global::WWM.Properties.Resources.currency_32x32;
             this.btnRed.Name = "btnRed";
             // 
+            // btnUploadHeadPic
+            // 
+            this.btnUploadHeadPic.Caption = "上传店铺顶部图片";
+            this.btnUploadHeadPic.Id = 10;
+            this.btnUploadHeadPic.ImageOptions.Image = global::WWM.Properties.Resources.editwrappoints_16x16;
+            this.btnUploadHeadPic.ImageOptions.LargeImage = global::WWM.Properties.Resources.editwrappoints_32x32;
+            this.btnUploadHeadPic.Name = "btnUploadHeadPic";
+            this.btnUploadHeadPic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadHeadPic_ItemClick);
+            // 
+            // btnCatalog
+            // 
+            this.btnCatalog.Caption = "商家分类管理";
+            this.btnCatalog.Id = 11;
+            this.btnCatalog.ImageOptions.Image = global::WWM.Properties.Resources.cellsautoheight__16x16;
+            this.btnCatalog.ImageOptions.LargeImage = global::WWM.Properties.Resources.cellsautoheight__32x32;
+            this.btnCatalog.Name = "btnCatalog";
+            this.btnCatalog.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCatalog_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -185,15 +205,22 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.btnAdmin);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnAdminSeat);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnRed);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnCatalog);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "管理";
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadHeadPic);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "其他";
             // 
             // ribbonStatusBar
             // 
             this.ribbonStatusBar.Location = new System.Drawing.Point(0, 517);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(813, 37);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1038, 37);
             // 
             // gridControl1
             // 
@@ -203,7 +230,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.MenuManager = this.ribbon;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(813, 334);
+            this.gridControl1.Size = new System.Drawing.Size(1038, 334);
             this.gridControl1.TabIndex = 2;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -344,24 +371,11 @@
             this.colPrintID.Visible = true;
             this.colPrintID.VisibleIndex = 13;
             // 
-            // ribbonPageGroup3
-            // 
-            this.ribbonPageGroup3.ItemLinks.Add(this.btnUploadHeadPic);
-            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
-            // 
-            // btnUploadHeadPic
-            // 
-            this.btnUploadHeadPic.Caption = "上传店铺顶部图片";
-            this.btnUploadHeadPic.Id = 10;
-            this.btnUploadHeadPic.Name = "btnUploadHeadPic";
-            this.btnUploadHeadPic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUploadHeadPic_ItemClick);
-            // 
             // frmSeller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 554);
+            this.ClientSize = new System.Drawing.Size(1038, 554);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -414,5 +428,6 @@
         private DevExpress.XtraBars.BarButtonItem btnRed;
         private DevExpress.XtraBars.BarButtonItem btnUploadHeadPic;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.BarButtonItem btnCatalog;
     }
 }

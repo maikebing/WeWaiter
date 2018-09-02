@@ -30,7 +30,9 @@ namespace WWM
         public void LoadData()
         {
             db = new EFDB();
-          
+            var  cbs = from g in db.Catalog where g.SellerID == SellerID orderby g.OrderBy select g;
+            cbs.Load();
+            catalogBindingSource.DataSource = db.Catalog.Local.ToBindingList();
             var gd = from g in db.Goods where g.Seller == SellerID orderby g.Name  select g ;
             gd.Load();
             goodsBindingSource.DataSource = db.Goods.Local.ToBindingList();

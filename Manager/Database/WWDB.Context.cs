@@ -33,5 +33,6 @@ namespace WWM.Database
         public virtual DbSet<SellerInfo> SellerInfo { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Seat> Seat { get; set; }
+        public virtual DbSet<Catalog> Catalog { get; set; }
     }
 }

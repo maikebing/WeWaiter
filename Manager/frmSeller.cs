@@ -133,5 +133,18 @@ namespace WWM
                 }
             }
         }
+
+        private void btnCatalog_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridView1.GetFocusedRow() is Seller pjt)
+            {
+                new frmCatalog ()
+                {
+                    MdiParent = this.MdiParent,
+                    SellerID = pjt.SellerID,
+                    Text = $"编辑[{pjt.Name}]的分类"
+                }.Show();
+            }
+        }
     }
 }

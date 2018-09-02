@@ -101,6 +101,9 @@
     <Compile Include="Database\BuyItem.cs">
       <DependentUpon>WWDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\Catalog.cs">
+      <DependentUpon>WWDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\EFDB.cs" />
     <Compile Include="Database\Goods.cs">
       <DependentUpon>WWDB.tt</DependentUpon>
@@ -156,6 +159,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCatalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCatalog.Designer.cs">
+      <DependentUpon>frmCatalog.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSeat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +192,9 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCatalog.resx">
+      <DependentUpon>frmCatalog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSeat.resx">
       <DependentUpon>frmSeat.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +221,7 @@
       <DependentUpon>WWDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\WWM.Database.Catalog.datasource" />
     <None Include="Properties\DataSources\WWM.Database.Goods.datasource" />
     <None Include="Properties\DataSources\WWM.Database.Printer.datasource" />
     <None Include="Properties\DataSources\WWM.Database.Seat.datasource" />
@@ -235,6 +248,10 @@
       <DependentUpon>WWDB.edmx</DependentUpon>
       <LastGenOutput>WWDB.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\editwrappoints_16x16.png" />
+    <None Include="Resources\editwrappoints_32x32.png" />
+    <None Include="Resources\cellsautoheight-_16x16.png" />
+    <None Include="Resources\cellsautoheight-_32x32.png" />
     <None Include="Resources\currency_16x16.png" />
     <None Include="Resources\currency_32x32.png" />
     <None Include="Resources\tablecellmargins_16x16.png" />

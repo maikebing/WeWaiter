@@ -16,6 +16,16 @@
           <Property Name="Amount" Type="numeric" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Total" Type="int4" Nullable="false" />
         </EntityType>
+        <EntityType Name="Catalog">
+          <Key>
+            <PropertyRef Name="CatalogID" />
+          </Key>
+          <Property Name="CatalogID" Type="text" Nullable="false" />
+          <Property Name="SellerID" Type="text" />
+          <Property Name="CatalogName" Type="text" />
+          <Property Name="OrderBy" Type="int4" Nullable="false" />
+          <Property Name="Deleted" Type="bool" Nullable="false" />
+        </EntityType>
         <EntityType Name="Goods">
           <Key>
             <PropertyRef Name="GoodsID" />
@@ -34,6 +44,7 @@
           <Property Name="Seller" Type="text" />
           <Property Name="Deleted" Type="bool" Nullable="false" />
           <Property Name="Visible" Type="bool" Nullable="false" />
+          <Property Name="CatalogID" Type="text" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -117,6 +128,7 @@
         </EntityType>
         <EntityContainer Name="WeWaiterModelStoreContainer">
           <EntitySet Name="BuyItem" EntityType="Self.BuyItem" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Catalog" EntityType="Self.Catalog" Schema="public" store:Type="Tables" />
           <EntitySet Name="Goods" EntityType="Self.Goods" Schema="public" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="public" store:Type="Tables" />
           <EntitySet Name="Printer" EntityType="Self.Printer" Schema="public" store:Type="Tables" />
@@ -138,6 +150,7 @@
           <EntitySet Name="SellerInfo" EntityType="WeWaiterModel.SellerInfo" />
           <EntitySet Name="User" EntityType="WeWaiterModel.User" />
           <EntitySet Name="Seat" EntityType="WeWaiterModel.Seat" />
+          <EntitySet Name="Catalog" EntityType="WeWaiterModel.Catalog" />
         </EntityContainer>
         <EntityType Name="BuyItem">
           <Key>
@@ -168,6 +181,7 @@
           <Property Name="Seller" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <Property Name="CatalogID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -247,6 +261,16 @@
           <Property Name="Seats" Type="Int32" Nullable="false" />
           <Property Name="Sit" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Catalog">
+          <Key>
+            <PropertyRef Name="CatalogID" />
+          </Key>
+          <Property Name="CatalogID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SellerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CatalogName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderBy" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -268,6 +292,7 @@
           <EntitySetMapping Name="Goods">
             <EntityTypeMapping TypeName="WeWaiterModel.Goods">
               <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="CatalogID" ColumnName="CatalogID" />
                 <ScalarProperty Name="Visible" ColumnName="Visible" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Seller" ColumnName="Seller" />
@@ -366,6 +391,17 @@
                 <ScalarProperty Name="Seats" ColumnName="Seats" />
                 <ScalarProperty Name="Seller" ColumnName="Seller" />
                 <ScalarProperty Name="SeatId" ColumnName="SeatId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Catalog">
+            <EntityTypeMapping TypeName="WeWaiterModel.Catalog">
+              <MappingFragment StoreEntitySet="Catalog">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="CatalogName" ColumnName="CatalogName" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="CatalogID" ColumnName="CatalogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
