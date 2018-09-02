@@ -34,16 +34,27 @@ namespace WeWaiter.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var seller = await _context.Seller.FindAsync(id);
-
             if (seller == null)
             {
                 return NotFound();
             }
-            var goods = from g in _context.Goods where g.Seller == seller.SellerID && g.Deleted == false orderby g.Rating descending select g;
+            var catalogs = from c in _context.Catalog where c.SellerID == seller.SellerID && c.Deleted == false orderby c.OrderBy select   c;
+            List<GoodsCatalog> cgs = new List<GoodsCatalog>();
+            await catalogs.ForEachAsync(async a =>
+            {
+                var goods = from g in _context.Goods where g.Seller == seller.SellerID && g.CatalogID == a.CatalogID && g.Deleted == false orderby g.Rating descending select g;
+                cgs.Add(new GoodsCatalog()
+                {
+                    CatalogID = a.CatalogID,
+                    CatalogName = a.CatalogName,
+                    OrderBy = a.OrderBy,
+                    Goods = await goods.ToArrayAsync()
+                }
+                );
+            });
             var sits = from g in _context.Seat where g.Seller == id && g.SeatId == seatid select g;
-            var data = new { seller, goods = await goods.ToArrayAsync(), Seat=await sits.FirstOrDefaultAsync() };
+            var data = new { seller, Catalogs= cgs.ToArray(), Seat=await sits.FirstOrDefaultAsync() };
             return Ok(data);
         }
          

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,7 @@ namespace WeWaiter.DataBase
     public class NewOrder: Order
     {
         [JsonIgnore]
-        private new int OrderIndex { get; set; }
+        private new  int OrderIndex { get; set; }
         [JsonIgnore]
         private new DateTime Create { get; set; }
         [JsonIgnore]

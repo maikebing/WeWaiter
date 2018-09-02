@@ -33,5 +33,7 @@ namespace WeWaiter.DataBase
 
         [JsonIgnore]
         public bool Deleted { get; set; }
+        [JsonIgnore]
+        public string CatalogID { get;  set; }
     }
 }
