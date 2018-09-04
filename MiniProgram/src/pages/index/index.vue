@@ -21,8 +21,16 @@
     components: {},
     methods: {
       onHandleScan () {
-        wx.navigateTo({
-          url: '../goods/main?id=1'
+        wx.scanCode({
+          onlyFromCamera: true,
+          success: (res) => {
+            // Get tableNumber and seatId
+            console.log(res.result)
+            // navigate to goods
+            wx.navigateTo({
+              url: '../goods/main?id=1'
+            })
+          }
         })
       }
     },
