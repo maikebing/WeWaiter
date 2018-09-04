@@ -44,14 +44,7 @@
         this.current = current
       },
       async getData (id) {
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
         let res = await fly.get('/qrcode', {id: 12})
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 5000)
         this.goods = res.data.goods
         this.seller = res.data.seller
         this.tableNumber = res.data.table_number
@@ -60,6 +53,7 @@
 
     },
     created () {
+      this.getData(this.id)
     },
     components: {
       MealTableNumber,
@@ -68,13 +62,8 @@
       ratings: ratings,
       seller: seller
     },
-    onLoad (options) {
-      console.log('onLoad@66', this.id)
+    onLoad(options){
       this.id = options.id
-      this.getData(this.id)
-    },
-    onShow () {
-      console.log('onShow@77')
     }
   }
 </script>
@@ -82,7 +71,6 @@
 
   page
     background-color white
-
   #app
     height 100vh
     width 100%

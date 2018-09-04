@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
   @import './common/fonts/iconfont3.css';
   @import './common/fonts/iconfont2.css';
   @import './common/fonts/iconfont.css';
@@ -20,7 +20,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    /*justify-content: space-between;*/
+    justify-content: space-between;
     padding: 0;
     box-sizing: border-box;
   }
@@ -44,6 +44,14 @@ export default {
     /*box-sizing: border-box;*/
   /*}*/
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* this rule will be remove */
 * {
   transition: width 2s;
   -moz-transition: width 2s;
@@ -52,6 +60,5 @@ export default {
 }
   page {
     background-color: #F3EFEE;
-    /*height: 100%;*/
   }
 </style>

@@ -137,12 +137,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid #E7E7E7;
-        border-radius: 12px;
         .we-icon {
           /* Rectangle 9: */
-          width: 65px;
-          height: 72px;
+          width: 104px;
+          height: 104px;
         }
       }
       .we-des {
