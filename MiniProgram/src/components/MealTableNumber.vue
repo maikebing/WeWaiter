@@ -21,9 +21,9 @@
       <div class="we-table-number-box">
         <div class="we-text-box">
           <text class="we-identifier">#</text>
-          <text class="we-identifier">桌号</text>
+          <text class="we-identifier">号桌</text>
         </div>
-        <div>{{ seller.table_number }}</div>
+        <div>{{ tableNumber }}</div>
       </div>
     </div>
   </div>
@@ -31,12 +31,16 @@
 
 <script>
   export default {
-    props: ['tableNumber', 'status', 'seller'],
+    props: ['status', 'seller'],
     data () {
       return {}
     },
     methods: {},
-    computed: {}
+    computed: {
+      tableNumber () {
+        return this.$store.state.tableNumber
+      }
+    }
   }
 </script>
 
