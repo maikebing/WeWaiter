@@ -11,7 +11,7 @@
     <div :class="['we-table-box', status === 1 ? 'status-paid-box' : '']">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
-          <img :src="'https://image.cokco.cn/' + seller.avatar" class="we-icon"/>
+          <img :src="seller.avatar" class="we-icon"/>
         </div>
         <div class="we-table-des">
           <text class="we-table-des-name">{{seller.name}}</text>

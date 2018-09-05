@@ -10,7 +10,7 @@
   <div>
     <div class="we-menu-item-box">
       <div class="we-menu-graphic">
-        <img :src="'https://image.cokco.cn/' + menu.icon"/>
+        <img :src="menu.icon"/>
         {{menu.name}}
       </div>
       <div class="we-menu-other">

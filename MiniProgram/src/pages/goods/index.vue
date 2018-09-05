@@ -48,6 +48,7 @@
           id: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
           seatid: '342c501a-3365-4c2f-816f-2aaf51ea7a31'
         })
+        res.seller.avatar = 'https://image.cokco.cn/' + res.seller.avatar
         res.goods = res.catalogs.map(x => {
           console.log('@52', x)
           x.id = 'ww' + x.catalogID
@@ -56,6 +57,7 @@
             y.id = y.goodsID
             y.price = y.sellingPrice
             y.sellCount = y.stock
+            y.icon = 'https://image.cokco.cn/' + y.icon
             return y
           })
           return x

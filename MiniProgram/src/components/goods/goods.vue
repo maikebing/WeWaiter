@@ -21,7 +21,7 @@
                   class="food-item  border-1px">
 
                 <div class="icon">
-                  <image :src="'https://image.cokco.cn/' + food.icon" style="width:72px;height:72px;"/>
+                  <image :src="food.icon" style="width:72px;height:72px;"/>
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
@@ -48,7 +48,7 @@
     </div>
     <div class="food border-1px" v-show="foodFlg">
       <div class="icon">
-        <image :src="'https://image.cokco.cn/' + selectedFood.image" style="width:670rpx;height:500rpx"/>
+        <image :src="selectedFood.image" style="width:670rpx;height:500rpx"/>
       </div>
       <div class="content">
         <div class="extra">
