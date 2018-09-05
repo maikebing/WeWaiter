@@ -1,17 +1,21 @@
-// user module
-const user = {
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
   state: {
-    seatId: '4282457273b74df292dbd1de9b00f383',
+    seatId: null,
     tableNumber: null
   },
   mutations: {
     SET_SEAT_ID (state, id) {
-      state.id = id
+      state.seatId = id
     },
     SET_TABLE_NUMBER (state, number) {
       state.tableNumber = number
     }
-  },
-  actions: {}
-}
-export default user
+  }
+})
+
+export default store

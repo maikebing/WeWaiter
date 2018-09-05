@@ -21,8 +21,21 @@
     components: {},
     methods: {
       onHandleScan () {
-        wx.navigateTo({
-          url: '../goods/main?id=1'
+        let self = this
+        wx.scanCode({
+          onlyFromCamera: true,
+          success: (res) => {
+            // Get tableNumber and seatId and save them to vuex
+            let result = JSON.parse(res.result)
+            if (result) {
+              self.$store.commit('SET_SEAT_ID', result.seatId)
+              self.$store.commit('SET_TABLE_NUMBER', result.tableNumber)
+              // navigate to goods
+              wx.navigateTo({
+                url: '../goods/main?id=1'
+              })
+            }
+          }
         })
       }
     },
@@ -34,7 +47,7 @@
   @import "~@/styles/variable";
 
   page {
-    background-color: $primary-white!important;
+    background-color: $primary-white !important;
     .container {
       background-color: $primary-white;
       padding-bottom: 80px;
