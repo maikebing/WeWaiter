@@ -4,6 +4,7 @@ import store from '@/store'
 import fly from '@/libs/fly'
 import '@/weui.css'
 Vue.prototype.$http = fly // 将fly实例挂在vue原型上
+Vue.prototype.ossUrl = `https://image.cokco.cn/`
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 App.mpType = 'app'

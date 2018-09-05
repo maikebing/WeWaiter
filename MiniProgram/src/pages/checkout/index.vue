@@ -81,14 +81,23 @@
         wx.showLoading({
           title: '订单创建中'
         })
+        // let orderParams = {
+        //   codeid: 'ww12354325431',
+        //   openid: 'wx12314351432',
+        //   foods: this.selectFoods,
+        //   tableWareId: this.tableWareId,
+        //   mealStyleId: this.mealStyleId
+        // }
+        let buyItems = this.selectFoods.map(x=>({amount:x.count, goodsID: x.id}))
         let orderParams = {
-          codeid: 'ww12354325431',
-          openid: 'wx12314351432',
-          foods: this.selectFoods,
+          seatID: '342c501a-3365-4c2f-816f-2aaf51ea7a31',
+          userID: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
+          buyItems,
+          sellerID: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
           tableWareId: this.tableWareId,
           mealStyleId: this.mealStyleId
         }
-        let orderRes = await this.$http.post('order', orderParams)
+        let orderRes = await this.$http.post('orders', orderParams)
         console.log('toPay@44', orderRes)
         wx.hideLoading()
 

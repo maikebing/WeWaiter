@@ -44,11 +44,27 @@
         this.current = current
       },
       async getData (id) {
-        let res = await fly.get('/qrcode', {id: 12})
-        this.goods = res.data.goods
-        this.seller = res.data.seller
-        this.tableNumber = res.data.table_number
-        wx.setStorageSync('seller', res.data.seller)
+        let res = await fly.get('sellers', {
+          id: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
+          seatid: '342c501a-3365-4c2f-816f-2aaf51ea7a31'
+        })
+        res.goods = res.catalogs.map(x => {
+          console.log('@52', x)
+          x.id = 'ww' + x.catalogID
+          x.name  = x.catalogName
+          x.foods = x.goods.map(y=>{
+            y.id = y.goodsID
+            y.price = y.sellingPrice
+            y.sellCount = y.stock
+            return y
+          })
+          return x
+        })
+        console.log('getData@54', res)
+        this.goods = res.goods
+        this.seller = res.seller
+        this.tableNumber = res.table_number
+        wx.setStorageSync('seller', res.seller)
       }
 
     },
@@ -62,7 +78,7 @@
       ratings: ratings,
       seller: seller
     },
-    onLoad(options){
+    onLoad (options) {
       this.id = options.id
     }
   }
@@ -71,6 +87,7 @@
 
   page
     background-color white
+
   #app
     height 100vh
     width 100%

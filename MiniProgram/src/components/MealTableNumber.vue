@@ -11,7 +11,7 @@
     <div :class="['we-table-box', status === 1 ? 'status-paid-box' : '']">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
-          <img :src="seller.avatar" class="we-icon"/>
+          <img :src="'https://image.cokco.cn/' + seller.avatar" class="we-icon"/>
         </div>
         <div class="we-table-des">
           <text class="we-table-des-name">{{seller.name}}</text>
@@ -23,7 +23,7 @@
           <text class="we-identifier">#</text>
           <text class="we-identifier">桌号</text>
         </div>
-        <div>{{ seller.table_number }}</div>
+        <div>{{ seller.tableNumber }}</div>
       </div>
     </div>
   </div>
@@ -33,10 +33,15 @@
   export default {
     props: ['tableNumber', 'status', 'seller'],
     data () {
-      return {}
+      return {
+        ossUrl: this.ossUrl
+      }
     },
     methods: {},
-    computed: {}
+    computed: {},
+    mounted () {
+      console.log('mounted@44', this.ossUrl)
+    }
   }
 </script>
 
