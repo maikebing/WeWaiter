@@ -29,7 +29,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WeWaiter.Utils;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 namespace WeWaiter
 {
     public class Startup
@@ -50,7 +51,7 @@ namespace WeWaiter
                 c.SwaggerDoc("v1", new Info { Title = "WeWaiter Server", Version = "v1" });
             
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WeWaiter.xml"));
-              //  c.OperationFilter<AddAuthTokenHeaderParameter>();
+               c.OperationFilter<AddAuthTokenHeaderParameter>();
             });
          
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -65,25 +66,11 @@ namespace WeWaiter
             services.AddOptions();
             services.Configure<SenparcSetting>(Configuration.GetSection("SenparcSetting"));
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
-            services.AddAuthentication(x =>
+            services.ConfigureJwtAuthentication();
+            services.AddAuthorization(options =>
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(c =>
-            {
-                c.SecurityTokenValidators.Clear();//清除默认的设置
-                c.SecurityTokenValidators.Add(new WeAppTokenValidata());//添加自己设定规则的验证方法
-                c.Events = new JwtBearerEvents()
-                {
-                    OnMessageReceived = context =>
-                    {
-                        var token = context.Request.Headers["token"];//修改默认的http headers
-                        context.Token = token.FirstOrDefault();
-                        return Task.CompletedTask;
-                    }
-                };
-            }
-           );
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+            });
             //只
         }
 

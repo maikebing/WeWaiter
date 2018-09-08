@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
-using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
@@ -18,6 +17,10 @@ using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
 using WeWaiter.DataBase;
+using System.Collections.Generic;
+using WeWaiter.Utils;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -52,7 +55,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-     
+        [AllowAnonymous]
         public IActionResult Get([FromQuery]PostModel postModel, [FromQuery]string echostr)
         {
             if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, _senparcWeixinSetting.WxOpenToken))
@@ -66,38 +69,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        /// <summary>
-        /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML。
-        /// </summary>
-        [HttpPost]
-      
-        public ActionResult Post([FromBody]PostModel postModel)
-        {
-            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
-            {
-                return BadRequest("参数错误！");
-            }
-            postModel.Token = Token;//根据自己后台的设置保持一致
-            postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
-            postModel.AppId = WxOpenAppId;//根据自己后台的设置保持一致
-
-            //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
-            var maxRecordCount = 10;
-            var messageHandler = new CustomWxOpenMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
-            try
-            {
-                messageHandler.OmitRepeatedMessage = true;
-                //执行微信处理过程
-                messageHandler.Execute();
-                return new WeixinResult(messageHandler);//v0.8+
-            }
-            catch (Exception ex)
-            {
-                return  BadRequest(ex.Message);
-            }
-        }
+       
 
         [HttpPost("RequestData")]
+        [Authorize]
         public ActionResult RequestData([FromBody]string nickName)
         {
             var data = new
@@ -113,6 +88,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// <param name="code"></param>
         /// <returns></returns>
         [HttpPost("OnLogin")]
+        [AllowAnonymous]
         public ActionResult OnLogin([FromBody]string code)
         {
             var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
@@ -121,10 +97,24 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                 //使用SessionContainer管理登录信息（推荐）
                 var unionId = "";
-                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
-                
+                if (!_context.User.Any(u=>u.OpenID==jsonResult.openid))
+                {
+                  var adduser=  _context.User.Add(new WeWaiter.DataBase.User()
+                    {
+                        UserID = Guid.NewGuid().ToString().Replace("-", ""),
+                        JoinIn = DateTime.Now,
+                        LastActive = DateTime.Now,
+                        OpenID = jsonResult.openid,
+                    });
+                    _context.SaveChanges();
+                }
+                var usr = _context.User.FirstOrDefault(u => u.OpenID == jsonResult.openid);
+
+                //https://github.com/aspnet/Home/issues/2193
+                var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://bonafortune.com", "https://bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
+                var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, unionId);
                 //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
-                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key });
+                return Json(new { success = true, msg = "OK", token = token });
             }
             else
             {
