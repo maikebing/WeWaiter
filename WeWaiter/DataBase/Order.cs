@@ -14,6 +14,7 @@ namespace WeWaiter.DataBase
         public string SellerID { get; set; }
         public string UserID { get; set; }
         public string SeatID { get; set; }
+        public int  TableNumber { get; set; }
         public int OrderIndex { get; set; }
         public DateTime Create { get; set; }
         public decimal Payable { get; set; }
@@ -22,6 +23,11 @@ namespace WeWaiter.DataBase
         public string PayType { get; set; }
         public decimal TotalPrice { get; set; }
         public int OrderStatus { get; set; }
+    }
+    public class ListOrder:Order
+    {
+        public Seller Seller { get; set; }
+        public List<BuyItem> BuyItems { get; set; }
     }
     public class NewOrder: Order
     {

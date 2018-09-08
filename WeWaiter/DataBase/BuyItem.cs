@@ -23,6 +23,7 @@ namespace WeWaiter.DataBase
         private new  decimal UnitPrice { get; set; }
         [JsonIgnore]
         private new decimal Amount { get; set; }
-  
+        [JsonIgnore]
+        private new string BuyItemID { get; set; }
     }
 }

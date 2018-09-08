@@ -26,10 +26,9 @@ namespace WeWaiter
             {
                 if (operation.Parameters == null)
                     operation.Parameters = new List<IParameter>();
-
                 operation.Parameters.Add(new NonBodyParameter
                 {
-                    Name = "Authorization",
+                    Name = "token",
                     In = "header",
                     Description = "access token",
                     Required = true,

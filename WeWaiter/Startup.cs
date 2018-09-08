@@ -23,6 +23,12 @@ using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.WxOpen;
 using Swashbuckle.AspNetCore.Swagger;
 using WeWaiter.DataBase;
+using Senparc.Weixin.TenPay.V3;
+using Senparc.Weixin.TenPay;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WeWaiter.Utils;
 
 namespace WeWaiter
 {
@@ -44,8 +50,9 @@ namespace WeWaiter
                 c.SwaggerDoc("v1", new Info { Title = "WeWaiter Server", Version = "v1" });
             
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WeWaiter.xml"));
-                c.OperationFilter<AddAuthTokenHeaderParameter>();
+              //  c.OperationFilter<AddAuthTokenHeaderParameter>();
             });
+         
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
@@ -58,6 +65,26 @@ namespace WeWaiter
             services.AddOptions();
             services.Configure<SenparcSetting>(Configuration.GetSection("SenparcSetting"));
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(c =>
+            {
+                c.SecurityTokenValidators.Clear();//清除默认的设置
+                c.SecurityTokenValidators.Add(new WeAppTokenValidata());//添加自己设定规则的验证方法
+                c.Events = new JwtBearerEvents()
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var token = context.Request.Headers["token"];//修改默认的http headers
+                        context.Token = token.FirstOrDefault();
+                        return Task.CompletedTask;
+                    }
+                };
+            }
+           );
+            //只
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +103,7 @@ namespace WeWaiter
             {
                 app.UseHsts();
             }
+            app.UseAuthentication();
             app.UseSwagger();
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
@@ -85,13 +113,12 @@ namespace WeWaiter
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 c.RoutePrefix = "swagger";
             });
-
-         
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
-            var senparcWeixinSetting= Configuration.Get<SenparcWeixinSetting>();
-            var snparcSetting = Configuration.Get<SenparcSetting>();
-            IRegisterService register = RegisterService.Start(env, Configuration.Get<SenparcSetting>())
+            var senparcWeixinSetting= Configuration. GetSection("SenparcWeixinSetting").Get<SenparcWeixinSetting >();
+            var snparcSetting = Configuration.GetSection("SenparcSetting").Get <SenparcSetting>();
+            IRegisterService register = RegisterService.Start(env, snparcSetting)
                                                  .UseSenparcGlobal();
 
             register.UseSenparcWeixin(senparcWeixinSetting, snparcSetting)
@@ -102,7 +129,7 @@ namespace WeWaiter
              //注册公众号（可注册多个）
              .RegisterMpAccount(senparcWeixinSetting, "鸿运博纳")
              //注册多个公众号或小程序（可注册多个）
-             .RegisterWxOpenAccount(senparcWeixinSetting, "WeWaiter");
+             .RegisterWxOpenAccount(senparcWeixinSetting, "WeWaiter")
 
              //除此以外，仍然可以在程序任意地方注册公众号或小程序：
              //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
@@ -111,7 +138,7 @@ namespace WeWaiter
             #region 注册企业号（按需）
 
              //注册企业微信（可注册多个）
-            // .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
+             // .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
 
              //除此以外，仍然可以在程序任意地方注册企业微信：
              //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
@@ -120,10 +147,10 @@ namespace WeWaiter
             #region 注册微信支付（按需）
 
              //注册旧微信支付版本（V2）（可注册多个）
-          //   .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+             //   .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
-             //注册最新微信支付版本（V3）（可注册多个）
-            // .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+             // 注册最新微信支付版本（V3）（可注册多个）
+             .RegisterTenpayV3(senparcWeixinSetting, "鸿运博纳");//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 

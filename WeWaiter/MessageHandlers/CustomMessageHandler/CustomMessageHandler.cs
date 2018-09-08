@@ -20,7 +20,6 @@ using System.Text;
 using System.Threading;
 
 using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
@@ -30,11 +29,13 @@ using Senparc.Weixin.MP.Helpers;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities.Request;
 using Senparc.CO2NET.Helpers;
 
 
 using Microsoft.AspNetCore.Http;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
+using Senparc.NeuChar.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -64,10 +65,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
-            //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
-            //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
-            WeixinContext.ExpireMinutes = 3;
-
+            
             if (!string.IsNullOrEmpty(postModel.AppId))
             {
                 appId = postModel.AppId;//通过第三方开放平台发送过来的请求
@@ -168,7 +166,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             //一隔一返回News或Image格式
-            if (base.WeixinContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
+            if ( GlobalMessageContext .GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
             {
                 var responseMessage = CreateResponseMessage<ResponseMessageNews>();
 

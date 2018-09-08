@@ -50,7 +50,7 @@ namespace WeWaiter.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != user.WeixinID)
+            if (id != user.OpenID)
             {
                 return BadRequest();
             }
@@ -88,13 +88,13 @@ namespace WeWaiter.Controllers
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.WeixinID }, user);
+            return CreatedAtAction("GetUser", new { id = user.OpenID }, user);
         }
  
 
         private bool UserExists(string id)
         {
-            return _context.User.Any(e => e.WeixinID == id);
+            return _context.User.Any(e => e.OpenID == id);
         }
     }
 }

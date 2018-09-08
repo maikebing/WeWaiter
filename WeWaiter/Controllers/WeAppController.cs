@@ -17,14 +17,16 @@ using System.IO;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
+using WeWaiter.DataBase;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public   class WeAppController : Controller
     {
-      
+        private readonly WeWaiterContext _context;
         SenparcWeixinSetting _senparcWeixinSetting;
 
         public string Token { get; }
@@ -32,15 +34,16 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         public string WxOpenAppId { get; }
         public string WxOpenAppSecret { get; }
 
-        public WeAppController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public WeAppController(IOptions<SenparcWeixinSetting> senparcWeixinSetting, WeWaiterContext context)
         {
             _senparcWeixinSetting = senparcWeixinSetting.Value;
             Token = _senparcWeixinSetting.WxOpenToken;//与微信小程序后台的Token设置保持一致，区分大小写。
             EncodingAESKey = _senparcWeixinSetting.WxOpenEncodingAESKey;//与微信小程序后台的EncodingAESKey设置保持一致，区分大小写。
             WxOpenAppId = _senparcWeixinSetting.WxOpenAppId;//与微信小程序后台的AppId设置保持一致，区分大小写。
             WxOpenAppSecret = _senparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+            _context = context;
         }
-
+    
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
 
@@ -119,7 +122,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 //使用SessionContainer管理登录信息（推荐）
                 var unionId = "";
                 var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
-
+                
                 //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key });
             }

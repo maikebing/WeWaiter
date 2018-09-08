@@ -21,9 +21,18 @@ namespace WeWaiter.Controllers
         }
 
         [HttpGet()]
-        public IEnumerable<Order> GetMyOrdersInSeller([FromQuery] string sellerid, [FromQuery] string userid)
+        public IEnumerable<ListOrder> GetOrders([FromQuery] string userid)
         {
-            return _context.Order.Where(o => o.UserID == userid && o.SellerID == sellerid).OrderByDescending(o => o.Create);
+            var orders= _context.Order.Where(o => o.UserID == userid ).OrderByDescending(o => o.Create);
+            List<ListOrder> listOrder = new List<ListOrder>();
+            orders.ForEachAsync(async a =>
+            {
+                var lo = a as ListOrder;
+                lo.BuyItems = await _context.BuyItem.Where(b => b.OrderID == lo.OrderID).ToListAsync();
+                lo.Seller = await _context.Seller.Where(s => s.SellerID == lo.SellerID).FirstOrDefaultAsync();
+                listOrder.Add( lo                    );
+            });
+            return listOrder;
         }
 
  
@@ -38,29 +47,37 @@ namespace WeWaiter.Controllers
             IActionResult actionResult = NoContent();
             try
             {
-                order.OrderID = Guid.NewGuid().ToString();
-                order.Create = DateTime.Now;
-                order.BuyItems.ForEach(async a =>
+                if (!await _context.User.AnyAsync(u => u.OpenID == order.UserID))
                 {
-                    a.BuyItemID = Guid.NewGuid().ToString();
-                    a.OrderID = order.OrderID;
-                    var goods = await _context.Goods.FindAsync(a.GoodsID);
-                    a.UnitPrice = goods.SellingPrice;
-                    a.Amount = a.UnitPrice * a.Total;
-                    _context.BuyItem.Add(a);
-                    order.TotalPrice += a.Amount;
-                });
-                int sellerordercount = await _context.Order.CountAsync(o => o.SellerID == order.SellerID && o.Create.Date.Equals(DateTime.Now.Date));
-                order.OrderIndex = sellerordercount + 1;
-                _context.Order.Add(order);
-                int result = await _context.SaveChangesAsync();
-                if (result>0)
-                {
-                    actionResult = Ok(order);
+                    actionResult = NotFound("User Not Found");
                 }
                 else
                 {
-                    actionResult = NotFound("NotingToDo"); 
+                    order.OrderID = Guid.NewGuid().ToString();
+                    order.Create = DateTime.Now;
+
+                    order.BuyItems.ForEach(async a =>
+                    {
+                        a.BuyItemID = Guid.NewGuid().ToString();
+                        a.OrderID = order.OrderID;
+                        var goods = await _context.Goods.FindAsync(a.GoodsID);
+                        a.UnitPrice = goods.SellingPrice;
+                        a.Amount = a.UnitPrice * a.Total;
+                        _context.BuyItem.Add(a);
+                        order.TotalPrice += a.Amount;
+                    });
+                    int sellerordercount = await _context.Order.CountAsync(o => o.SellerID == order.SellerID && o.Create.Date.Equals(DateTime.Now.Date));
+                    order.OrderIndex = sellerordercount + 1;
+                    _context.Order.Add(order);
+                    int result = await _context.SaveChangesAsync();
+                    if (result > 0)
+                    {
+                        actionResult = Ok(order);
+                    }
+                    else
+                    {
+                        actionResult = NotFound("NotingToDo");
+                    }
                 }
             }
             catch (Exception ex)
