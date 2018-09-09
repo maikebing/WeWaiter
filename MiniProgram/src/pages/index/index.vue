@@ -69,10 +69,12 @@
               fly.post('/WeiXinApp/Login', {code: res.code})
                 .then(authRes => {
                   console.log('auth Res @91==========> ', authRes)
+                  resolve('token获取成功')
                 })
                 .catch(error => {
                   console.log('@11', error)
                   console.log('/WeiXinApp/Login 获取 token 失败 @166')
+                  reject(error)
                 })
             },
             fail (error) {
