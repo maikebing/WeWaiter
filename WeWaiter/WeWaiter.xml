@@ -12,6 +12,108 @@
             <param name="seatid">座位编码，如果没有座位，则座位信息为空</param>
             <returns></returns>
         </member>
+        <member name="T:WeWaiter.Controllers.TenPayV3Controller">
+            <summary>
+            根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
+            </summary>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Index(System.Int32,System.Int32)">
+            <summary>
+            获取用户的OpenId
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Native">
+            <summary>
+            原生支付 模式一
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.NativeByCodeUrl">
+            <summary>
+            原生支付 模式二
+            根据统一订单返回的code_url生成支付二维码。该模式链接较短，生成的二维码打印到结账小票上的识别率较高。
+            注意：code_url有效期为2小时，过期后扫码不能再发起支付
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.MicroPay(System.String)">
+            <summary>
+            刷卡支付
+            </summary>
+            <param name="authCode">扫码设备获取到的微信用户刷卡授权码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrl">
+            <summary>
+            JS-SDK支付回调地址（在统一下单接口中设置notify_url）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.OrderQuery">
+            <summary>
+            订单查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.CloseOrder">
+            <summary>
+            关闭订单接口
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Refund">
+            <summary>
+            退款申请接口
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.RefundNotifyUrl">
+            <summary>
+            退款通知地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.DownloadBill(System.String)">
+            <summary>
+            下载对账单
+            </summary>
+            <param name="date">日期，格式如：20170716</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.SendRedPack">
+            <summary>
+            目前支持向指定微信用户的openid发放指定金额红包
+            注意total_amount、min_value、max_value值相同
+            total_num=1固定
+            单个红包金额介于[1.00元，200.00元]之间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.SendGroupRedPack">
+            <summary>
+            目前支持向指定微信用户的openid发放指定金额红包
+            注意total_amount、min_value、max_value值相同
+            total_num=1固定
+            单个红包金额介于[1.00元，200.00元]之间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.ProductPayCode(System.Int32,System.Int32)">
+            <summary>
+            显示二维码
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.H5Pay(System.Int32,System.Int32)">
+            <summary>
+            H5支付
+            </summary>
+            <param name="productId"></param>
+            <param name="hc"></param>
+            <returns></returns>
+        </member>
         <member name="M:WeWaiter.Controllers.WeiXinController.Get(Senparc.Weixin.MP.Entities.Request.PostModel,System.String)">
             <summary>
             微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://sdk.weixin.senparc.com/weixin
@@ -42,16 +144,14 @@
             this class is for swagger to generate AuthToken Header filed on swagger UI
             </summary>
         </member>
+        <member name="M:WeWaiter.Utils.WeAppTokenValidata.ValidateToken(System.String,Microsoft.IdentityModel.Tokens.TokenValidationParameters,Microsoft.IdentityModel.Tokens.SecurityToken@)">
+            验证securityToken
+        </member>
         <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeAppController.Get(Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.String)">
             <summary>
             GET请求用于处理微信小程序后台的URL验证
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeAppController.Post(Senparc.Weixin.WxOpen.Entities.Request.PostModel)">
-            <summary>
-            用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML。
-            </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeAppController.OnLogin(System.String)">
             <summary>
@@ -231,14 +331,14 @@
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.Weixin.Context.WeixinContextRemovedEventArgs{Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.MP.Entities.IResponseMessageBase})">
+        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.NeuChar.Context.WeixinContextRemovedEventArgs{Senparc.NeuChar.Entities.IRequestMessageBase,Senparc.NeuChar.Entities.IResponseMessageBase})">
             <summary>
             当上下文过期，被移除时触发的时间
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.Weixin.Context.WeixinContextRemovedEventArgs{Senparc.Weixin.WxOpen.Entities.IRequestMessageBase,Senparc.Weixin.WxOpen.Entities.IResponseMessageBase})">
+        <member name="M:Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.NeuChar.Context.WeixinContextRemovedEventArgs{Senparc.NeuChar.Entities.IRequestMessageBase,Senparc.NeuChar.Entities.IResponseMessageBase})">
             <summary>
             当上下文过期，被移除时触发的时间
             </summary>

@@ -41,7 +41,7 @@ namespace WeWaiter.Controllers
                     lo.Seller = await _context.Seller.Where(s => s.SellerID == lo.SellerID).FirstOrDefaultAsync();
                     listOrder.Add(lo);
                 });
-                return Ok(new { code = 0, msg = "", listOrder });
+                return Ok(new { code = 0, msg = "OK", listOrder });
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace WeWaiter.Controllers
                     int result = await _context.SaveChangesAsync();
                     if (result > 0)
                     {
-                        actionResult = Ok( new {code = 0, msg="", order });
+                        actionResult = Ok( new {code = 0, msg= "OK", order });
                     }
                     else
                     {
