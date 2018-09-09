@@ -7,19 +7,84 @@
       <text class="title">扫码一下 自助点餐</text>
       <text class="subtitle">自由 随心 的电子菜单</text>
     </div>
-    <button class="btn-scan" @click="onHandleScan">
+    <button class="btn-scan" open-type="getUserInfo" @getuserinfo="bindGetUserInfo">
       <img src="/static/images/icon-scan-code.svg" class="icon"/>
       <text>开始点餐</text>
     </button>
   </div>
 </template>
 <script>
+  import fly from '@/libs/fly'
   export default {
     data () {
-      return {}
+      return {
+        user: {
+          wechat: {}
+        }
+      }
     },
     components: {},
     methods: {
+      bindGetUserInfo (e) {
+        let self = this
+        if (e.mp.detail.userInfo) {
+          self.user = {
+            wechat: e.mp.detail.userInfo
+          }
+          wx.setStorageSync('user', self.user)
+          this.onHandleScan()
+        } else {
+          wx.showModal({
+            title: '温馨提示',
+            showCancel: true,
+            content: '为了您正常使用WeWaiter码上点餐功能,请先同意授权',
+            success: function (res) {
+              if (res.confirm) {
+                wx.openSetting({
+                  success: function (res) {
+                    if (res.authSetting['scope.userInfo']) {
+                      console.log('已授权')
+                    } else {
+                      console.log('未授权')
+                    }
+                  }
+                })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+      },
+      /**
+       *
+       * @param res 是wx.login 成功返回的 response
+       */
+      // 调用登录接口
+      wechatLogin () {
+        return new Promise((resolve, reject) => {
+          wx.login({
+            success (res) {
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId
+              fly.post('/WeiXinApp/Login', {code: res.code})
+                .then(authRes => {
+                  console.log('auth Res @91==========> ', authRes)
+                })
+                .catch(error => {
+                  console.log('@11', error)
+                  console.log('/WeiXinApp/Login 获取 token 失败 @166')
+                })
+            },
+            fail (error) {
+              console.log('fail@157', error)
+              wx.showToast({
+                icon: 'none',
+                title: '微信登陆失败'
+              })
+            }
+          })
+        })
+      },
       onHandleScan () {
         let self = this
         wx.scanCode({
@@ -40,6 +105,7 @@
       }
     },
     created () {
+      this.wechatLogin()
     }
   }
 </script>

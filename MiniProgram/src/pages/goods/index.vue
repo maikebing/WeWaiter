@@ -70,7 +70,7 @@
       }
 
     },
-    created () {
+    onReady () {
       this.getData(this.id)
     },
     components: {
