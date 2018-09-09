@@ -21,13 +21,14 @@ using System.Collections.Generic;
 using WeWaiter.Utils;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
     [Route("api/[controller]")]
     [ApiController]
    
-    public   class WeiXinAppController : Controller
+    public   class WeiXinAppController : ControllerBase
     {
         private readonly WeWaiterContext _context;
         SenparcWeixinSetting _senparcWeixinSetting;
@@ -73,13 +74,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
         [HttpPost("RequestData")]
         [Authorize]
-        public ActionResult RequestData([FromBody]string nickName)
+        public    IActionResult RequestData([FromBody]string nickName)
         {
             var data = new
             {
                 msg = string.Format("服务器时间：{0}，昵称：{1}", DateTime.Now, nickName)
             };
-            return Json(data);
+            return Ok(data);
         }
 
         /// <summary>
@@ -89,36 +90,49 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// <returns></returns>
         [HttpPost("Login")]
         [AllowAnonymous]
-        public ActionResult Login([FromBody]string code)
+        public async Task<IActionResult> Login([FromBody]string code)
         {
-            var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
-            if (jsonResult.errcode == ReturnCode.请求成功)
+            try
             {
-                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
-                //使用SessionContainer管理登录信息（推荐）
-                var unionId = "";
-                if (!_context.User.Any(u=>u.OpenID==jsonResult.openid))
+                var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
+                if (jsonResult.errcode == ReturnCode.请求成功)
                 {
-                  var adduser=  _context.User.Add(new WeWaiter.DataBase.User()
+                    //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
+                    //使用SessionContainer管理登录信息（推荐）
+                    var unionId = "";
+                    if (!_context.User.Any(u => u.OpenID == jsonResult.openid))
                     {
-                        UserID = Guid.NewGuid().ToString().Replace("-", ""),
-                        JoinIn = DateTime.Now,
-                        LastActive = DateTime.Now,
-                        OpenID = jsonResult.openid,
-                    });
-                    _context.SaveChanges();
+                        var adduser = _context.User.Add(new WeWaiter.DataBase.User()
+                        {
+                            UserID = Guid.NewGuid().ToString().Replace("-", ""),
+                            JoinIn = DateTime.Now,
+                            LastActive = DateTime.Now,
+                            OpenID = jsonResult.openid,
+                        });
+                        await _context.SaveChangesAsync();
+                    }
+                    var usr = _context.User.FirstOrDefault(u => u.OpenID == jsonResult.openid);
+                    if (usr != null)
+                    {
+                        //https://github.com/aspnet/Home/issues/2193
+                        var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://bonafortune.com", "https://bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
+                        var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, unionId);
+                        //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
+                        return Ok(new { code = 0, msg = "OK", token });
+                    }
+                    else
+                    {
+                        return Ok(new { code = 1007, msg = "未能正确获取到用户数据" });
+                    }
                 }
-                var usr = _context.User.FirstOrDefault(u => u.OpenID == jsonResult.openid);
-
-                //https://github.com/aspnet/Home/issues/2193
-                var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://bonafortune.com", "https://bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
-                var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, unionId);
-                //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
-                return Json(new { code = 0, msg = "OK", token = token });
+                else
+                {
+                    return Ok(new { code = 1006, msg = jsonResult.errmsg });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { code = 1006, msg = jsonResult.errmsg });
+                return Ok(new { code = 1008, msg = ex.Message });
             }
         }
 
@@ -128,11 +142,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             try
             {
                 var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
-                return Json(new { success = checkSuccess, msg = checkSuccess ? "签名校验成功" : "签名校验失败" });
+                return Ok(new { success = checkSuccess, msg = checkSuccess ? "签名校验成功" : "签名校验失败" });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, msg = ex.Message });
+                return Ok(new { success = false, msg = ex.Message });
             }
         }
 
@@ -159,7 +173,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
 
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
-            return Json(new
+            return Ok(new
             {
                 success = checkWartmark,
                 //decodedEntity = decodedEntity,
@@ -217,11 +231,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                     .SendTemplateMessage(
                         WxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
 
-                return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
+                return Ok(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
+                return Ok(new { success = false, openId = openId, formId = formId, msg = ex.Message });
             }
         }
         [HttpPost("DecryptPhoneNumber")]
@@ -235,11 +249,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
                 //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
 
-                return Json(new { success = true, phoneNumber = phoneNumber });
+                return Ok(new { success = true, phoneNumber = phoneNumber });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, msg = ex.Message });
+                return Ok(new { success = false, msg = ex.Message });
 
             }
         }
@@ -276,7 +290,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 cacheStrategy.Set($"WxOpenUnifiedorderRequestData-{openId}", xmlDataInfo, TimeSpan.FromDays(4));//3天内可以发送模板消息
                 cacheStrategy.Set($"WxOpenUnifiedorderResultData-{openId}", result, TimeSpan.FromDays(4));//3天内可以发送模板消息
 
-                return Json(new
+                return Ok(new
                 {
                     success = true,
                     prepay_id = result.prepay_id,
@@ -290,7 +304,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
             catch (Exception ex)
             {
-                return Json(new
+                return Ok(new
                 {
                     success = false,
                     msg = ex.Message
