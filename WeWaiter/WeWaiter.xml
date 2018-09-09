@@ -147,13 +147,13 @@
         <member name="M:WeWaiter.Utils.WeAppTokenValidata.ValidateToken(System.String,Microsoft.IdentityModel.Tokens.TokenValidationParameters,Microsoft.IdentityModel.Tokens.SecurityToken@)">
             验证securityToken
         </member>
-        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeAppController.Get(Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.String)">
+        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeiXinAppController.Get(Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.String)">
             <summary>
             GET请求用于处理微信小程序后台的URL验证
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeAppController.OnLogin(System.String)">
+        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeiXinAppController.Login(System.String)">
             <summary>
             wx.login登陆成功之后发送的请求
             </summary>
