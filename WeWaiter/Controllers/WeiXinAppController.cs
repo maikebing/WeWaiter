@@ -22,6 +22,7 @@ using WeWaiter.Utils;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
+using WeWaiter.Models;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -86,15 +87,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// <summary>
         /// wx.login登陆成功之后发送的请求
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="loginMode"></param>
         /// <returns></returns>
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody]string code)
+        public async Task<IActionResult> Login([FromBody] LoginModel loginMode)
         {
             try
             {
-                var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
+                var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, loginMode.code);
                 if (jsonResult.errcode == ReturnCode.请求成功)
                 {
                     //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
@@ -117,7 +118,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                         //https://github.com/aspnet/Home/issues/2193
                         var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://bonafortune.com", "https://bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
                         var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, unionId);
-                        //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                         return Ok(new { code = 0, msg = "OK", token });
                     }
                     else
