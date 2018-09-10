@@ -90,12 +90,11 @@
         // }
         let buyItems = this.selectFoods.map(x=>({amount:x.count, goodsID: x.id}))
         let orderParams = {
-          seatID: '342c501a-3365-4c2f-816f-2aaf51ea7a31',
-          userID: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
+          SeatNumber: this.seller.seat.seatNumber,
           buyItems,
-          sellerID: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
-          tableWareId: this.tableWareId,
-          mealStyleId: this.mealStyleId
+          sellerID: this.seller.seller.sellerID
+          // tableWareId: this.tableWareId,
+          // mealStyleId: this.mealStyleId
         }
         let orderRes = await this.$http.post('orders', orderParams)
         console.log('toPay@44', orderRes)
