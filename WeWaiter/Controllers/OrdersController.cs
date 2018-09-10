@@ -62,7 +62,7 @@ namespace WeWaiter.Controllers
             try
             {
                 var userid = Request.GetJwtSecurityToken()?.GetUserId();
-                if (string.IsNullOrEmpty(userid) || !await _context.User.AnyAsync(u => u.UserID == order.UserID))
+                if (string.IsNullOrEmpty(userid) || !await _context.User.AnyAsync(u => u.UserID == userid))
                 {
                     actionResult = Ok(new { code = 1003, msg = $"用户[{userid}]未找到" });
                 }
