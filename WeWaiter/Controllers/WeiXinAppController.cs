@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             switch (type.ToUpper())
             {
                 case "USERINFO"://wx.getUserInfo()
-                    decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
+                    decodedEntity = EncryptHelper.DecodeUserInfoBySessionId(
                         sessionId,
                         encryptedData, iv);
                     break;

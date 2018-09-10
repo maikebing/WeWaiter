@@ -4,7 +4,7 @@
         <name>WeWaiter</name>
     </assembly>
     <members>
-        <member name="M:WeWaiter.Controllers.SellersController.GetSeller(System.String,System.String)">
+        <member name="M:WeWaiter.Controllers.SellersController.GetSeller(System.String,System.Int32)">
             <summary>
             获取商家信息
             </summary>
@@ -153,11 +153,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeiXinAppController.Login(System.String)">
+        <member name="M:Senparc.Weixin.MP.CoreSample.Controllers.WxOpen.WeiXinAppController.Login(WeWaiter.Models.LoginModel)">
             <summary>
             wx.login登陆成功之后发送的请求
             </summary>
-            <param name="code"></param>
+            <param name="loginMode"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler">

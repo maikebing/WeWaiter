@@ -49,28 +49,30 @@ namespace WeWaiter.Controllers
             }
         }
 
- 
+
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] NewOrder order)
         {
             if (!ModelState.IsValid)
             {
-                return Ok(new { code = 10004, msg = "ModelState invalid " } );
-                }
+                return Ok(new { code = 1004, msg = "CreateOrder ModelState invalid " });
+            }
             IActionResult actionResult = NoContent();
             try
             {
                 var userid = Request.GetJwtSecurityToken()?.GetUserId();
-                if (string.IsNullOrEmpty(userid) ||  !await _context.User.AnyAsync(u => u.UserID == order.UserID))
+                if (string.IsNullOrEmpty(userid) || !await _context.User.AnyAsync(u => u.UserID == order.UserID))
                 {
-                    actionResult = Ok(new {  code = 10003, msg = $"用户[{userid}]未找到" });
+                    actionResult = Ok(new { code = 1003, msg = $"用户[{userid}]未找到" });
                 }
                 else
                 {
                     order.OrderID = Guid.NewGuid().ToString();
                     order.Create = DateTime.Now;
                     order.UserID = userid;
+                    var seat= await _context.Seat.FirstOrDefaultAsync(s => s.SeatNumber == order.SeatNumber);
+                    order.SeatID = seat?.SeatId;
                     order.BuyItems.ForEach(async a =>
                     {
                         a.BuyItemID = Guid.NewGuid().ToString();
@@ -87,21 +89,21 @@ namespace WeWaiter.Controllers
                     int result = await _context.SaveChangesAsync();
                     if (result > 0)
                     {
-                        actionResult = Ok( new {code = 0, msg= "OK", order });
+                        actionResult = Ok(new { code = 0, msg = "OK", order });
                     }
                     else
                     {
-                        actionResult = Ok(new {code=10001,msg="订单未能保存"});
+                        actionResult = Ok(new { code = 1001, msg = "订单未能保存" });
                     }
                 }
             }
             catch (Exception ex)
             {
-                actionResult = Ok(new { code = 10002, msg =  ex.Message}); ;
+                actionResult = Ok(new { code = 1002, msg = ex.Message }); ;
             }
             return actionResult;
         }
-       
+
 
         private bool OrderExists(string id)
         {

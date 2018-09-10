@@ -22,7 +22,7 @@ namespace WeWaiter.Controllers
             _context = context;
         }
 
-     
+
         /// <summary>
         /// 获取商家信息
         /// </summary>
@@ -30,36 +30,43 @@ namespace WeWaiter.Controllers
         /// <param name="seatid">座位编码，如果没有座位，则座位信息为空</param>
         /// <returns></returns>
         [HttpGet()]
-        public async Task<IActionResult> GetSeller([FromQuery] string id, [FromQuery] string seatid)
+        public async Task<IActionResult> GetSeller([FromQuery] string id, [FromQuery] int seatid)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Ok(new { code = 1004, msg = "GetSeller ModelState invalid " });
             }
-            var seller = await _context.Seller.FindAsync(id);
-            if (seller == null)
+            try
             {
-                return NotFound();
-            }
-            var catalogs = from c in _context.Catalog where c.SellerID == seller.SellerID && c.Deleted == false orderby c.OrderBy select   c;
-            List<GoodsCatalog> cgs = new List<GoodsCatalog>();
-            await catalogs.ForEachAsync(async a =>
-            {
-                var goods = from g in _context.Goods where g.Seller == seller.SellerID && g.CatalogID == a.CatalogID && g.Deleted == false orderby g.Rating descending select g;
-                cgs.Add(new GoodsCatalog()
+                var seller = await _context.Seller.FindAsync(id);
+                if (seller == null)
                 {
-                    CatalogID = a.CatalogID,
-                    CatalogName = a.CatalogName,
-                    OrderBy = a.OrderBy,
-                    Goods = await goods.ToArrayAsync()
+                    return Ok(new { code = 1009, msg = "没有找到此商户" }); ;
                 }
-                );
-            });
-            var sits = from g in _context.Seat where g.Seller == id && g.SeatId == seatid select g;
-            var data = new { seller, Catalogs= cgs.ToArray(), Seat=await sits.FirstOrDefaultAsync() };
-            return Ok(data);
+                var catalogs = from c in _context.Catalog where c.SellerID == seller.SellerID && c.Deleted == false orderby c.OrderBy select c;
+                List<GoodsCatalog> cgs = new List<GoodsCatalog>();
+                await catalogs.ForEachAsync(async a =>
+                {
+                    var goods = from g in _context.Goods where g.Seller == seller.SellerID && g.CatalogID == a.CatalogID && g.Deleted == false orderby g.Rating descending select g;
+                    cgs.Add(new GoodsCatalog()
+                    {
+                        CatalogID = a.CatalogID,
+                        CatalogName = a.CatalogName,
+                        OrderBy = a.OrderBy,
+                        Goods = await goods.ToArrayAsync()
+                    }
+                    );
+                });
+                var sits = from g in _context.Seat where g.Seller == id && g.SeatNumber == seatid select g;
+                var data = new { seller, Catalogs = cgs.ToArray(), Seat = await sits.FirstOrDefaultAsync() };
+                return Ok(new { code = 1009, msg = "OK", seller = data });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { code = 1011, msg = ex.Message });
+            }
         }
-         
+
         private bool SellerExists(string id)
         {
             return _context.Seller.Any(e => e.SellerID == id);

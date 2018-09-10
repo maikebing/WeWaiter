@@ -15,6 +15,8 @@ namespace WeWaiter.DataBase
         /// </summary>
         [Key]
         public string SeatId { get; set; }
+
+        public int SeatNumber { get; set; }
         /// <summary>
         /// 卖家编码
         /// </summary>
