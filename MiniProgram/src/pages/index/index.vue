@@ -15,6 +15,7 @@
 </template>
 <script>
   import fly from '@/libs/fly'
+
   export default {
     data () {
       return {
@@ -96,10 +97,15 @@
           onlyFromCamera: true,
           success: (res) => {
             // Get tableNumber and seatId and save them to vuex
-            let result = JSON.parse(res.result)
-            if (result) {
-              self.$store.commit('SET_SEAT_ID', result.seatId)
-              self.$store.commit('SET_TABLE_NUMBER', result.tableNumber)
+            console.log('success@99', res)
+            if (res.result) {
+              let sellerId = this.getParameterByName('id', res.result)
+              let seatId = this.getParameterByName('seatid', res.result)
+              console.log('success@103', sellerId)
+              console.log('success@103', seatId)
+              self.$store.commit('SET_SEAT_ID', seatId)
+              // self.$store.commit('SET_TABLE_NUMBER', result.tableNumber)
+              self.$store.commit('SET_SELLER_ID', sellerId)
               // navigate to goods
               wx.navigateTo({
                 url: '../goods/main?id=1'
@@ -107,6 +113,15 @@
             }
           }
         })
+      },
+      getParameterByName (name, url) {
+        if (!url) url = window.location.href
+        name = name.replace(/[\[\]]/g, '\\$&')
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url)
+        if (!results) return null
+        if (!results[2]) return ''
+        return decodeURIComponent(results[2].replace(/\+/g, ' '))
       }
     },
     created () {

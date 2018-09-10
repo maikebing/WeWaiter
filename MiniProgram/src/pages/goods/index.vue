@@ -43,13 +43,22 @@
         this.changeNav = current
         this.current = current
       },
-      async getData (id) {
+      getParameterByName (name, url) {
+        if (!url) url = window.location.href
+        name = name.replace(/[\[\]]/g, '\\$&')
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url)
+        if (!results) return null
+        if (!results[2]) return ''
+        return decodeURIComponent(results[2].replace(/\+/g, ' '))
+      },
+      async getData (sellerId, seatId) {
         let res = await fly.get('sellers', {
-          id: '342c501a-3365-4c2f-816f-2aaf51ea7a39',
-          seatid: '342c501a-3365-4c2f-816f-2aaf51ea7a31'
+          id: sellerId,
+          seatid: seatId
         })
-        res.seller.avatar = 'https://image.cokco.cn/' + res.seller.avatar
-        res.goods = res.catalogs.map(x => {
+        res.seller.seller.avatar = 'https://image.cokco.cn/' + res.seller.avatar
+        res.seller.goods = res.seller.catalogs.map(x => {
           console.log('@52', x)
           x.id = 'ww' + x.catalogID
           x.name  = x.catalogName
@@ -63,15 +72,19 @@
           return x
         })
         console.log('getData@54', res)
-        this.goods = res.goods
-        this.seller = res.seller
-        this.tableNumber = res.table_number
+        this.goods = res.seller.goods
+        this.seller = res.seller.seller
+        this.tableNumber = res.seller.seat.seatNumber
+        console.log('getData@78', this.tableNumber)
         wx.setStorageSync('seller', res.seller)
       }
 
     },
     onReady () {
-      this.getData(this.id)
+      let sellerId = this.$store.state.sellerId
+      let seatId = this.$store.state.seatId
+      console.log('onReady@75', sellerId)
+      this.getData(sellerId, seatId)
     },
     components: {
       MealTableNumber,
@@ -81,7 +94,20 @@
       seller: seller
     },
     onLoad (options) {
+      let self = this
       this.id = options.id
+      if (options.q) {
+        let url = decodeURIComponent(options.q)
+        console.log('onLoad@85', url)
+        let sellerId = this.getParameterByName('id', url)
+        let seatId = this.getParameterByName('seatid', url)
+        console.log('success@103', sellerId)
+        console.log('success@103', seatId)
+        self.$store.commit('SET_SEAT_ID', seatId)
+        // self.$store.commit('SET_TABLE_NUMBER', result.tableNumber)
+        self.$store.commit('SET_SELLER_ID', sellerId)
+      }
+
     }
   }
 </script>

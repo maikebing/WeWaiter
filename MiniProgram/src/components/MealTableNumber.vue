@@ -38,7 +38,7 @@
     methods: {},
     computed: {
       tableNumber () {
-        return this.$store.state.tableNumber
+        return this.$store.state.seatId
       }
     }
   }

@@ -31,6 +31,8 @@
     },
     onShow() {
       this.getData()
+    },
+    onLoad(){
     }
   }
 </script>

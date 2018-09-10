@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
@@ -41,7 +41,7 @@
 					"id": 1,
 					"name": "商品列表",
 					"pathName": "pages/goods/main",
-					"query": "id=1"
+					"query": "q=https%3A%2F%2Fapi.cokco.cn%2F%2Fapi%2Fqrcode%2F%3Fid%3D342c501a-3365-4c2f-816f-2aaf51ea7a39%26seatid%3D1"
 				},
 				{
 					"id": -1,
