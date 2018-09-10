@@ -69,6 +69,9 @@
               fly.post('/WeiXinApp/Login', {code: res.code})
                 .then(authRes => {
                   console.log('auth Res @91==========> ', authRes)
+                  if (authRes.token) {
+                    wx.setStorageSync('token', authRes.token)
+                  }
                   resolve('token获取成功')
                 })
                 .catch(error => {

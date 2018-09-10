@@ -9,7 +9,7 @@ fly.interceptors.request.use((request) => {
   let token = wx.getStorageSync('token')
   if (token) {
     //给所有请求添加自定义header
-    request.headers['Authorization'] = `JWT ${token}`
+    request.headers['Authorization'] = `Bearer ${token}`
   }
   return request
 })
