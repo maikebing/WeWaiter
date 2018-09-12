@@ -27,21 +27,28 @@ namespace WeWaiter.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetOrders()
+        public IActionResult GetOrders()
         {
             try
             {
                 var userid = Request.GetJwtSecurityToken()?.GetUserId();
                 var orders = _context.Order.Where(o => o.UserID == userid).OrderByDescending(o => o.Create);
                 List<Orders> listOrder = new List<Orders>();
-                await orders.ForEachAsync(async a =>
+                 orders.ToList().ForEach(  a =>
                 {
-                    var lo = a as Orders;
-                    lo.BuyItems = await _context.BuyItem.Where(b => b.OrderID == lo.OrderID).ToListAsync();
-                    lo.Seller = await _context.Seller.Where(s => s.SellerID == lo.SellerID).FirstOrDefaultAsync();
-                    listOrder.Add(lo);
+                    try
+                    {
+                        var lo = new Orders() { Order = a };
+                        lo.BuyItems =  _context.BuyItem.Where(b => b.OrderID == lo.Order.OrderID).ToList();
+                        lo.Seller =  _context.Seller.Where(s => s.SellerID == lo.Order.SellerID).FirstOrDefault();
+                        listOrder.Add(lo);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                 });
-                return Ok(new { code = 0, msg = "OK", listOrder });
+                return Ok(new { code = 0, msg = "OK",Orders= listOrder });
             }
             catch (Exception ex)
             {

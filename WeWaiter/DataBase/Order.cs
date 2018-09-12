@@ -24,8 +24,9 @@ namespace WeWaiter.DataBase
         public decimal TotalPrice { get; set; }
         public int OrderStatus { get; set; }
     }
-    public class Orders:Order
+    public class Orders
     {
+        public Order Order { get; set; }
         public Seller Seller { get; set; }
         public List<BuyItem> BuyItems { get; set; }
     }
