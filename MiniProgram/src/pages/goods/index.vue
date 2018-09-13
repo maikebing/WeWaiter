@@ -57,7 +57,7 @@
           id: sellerId,
           seatid: seatId
         })
-        res.seller.seller.avatar = 'https://image.cokco.cn/' + res.seller.avatar
+        res.seller.seller.avatar = this.ossUrl + res.seller.avatar
         res.seller.goods = res.seller.catalogs.map(x => {
           console.log('@52', x)
           x.id = 'ww' + x.catalogID
@@ -66,7 +66,7 @@
             y.id = y.goodsID
             y.price = y.sellingPrice
             y.sellCount = y.stock
-            y.icon = 'https://image.cokco.cn/' + y.icon
+            y.icon = this.ossUrl + y.icon
             return y
           })
           return x

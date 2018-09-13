@@ -1,7 +1,8 @@
 /* eslint-disable */
 const Fly = require('flyio/dist/npm/wx')
 const fly = new Fly()
-let baseURL = 'https://api.cokco.cn/api'
+import config from '@/config'
+let baseURL = config.apiHost
 // const app = getApp()
 //添加拦截器
 fly.interceptors.request.use((request) => {

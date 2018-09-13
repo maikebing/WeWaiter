@@ -2,9 +2,10 @@ import Vue from 'vue'
 import App from '@/App'
 import store from './store'
 import fly from '@/libs/fly'
+import config from '@/config'
 import '@/weui.css'
 Vue.prototype.$http = fly // 将fly实例挂在vue原型上
-Vue.prototype.ossUrl = `https://image.cokco.cn/`
+Vue.prototype.ossUrl = config.imgHost
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 App.mpType = 'app'
