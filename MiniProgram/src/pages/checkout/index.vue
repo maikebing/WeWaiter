@@ -109,7 +109,7 @@
         //   fail(res) {
         //   }
         // })
-        wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.data.id}`})
+        wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.order.orderID}`})
       }
     },
     onLoad (options) {
