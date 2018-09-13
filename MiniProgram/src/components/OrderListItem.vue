@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="we-order-des"  @click="onRedirectToDetail(order.id)">
-        <text>{{ order.foods[0].name }} 等 {{ order.foods.length}} 份美食</text>
+        <text>{{ order.seller.name }} 等 {{ order.buyItems.length}} 份美食</text>
         <div class="we-pay">
           <text>共计</text>
           <text class="we-sum">¥ {{ order.total_price }}</text>
@@ -65,7 +65,8 @@
     },
     computed: {
       status: function () {
-        switch (this.order.status.code) {
+        let status = this.order.order['orderStatus']
+        switch (status) {
           case 0:
             return 'unpaid'
           case 1:
@@ -79,7 +80,8 @@
         }
       },
       statusText: function () {
-        switch (this.order.status.code) {
+        let status = this.order.order['orderStatus']
+        switch (status) {
           case 0:
             return '待支付'
           case 1:

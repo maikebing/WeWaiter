@@ -7,37 +7,38 @@
 </template>
 <script>
   import OrderItem from '@/components/OrderListItem'
+  import fly from '@/libs/fly'
   // import { orderList } from '@/mock/mockOrderData'
   export default {
-    data () {
+    data() {
       return {
         orderList: []
-      }
+      };
     },
     components: {
       OrderItem
     },
     methods: {
-      async getData() {
+      async getData () {
         console.log('getData@22 获取订单')
-        let params = { openid: 'wx12334fdsaf'}
-        let orderListRes = await this.$http.get('http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=/order/', params)
-        console.log('getData@24', orderListRes.data)
-        this.orderList = orderListRes.data
+        let orderListRes = await fly.get('Orders')
+        console.log('getData@24', orderListRes.orders)
+        this.orderList = orderListRes.orders
       }
     },
     created () {
 
     },
-    onShow() {
+    onShow () {
       this.getData()
     },
-    onLoad(){
+    onLoad () {
     }
-  }
+  };
 </script>
 <style lang="scss" scoped>
   @import "~@/styles/variable";
+
   .container {
     background-color: $primary-white;
   }

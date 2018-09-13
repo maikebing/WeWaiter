@@ -96,6 +96,7 @@
           // tableWareId: this.tableWareId,
           // mealStyleId: this.mealStyleId
         }
+        console.error(orderParams)
         let orderRes = await this.$http.post('orders', orderParams)
         console.log('toPay@44', orderRes)
         wx.hideLoading()
