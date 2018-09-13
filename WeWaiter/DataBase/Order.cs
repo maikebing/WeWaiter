@@ -49,6 +49,6 @@ namespace WeWaiter.DataBase
         [JsonIgnore]
         private new int OrderStatus { get; set; }
 
-        public List<NewBuyItem> BuyItems { get; set; }
+        public List<BuyItem> BuyItems { get; set; }
     }
 }

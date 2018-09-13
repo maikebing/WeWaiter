@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeWaiter.DataBase;
@@ -9,9 +10,10 @@ using WeWaiter.DataBase;
 namespace WeWaiter.DataBase
 {
     [DbContext(typeof(WeWaiterContext))]
-    partial class WeWaiterContextModelSnapshot : ModelSnapshot
+    [Migration("20180913133758_goodsname")]
+    partial class goodsname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,10 +32,6 @@ namespace WeWaiter.DataBase
                     b.Property<string>("GoodsID");
 
                     b.Property<string>("GoodsName");
-
-                    b.Property<string>("Icon");
-
-                    b.Property<string>("Image");
 
                     b.Property<string>("OrderID");
 
@@ -241,13 +239,7 @@ namespace WeWaiter.DataBase
                     b.Property<string>("UserID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
-
                     b.Property<DateTime>("JoinIn");
-
-                    b.Property<string>("Language");
 
                     b.Property<DateTime>("LastActive");
 
@@ -256,18 +248,6 @@ namespace WeWaiter.DataBase
                     b.Property<string>("OpenID");
 
                     b.Property<string>("Phone");
-
-                    b.Property<string>("Province");
-
-                    b.Property<string>("Remark");
-
-                    b.Property<int>("Sex");
-
-                    b.Property<int>("Subscribe");
-
-                    b.Property<string>("SubscribeScene");
-
-                    b.Property<long>("SubscribeTime");
 
                     b.Property<string>("UnionId");
 

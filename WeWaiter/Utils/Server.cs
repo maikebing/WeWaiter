@@ -10,7 +10,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 #endif
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
+namespace WeWaiter.Utils
 {
     public static class Server
     {
@@ -97,5 +97,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
                 return context;
             }
         }
+        public static string ImageHost { get; set; }
     }
 }

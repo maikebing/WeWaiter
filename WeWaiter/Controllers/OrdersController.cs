@@ -16,7 +16,9 @@ namespace WeWaiter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+#if !DEBUG
     [Authorize]
+#endif
     public class OrdersController : ControllerBase
     {
         private readonly WeWaiterContext _context;
@@ -31,7 +33,12 @@ namespace WeWaiter.Controllers
         {
             try
             {
-                var userid = Request.GetJwtSecurityToken()?.GetUserId();
+#if !DEBUG
+    var userid = Request.GetJwtSecurityToken()?.GetUserId();
+#else
+                var userid= "342c501a-3365-4c2f-816f-2aaf51ea7a39";
+#endif
+
                 var orders = _context.Order.Where(o => o.UserID == userid).OrderByDescending(o => o.Create);
                 List<Orders> listOrder = new List<Orders>();
                  orders.ToList().ForEach(  a =>
@@ -68,7 +75,11 @@ namespace WeWaiter.Controllers
             IActionResult actionResult = NoContent();
             try
             {
+#if !DEBUG
                 var userid = Request.GetJwtSecurityToken()?.GetUserId();
+#else
+                var userid = "9df0c2ae032043d7a1fc876b4e562d5e";
+#endif
                 if (string.IsNullOrEmpty(userid) || !await _context.User.AnyAsync(u => u.UserID == userid))
                 {
                     actionResult = Ok(new { code = 1003, msg = $"用户[{userid}]未找到" });
@@ -86,9 +97,12 @@ namespace WeWaiter.Controllers
                         a.OrderID = order.OrderID;
                         var goods = await _context.Goods.FindAsync(a.GoodsID);
                         a.UnitPrice = goods.SellingPrice;
-                        a.Amount = a.UnitPrice * a.Total;
+                        a.Total = a.UnitPrice * a.Amount;
+                        a.GoodsName = goods.Name;
+                        a.Icon = goods.Icon;
+                        a.Image = goods.Image;
                         _context.BuyItem.Add(a);
-                        order.TotalPrice += a.Amount;
+                        order.TotalPrice += a.Total;
                     });
                     int sellerordercount = await _context.Order.CountAsync(o => o.SellerID == order.SellerID && o.Create.Date.Equals(DateTime.Now.Date));
                     order.OrderIndex = sellerordercount + 1;

@@ -14,16 +14,10 @@ namespace WeWaiter.DataBase
         public string GoodsID { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Amount { get; set; }
-        public int Total { get; set; }
-       
+        public decimal Total { get; set; }
+        public string GoodsName { get; set; }
+        public string Icon { get; internal set; }
+        public string Image { get; internal set; }
     }
-    public class NewBuyItem:BuyItem
-    {
-        [JsonIgnore]
-        private new  decimal UnitPrice { get; set; }
-        [JsonIgnore]
-        private new decimal Amount { get; set; }
-        [JsonIgnore]
-        private new string BuyItemID { get; set; }
-    }
+  
 }

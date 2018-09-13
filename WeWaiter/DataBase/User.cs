@@ -18,6 +18,14 @@ namespace WeWaiter.DataBase
         public DateTime JoinIn { get; set; }
         [JsonIgnore]
         public DateTime LastActive { get; set; }
-
+        public int Sex { get; internal set; }
+        public string City { get; internal set; }
+        public string Country { get; internal set; }
+        public string Province { get; internal set; }
+        public string Language { get; internal set; }
+        public int Subscribe { get; internal set; }
+        public string SubscribeScene { get; internal set; }
+        public long SubscribeTime { get; internal set; }
+        public string Remark { get; internal set; }
     }
 }

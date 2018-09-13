@@ -15,7 +15,7 @@ namespace WeWaiter.Utils
 {
     public static class TokenBuilder
     {
-        private const string keyString = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed";
+        private const string keyString = "axQAIuSniEAgX8OTAAhruNvQIJw4RvpUYJjPdg1u96ODpRkkHBpHTmOsnV2t0kIcoKq2G36cv0F3blCsQaATPdeM4ieRPKnLhfhPPYq6z9dqF8RNtEAwdckx3JZ9d6n8sOLdIIuURwBtX7ebRXMFpehaMnzm7xI8TKgOwTV9NA6iqiVEEepUXAIHnGhtJrqMYy42RKsPaf7MCnW3M5xwPzZeXLUDQtCaYovxLJOej57utRTDaAT75BzPG5zIlRdy";
         public static readonly byte[] symmetricKeyBytes = Encoding.ASCII.GetBytes(keyString);
         public static readonly SymmetricSecurityKey symmetricKey = new SymmetricSecurityKey(symmetricKeyBytes);
         public static readonly SigningCredentials signingCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);

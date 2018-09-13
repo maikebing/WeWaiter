@@ -279,7 +279,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 状态：{0}
 MsgId：{1}
 （这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
-                CustomApi.SendText(appId, WeixinOpenId, msg);//发送客服消息
+                CustomApi.SendText(appId,OpenId , msg);//发送客服消息
             }
             catch (Exception e)
             {

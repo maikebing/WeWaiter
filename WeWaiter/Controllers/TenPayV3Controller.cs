@@ -22,7 +22,6 @@ using ZXing.Common;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin;
@@ -481,9 +480,9 @@ namespace WeWaiter.Controllers
 
                 string data = packageReqHandler.ParseXML();
 
-                var result = TenPayV3.CloseOrder(data);
-                var res = XDocument.Parse(result);
-                string openid = res.Element("xml").Element("openid").Value;
+                var result = TenPayV3.CloseOrder( new TenPayV3CloseOrderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId,"", TenPayV3Info.Key, nonceStr));
+              
+                string openid = "";
 
                 return Content(openid);
             }

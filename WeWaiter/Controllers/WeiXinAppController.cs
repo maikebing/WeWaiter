@@ -2,17 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Helpers;
 using System;
-using System.IO;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
@@ -23,8 +19,10 @@ using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
 using WeWaiter.Models;
+using Senparc.Weixin.MP;
+using Senparc.Weixin;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
+namespace WeWaiter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -66,7 +64,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
             else
             {
-                return BadRequest("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
+                return BadRequest("failed:" + postModel.Signature + "," + Senparc.Weixin.MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
                     "如果你在浏览器中看到这句话，说明此地址可以被作为微信小程序后台的Url，请注意保持Token一致。"+ Token);
             }
         }
@@ -100,7 +98,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 {
                     //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                     //使用SessionContainer管理登录信息（推荐）
-                    var unionId = "";
+                    var userinfo =Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(WxOpenAppId,jsonResult.openid);
                     if (!_context.User.Any(u => u.OpenID == jsonResult.openid))
                     {
                         var adduser = _context.User.Add(new WeWaiter.DataBase.User()
@@ -109,6 +107,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                             JoinIn = DateTime.Now,
                             LastActive = DateTime.Now,
                             OpenID = jsonResult.openid,
+                            NickName = userinfo.nickname,
+                            Sex = userinfo.sex,
+                            City = userinfo.city,
+                            Country = userinfo.country,
+                            Language = userinfo.language,
+                            Province = userinfo.province,
+                            Subscribe = userinfo.subscribe,
+                            SubscribeScene = userinfo.subscribe_scene,
+                            SubscribeTime = userinfo.subscribe_time,
+                            UnionId = userinfo.unionid,
+                            Remark = userinfo.remark
                         });
                         await _context.SaveChangesAsync();
                     }
@@ -116,9 +125,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                     if (usr != null)
                     {
                         //https://github.com/aspnet/Home/issues/2193
-                        var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://bonafortune.com", "https://bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
-                        var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, unionId);
-                        return Ok(new { code = 0, msg = "OK", token });
+                        var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://www.bonafortune.com", "https://www.bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
+                        var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, jsonResult.unionid);
+                        return Ok(new { code = 0, msg = "OK", token,ImageHost= Utils.Server.ImageHost });
                     }
                     else
                     {
@@ -276,7 +285,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
-                    price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
+                    price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, Senparc.Weixin.TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 

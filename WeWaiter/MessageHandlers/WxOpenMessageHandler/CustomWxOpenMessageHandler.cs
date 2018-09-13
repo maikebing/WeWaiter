@@ -138,7 +138,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 var msg = result.ToString().Replace("\r\n", "\n");
 
                 //发送客服消息
-                Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
+                Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, OpenId, msg);
 
                 //也可以使用微信公众号的接口，完美兼容：
                 //Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
@@ -153,8 +153,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             //发来图片，进行处理
             Task.Factory.StartNew(async () =>
             {
-                await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, WeixinOpenId, "刚才您发送了这张图片：");
-                await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, WeixinOpenId, requestMessage.MediaId);
+                await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "刚才您发送了这张图片：");
+                await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, requestMessage.MediaId);
             });
             return DefaultResponseMessage(requestMessage);
         }
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 2、发送图片，返回同样的图片
 3、发送文字“link”,返回图文链接
 4、发送文字“card”，发送小程序卡片";
-            Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
+            Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, OpenId, msg);
 
             return DefaultResponseMessage(requestMessage);
         }

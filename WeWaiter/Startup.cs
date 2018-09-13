@@ -23,13 +23,12 @@ using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.WxOpen;
 using Swashbuckle.AspNetCore.Swagger;
 using WeWaiter.DataBase;
-using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.TenPay;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using WeWaiter.Utils;
+
 using Microsoft.AspNetCore.Authorization;
+using WeWaiter.Utils;
+
 namespace WeWaiter
 {
     public class Startup
@@ -69,9 +68,10 @@ namespace WeWaiter
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
             });
-            Console.WriteLine("Senparc.CO2NET 全局注册  Senparc.Weixin 注册");
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
+            Utils.Server.ImageHost = Configuration["ImageHostURL"];
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -41,7 +41,7 @@ namespace WeWaiter.Controllers
                 var seller = await _context.Seller.FindAsync(id);
                 if (seller == null)
                 {
-                    return Ok(new { code = 1009, msg = "没有找到此商户" }); ;
+                    return Ok(new { code = 1009, msg = $"没有找到此商户{id}" }); ;
                 }
                 var catalogs = from c in _context.Catalog where c.SellerID == seller.SellerID && c.Deleted == false orderby c.OrderBy select c;
                 List<GoodsCatalog> cgs = new List<GoodsCatalog>();
