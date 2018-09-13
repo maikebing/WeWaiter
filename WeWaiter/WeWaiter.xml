@@ -4,6 +4,26 @@
         <name>WeWaiter</name>
     </assembly>
     <members>
+        <member name="M:WeWaiter.Controllers.OrdersController.GetDetails(System.String)">
+            <summary>
+            返回订单的详细信息
+            </summary>
+            <param name="id">订单ID 0308c5a6-cbfe-49c7-92a0-c404342f480b</param>
+            <returns>订单详细信息</returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.OrdersController.GetOrders">
+            <summary>
+            当前登录用户的所有订单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.OrdersController.CreateOrder(WeWaiter.DataBase.NewOrder)">
+            <summary>
+            提交订单信息 { "buyItems": [ { "Total": 2, "goodsID": "c805253d14fd4f62a28deb118c3759da" } ],"sellerID": "342c501a-3365-4c2f-816f-2aaf51ea7a39","SeatNumber":1}
+            </summary>
+            <param name="order">订单详情</param>
+            <returns></returns>
+        </member>
         <member name="M:WeWaiter.Controllers.SellersController.GetSeller(System.String,System.Int32)">
             <summary>
             获取商家信息

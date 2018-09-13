@@ -29,9 +29,9 @@ namespace WeWaiter.Utils
             tokenValidationParams = new TokenValidationParameters()
             {
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = "https://bonafortune.com",
+                ValidIssuer = "https://www.bonafortune.com",
                 ValidateLifetime = true,
-                ValidAudience = "https://bonafortune.com",
+                ValidAudience = "https://www.bonafortune.com",
                 ValidateAudience = true,
                 RequireSignedTokens = true,
                 // Use our signing credentials key here

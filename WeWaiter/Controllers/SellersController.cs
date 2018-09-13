@@ -10,9 +10,10 @@ using WeWaiter.DataBase;
 
 namespace WeWaiter.Controllers
 {
-    [Authorize()]
+   
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SellersController : ControllerBase
     {
         private readonly WeWaiterContext _context;

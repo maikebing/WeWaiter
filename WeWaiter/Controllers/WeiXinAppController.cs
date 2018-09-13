@@ -98,9 +98,10 @@ namespace WeWaiter.Controllers
                 {
                     //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                     //使用SessionContainer管理登录信息（推荐）
-                    var userinfo =Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(WxOpenAppId,jsonResult.openid);
+                    
                     if (!_context.User.Any(u => u.OpenID == jsonResult.openid))
                     {
+                        var userinfo = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessToken(WxOpenAppId), jsonResult.openid);
                         var adduser = _context.User.Add(new WeWaiter.DataBase.User()
                         {
                             UserID = Guid.NewGuid().ToString().Replace("-", ""),
