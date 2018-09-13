@@ -36,9 +36,11 @@
       // }
       async getData (id) {
         // let orderRes = await this.$http.get(`order/${id}`)
-        let orderRes = await this.$http.get(`http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=/order/${id}`)
+        // let orderRes = await this.$http.get(`http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=/order/${id}`)
+        let orderRes = await this.$http.get(`orders`)
         console.log('getData@49:index', orderRes)
         this.seller = orderRes.data.seller
+        console.log('getData@43', this.seller)
         this.order = orderRes.data
       }
     },

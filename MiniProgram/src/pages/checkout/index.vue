@@ -109,7 +109,7 @@
         //   fail(res) {
         //   }
         // })
-        wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.orderID}`})
+        wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.data.id}`})
       }
     },
     onLoad (options) {
@@ -120,7 +120,7 @@
         this.selectFoods = wx.getStorageSync('selectFoods')
         this.seller = wx.getStorageSync('seller')
       }
-      this.getDiningDetailsListData()
+      // this.getDiningDetailsListData()
     }
   }
 </script>
