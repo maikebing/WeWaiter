@@ -9,7 +9,7 @@
 <template>
   <div>
     <div class="we-menu-list-box">
-      <block v-for="menu in menuList" :key="menu.id">
+      <block v-for="menu in menuList" :key="menu.buyItemID">
         <menu-item :menu="menu"></menu-item>
       </block>
     </div>
@@ -25,13 +25,17 @@
     props: ['menuList', 'total'],
     data () {
       return {
+        menuList: this.menuList
       }
     },
     components: {
       MenuItem
     },
     methods: {},
-    created () {}
+    created () {},
+    mounted () {
+      console.log('mounted@36', this.menuList)
+    }
   }
 </script>
 

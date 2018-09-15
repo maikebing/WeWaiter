@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <order-status :status="order.status && order.status.code"></order-status>
-    <table-number :status="order.status && order.status.code" :seller="seller"></table-number>
+    <order-status :status="order.orderStatus"></order-status>
+    <table-number :status="order.orderStatus" :seller="seller"></table-number>
     <div class="we-order-btn-group">
       <order-action :order="order"/>
     </div>
     <div class="we-order-menu-list">
-      <menu-list :menu-list="order.foods" :total="order.total_price"></menu-list>
+      <menu-list :menu-list="buyItems" :total="order.totalPrice"></menu-list>
     </div>
   </div>
 </template>
@@ -21,7 +21,8 @@
       return {
         order: {},
         seller: {},
-        foods: []
+        foods: [],
+        buyItems: []
       }
     },
     components: {
@@ -35,13 +36,28 @@
       //   return orderList.find((order) => String(order.id) === id)
       // }
       async getData (id) {
-        let orderRes = await this.$http.get(`order/${id}`)
+        let orderRes = await this.$http.get(`orders/${id}`)
         // let orderRes = await this.$http.get(`http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=/order/${id}`)
         // let orderRes = await this.$http.get(`orders`)
         console.log('getData@49:index', orderRes)
+        orderRes.data.seller.avatar = this.ossUrl + orderRes.data.seller.avatar
         this.seller = orderRes.data.seller
-        console.log('getData@43', this.seller)
-        this.order = orderRes.data
+        this.order = orderRes.data.order
+        this.order.status = {
+          code: orderRes.data.order.statusCode
+        }
+        let items = orderRes.data.buyItems
+        items = items.map(x=>{
+          x.icon = this.ossUrl + x.icon
+          x.image = this.ossUrl + x.image
+          x.name = x.goodsName
+          x.id = x.goodsID
+          x.count = x.amount
+          x.price = x.unitPrice
+          return x
+        })
+        console.log('items@55', items)
+        this.buyItems = items
       }
     },
     created () {
