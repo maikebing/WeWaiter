@@ -12,14 +12,14 @@
     <div class="we-box">
       <div class="we-order-status" @click="onRedirectToDetail(order.id)">
         <div class="we-icon-box">
-          <img :src="order.seller.avatar" class="we-icon"/>
+          <img :src="imgHost + order.seller.avatar" class="we-icon"/>
         </div>
         <div class="we-des">
           <text class="we-des-name">{{order.seller.name}}</text>
           <text :class="['we-order-status', 'status-' + status]">{{ statusText }}</text>
         </div>
       </div>
-      <div class="we-order-des"  @click="onRedirectToDetail(order.id)">
+      <div class="we-order-des"  @click="onRedirectToDetail">
         <text>{{ order.seller.name }} 等 {{ order.buyItems.length}} 份美食</text>
         <div class="we-pay">
           <text>共计</text>
@@ -39,12 +39,15 @@
     components: {OrderAction},
     props: ['order'],
     data () {
-      return {}
+      return {
+        imgHost: this.ossUrl
+      }
     },
     methods: {
       onRedirectToDetail (id) {
+        console.log('onRedirectToDetail@48', )
         wx.navigateTo({
-          url: `../order-detail/main?id=${id}`
+          url: `../order-detail/main?id=${this.order.order.orderID}`
         })
       },
       onPay (id) {
@@ -96,6 +99,7 @@
       }
     },
     created () {
+      console.log('created@101', this.order)
     }
   }
 </script>
