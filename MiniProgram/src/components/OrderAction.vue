@@ -35,7 +35,7 @@
         wx.showLoading({
           title: '正在加载',
         })
-        let payRes = await this.$http.get(`pay/${id}/`)
+        let payRes = await this.$http.get(`TenPayV3/JsApi/${id}/`)
         wx.requestPayment({
           ...payRes.data,
           success(res) {

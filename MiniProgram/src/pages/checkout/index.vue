@@ -100,7 +100,7 @@
         let orderRes = await this.$http.post('orders', orderParams)
         console.log('toPay@44', orderRes)
         wx.hideLoading()
-        let payRes = await this.$http.get(`pay/${orderRes.order.orderID}/`)
+        let payRes = await this.$http.get(`TenPayV3/JsApi/${orderRes.order.orderID}/`)
         wx.requestPayment({
           ...payRes.data,
           success(res) {
