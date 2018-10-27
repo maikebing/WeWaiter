@@ -100,16 +100,15 @@
         let orderRes = await this.$http.post('orders', orderParams)
         console.log('toPay@44', orderRes)
         wx.hideLoading()
-
-        // let payRes = await this.$http.get(`pay/${orderRes.orderID}/`)
-        // wx.requestPayment({
-        //   ...payRes.data,
-        //   success(res) {
-        //     console.log('success@19')
-        //   },
-        //   fail(res) {
-        //   }
-        // })
+        let payRes = await this.$http.get(`pay/${orderRes.order.orderID}/`)
+        wx.requestPayment({
+          ...payRes.data,
+          success(res) {
+            console.log('success@19')
+          },
+          fail(res) {
+          }
+        })
         wx.redirectTo({url: `/pages/order-detail/main?id=${orderRes.order.orderID}`})
       }
     },

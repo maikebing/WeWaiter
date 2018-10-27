@@ -10,7 +10,7 @@
 <template>
   <div>
     <div class="we-box">
-      <div class="we-order-status" @click="onRedirectToDetail(order.id)">
+      <div class="we-order-status" @click="onRedirectToDetail(order.order.orderID)">
         <div class="we-icon-box">
           <img :src="imgHost + order.seller.avatar" class="we-icon"/>
         </div>
@@ -20,10 +20,10 @@
         </div>
       </div>
       <div class="we-order-des"  @click="onRedirectToDetail">
-        <text>{{ order.seller.name }} 等 {{ order.buyItems.length}} 份美食</text>
+      <text>{{ order.buyItems[0].goodsName }} 等 {{ order.buyItems.length}} 份美食</text>
         <div class="we-pay">
           <text>共计</text>
-          <text class="we-sum">¥ {{ order.total_price }}</text>
+          <text class="we-sum">¥ {{ order.order.totalPrice }}</text>
         </div>
       </div>
       <div class="we-btn-group">
@@ -44,8 +44,7 @@
       }
     },
     methods: {
-      onRedirectToDetail (id) {
-        console.log('onRedirectToDetail@48', )
+      onRedirectToDetail () {
         wx.navigateTo({
           url: `../order-detail/main?id=${this.order.order.orderID}`
         })
@@ -67,6 +66,11 @@
       }
     },
     computed: {
+      total: function () {
+        return this.order.buyItems.reduce(function (acc, current) {
+          return (acc += current.total)
+        }, 0)
+      },
       status: function () {
         let status = this.order.order['orderStatus']
         switch (status) {
@@ -99,7 +103,6 @@
       }
     },
     created () {
-      console.log('created@101', this.order)
     }
   }
 </script>
