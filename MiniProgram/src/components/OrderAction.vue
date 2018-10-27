@@ -36,18 +36,31 @@
           title: '正在加载',
         })
         let payRes = await this.$http.get(`TenPayV3/JsApi/${id}/`)
-        wx.requestPayment({
-          ...payRes.data,
-          success(res) {
-            console.log('success@19')
-          },
-          fail(res) {
-          }
-        })
-        setTimeout(function(){
-          wx.hideLoading()
-        },2000)
-        wx.navigateTo({url: `/pages/order-detail/main?id=${id}`})
+        wx.requestPaymen(
+          {
+            timeStamp: payRes.data.timeStamp,
+                    nonceStr: payRes.data.nonceStr,
+                    package: payRes.data.package,
+                    signType: 'MD5',
+                    paySign: payRes.data.paySign,
+                    success: function (res) {
+                      // success
+                      console.log(res);
+                          wx.navigateTo({url: `/pages/order-detail/main?id=${id}`});
+                    },
+                    fail: function (res) {
+                      // fail
+                      console.log(res);
+                         wx.showLoading({
+          title: res,
+        });
+                    },
+                    complete: function (res) {
+                      // complete
+                      console.log(res);
+                        wx.hideLoading();
+                    }
+          })
       },
       onOrderDishes (id) {
         wx.navigateTo({
