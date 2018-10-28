@@ -32,106 +32,16 @@
             <param name="seatid">座位编码，如果没有座位，则座位信息为空</param>
             <returns></returns>
         </member>
-        <member name="T:WeWaiter.Controllers.TenPayV3Controller">
-            <summary>
-            根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
-            </summary>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Index(System.Int32,System.Int32)">
-            <summary>
-            获取用户的OpenId
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Native">
-            <summary>
-            原生支付 模式一
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.NativeByCodeUrl">
-            <summary>
-            原生支付 模式二
-            根据统一订单返回的code_url生成支付二维码。该模式链接较短，生成的二维码打印到结账小票上的识别率较高。
-            注意：code_url有效期为2小时，过期后扫码不能再发起支付
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.MicroPay(System.String)">
-            <summary>
-            刷卡支付
-            </summary>
-            <param name="authCode">扫码设备获取到的微信用户刷卡授权码</param>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrl">
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrl(System.Boolean)">
             <summary>
             JS-SDK支付回调地址（在统一下单接口中设置notify_url）
             </summary>
             <returns></returns>
         </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.OrderQuery">
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrlWxOpen">
             <summary>
-            订单查询
+            小程序微信支付回调
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.CloseOrder">
-            <summary>
-            关闭订单接口
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Refund">
-            <summary>
-            退款申请接口
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.RefundNotifyUrl">
-            <summary>
-            退款通知地址
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.DownloadBill(System.String)">
-            <summary>
-            下载对账单
-            </summary>
-            <param name="date">日期，格式如：20170716</param>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.SendRedPack">
-            <summary>
-            目前支持向指定微信用户的openid发放指定金额红包
-            注意total_amount、min_value、max_value值相同
-            total_num=1固定
-            单个红包金额介于[1.00元，200.00元]之间
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.SendGroupRedPack">
-            <summary>
-            目前支持向指定微信用户的openid发放指定金额红包
-            注意total_amount、min_value、max_value值相同
-            total_num=1固定
-            单个红包金额介于[1.00元，200.00元]之间
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.ProductPayCode(System.Int32,System.Int32)">
-            <summary>
-            显示二维码
-            </summary>
-            <param name="productId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.H5Pay(System.Int32,System.Int32)">
-            <summary>
-            H5支付
-            </summary>
-            <param name="productId"></param>
-            <param name="hc"></param>
             <returns></returns>
         </member>
         <member name="M:WeWaiter.Controllers.WeiXinAppController.Get(Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.String)">

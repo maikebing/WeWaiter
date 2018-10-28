@@ -19,10 +19,12 @@ namespace WeWaiter.DataBase
         public DateTime Create { get; set; }
         public decimal Payable { get; set; }
         public decimal ActPay { get; set; }
-        public string PayOrderID { get; set; }
+        public string TransactionId { get; set; }
         public string PayType { get; set; }
         public decimal TotalPrice { get; set; }
         public int OrderStatus { get; set; }
+        public string OpenID { get; internal set; }
+     
     }
     public class Orders
     {

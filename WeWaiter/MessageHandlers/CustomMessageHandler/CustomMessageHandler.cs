@@ -83,11 +83,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             };
         }
 
-        public CustomMessageHandler(RequestMessageBase requestMessage)
-            : base(requestMessage)
-        {
-        }
-
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData

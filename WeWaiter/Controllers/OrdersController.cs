@@ -106,14 +106,14 @@ namespace WeWaiter.Controllers
                 }
                 else
                 {
-                    order.OrderID = Guid.NewGuid().ToString();
+                    order.OrderID = Guid.NewGuid().ToString().Replace("-","");
                     order.Create = DateTime.Now;
                     order.UserID = userid;
                     var seat = await _context.Seat.FirstOrDefaultAsync(s => s.SeatNumber == order.SeatNumber);
                     order.SeatID = seat?.SeatId;
                     order.BuyItems.ForEach(async a =>
                     {
-                        a.BuyItemID = Guid.NewGuid().ToString();
+                        a.BuyItemID = Guid.NewGuid().ToString().Replace("-", "");
                         a.OrderID = order.OrderID;
                         var goods = await _context.Goods.FindAsync(a.GoodsID);
                         a.UnitPrice = goods.SellingPrice;

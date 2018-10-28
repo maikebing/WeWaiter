@@ -43,7 +43,11 @@ namespace WeWaiter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddLogging(configure =>
+            {
+                configure.AddConsole()
+                .AddJournal();
+            });
             services.AddSwaggerGen(c =>
             {
                 //配置第一个Doc
@@ -71,6 +75,7 @@ namespace WeWaiter
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
             Utils.Server.ImageHost = Configuration["ImageHostURL"];
+          
 
         }
 
