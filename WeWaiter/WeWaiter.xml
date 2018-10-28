@@ -32,7 +32,7 @@
             <param name="seatid">座位编码，如果没有座位，则座位信息为空</param>
             <returns></returns>
         </member>
-        <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrl(System.Boolean)">
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrl(System.String)">
             <summary>
             JS-SDK支付回调地址（在统一下单接口中设置notify_url）
             </summary>
@@ -41,6 +41,18 @@
         <member name="M:WeWaiter.Controllers.TenPayV3Controller.PayNotifyUrlWxOpen">
             <summary>
             小程序微信支付回调
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Query(System.String)">
+            <summary>
+            订单查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeWaiter.Controllers.TenPayV3Controller.Close(System.String)">
+            <summary>
+            关闭订单接口
             </summary>
             <returns></returns>
         </member>
@@ -60,6 +72,61 @@
         <member name="M:WeWaiter.Controllers.WeiXinController.Get(Senparc.Weixin.MP.Entities.Request.PostModel,System.String)">
             <summary>
             微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://sdk.weixin.senparc.com/weixin
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.OrderIndex">
+            <summary>
+            当天票号
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.Create">
+            <summary>
+            下单时间
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.Payable">
+            <summary>
+            应付的
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.ActPay">
+            <summary>
+            实际支付金额 从微信来
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.TransactionId">
+            <summary>
+            微信交易代码
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.PayType">
+            <summary>
+            支付类型
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.TotalPrice">
+            <summary>
+            总价格
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.OrderStatus">
+            <summary>
+            支付状态， 默认为 0 未支付，  更新跟随微信状态更新
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.OpenID">
+            <summary>
+            微信支付人ID
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.PrepayId">
+            <summary>
+            预支付ID,用于查询订单支付状态
+            </summary>
+        </member>
+        <member name="P:WeWaiter.DataBase.Order.PayDateTime">
+            <summary>
+            从微信返回来的支付时间，但返回异常情况下为 回调时间
             </summary>
         </member>
         <member name="P:WeWaiter.DataBase.Seat.SeatId">

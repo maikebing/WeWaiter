@@ -80,9 +80,9 @@ namespace WeWaiter.Controllers
             }
         }
 
-     
 
-       
+
+
         #region JsApi支付
 
         //需要OAuth登录
@@ -93,26 +93,28 @@ namespace WeWaiter.Controllers
             IActionResult actionResult = NoContent();
             try
             {
-          
-                var product = _context.Order.FirstOrDefault(z => z.OrderID == orderid);
-         
-                if (product == null || product.OrderStatus!=0)
+
+                var _order = _context.Order.FirstOrDefault(z => z.OrderID == orderid);
+
+                if (_order == null || _order.OrderStatus != 0)
                 {
                     _logger.LogInformation($"订单不存在{orderid}");
-                    actionResult = Ok(new { code = 1010, msg =$"商品信息不存在，或已支付{product.OrderStatus}" });
+                    actionResult = Ok(new { code = 1010, msg = $"商品信息不存在，或已支付{_order.OrderStatus}" });
                 }
                 else
                 {
                     var items = from bi in _context.BuyItem where bi.OrderID == orderid select bi;
-                    var body = string.Join('_' ,( from bi in items select bi.GoodsName).Take(3).ToArray());
+                    var body = string.Join('_', (from bi in items select bi.GoodsName).Take(3).ToArray());
                     var sessionBag = SessionContainer.GetSession(Request.GetJwtSecurityToken()?.GetUserId());
                     var openId = sessionBag.OpenId;
                     string sp_billno = orderid;
                     var timeStamp = TenPayV3Util.GetTimestamp();
                     var nonceStr = TenPayV3Util.GetNoncestr();
-                    var price = product == null ? 100 : (int)(product.TotalPrice * 100);//单位：分
-                    _logger.LogInformation($"body:{body},openId={openId},orderid={orderid},timeStamp={timeStamp},nonceStr={nonceStr},price={price}");
-                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify,  Senparc.Weixin.TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                    int willpay =(int) (_order.Payable * 100);
+                    int minipay = (int)(((int)(_order.TotalPrice * 100)) * 0.8);
+                    int  price =  (_order.Payable!=0 && willpay>=minipay ) ? willpay : minipay;//单位：分
+                    _logger.LogInformation($"body:{body},openId={openId},orderid={orderid},timeStamp={timeStamp},nonceStr={nonceStr},_order.Payable={_order.Payable};_order.TotalPrice={_order.TotalPrice},willpay={willpay};minipay={minipay},price={price}");
+                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, Senparc.Weixin.TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
                     var result = TenPayV3.Unifiedorder(xmlDataInfo);
                     if (result.return_code == "SUCCESS")
                     {
@@ -120,19 +122,21 @@ namespace WeWaiter.Controllers
                         var package = string.Format("prepay_id={0}", result.prepay_id);
                         var data = new
                         {
-                            out_trade_no= orderid,
+                            out_trade_no = orderid,
                             TenPayV3Info.AppId,
                             timeStamp,
                             nonceStr,
                             package,
-                            signType="MD5",
+                            signType = "MD5",
                             paySign = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key)
                         };
+                        _order.PrepayId = result.prepay_id;
+                        _context.SaveChanges();
                         actionResult = Ok(new { code = 0, msg = "OK", data });
                     }
                     else
                     {
-                        actionResult = Ok(new { code = 1013, msg = result.return_msg,result.result_code ,result.err_code,result.err_code_des  });
+                        actionResult = Ok(new { code = 1013, msg = result.return_msg, result.result_code, result.err_code, result.err_code_des });
                         _logger.LogInformation($"msg ={ result.return_msg},result_code= {result.result_code} ,err_code={result.err_code},err_code_des={result.err_code_des}");
                     }
                 }
@@ -145,7 +149,7 @@ namespace WeWaiter.Controllers
                 {
                     msg += $"\r\n ===InnerException===\r\n{ex.InnerException.Message}";
                 }
-                actionResult= Ok( new { code=1012,msg=msg });
+                actionResult = Ok(new { code = 1012, msg = msg });
             }
             return actionResult;
         }
@@ -156,12 +160,13 @@ namespace WeWaiter.Controllers
         /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
         /// </summary>
         /// <returns></returns>
-        [HttpGet("PayNotifyUrl")]
-        public IActionResult PayNotifyUrl()//注意：统一下单接口中不能带参数！
+        [HttpPost("PayNotifyUrl")]
+        [AllowAnonymous]
+        public IActionResult PayNotifyUrl(string id)//注意：统一下单接口中不能带参数！
         {
             return PayNotifyUrl_Ex(false);
         }
-   
+
         IActionResult PayNotifyUrl_Ex(bool isWxOpenPay)//注意：统一下单接口中不能带参数！
         {
             WeixinTrace.SendCustomLog("微信支付回调", "来源：" + (isWxOpenPay ? "微信支付" : "小程序支付"));
@@ -183,28 +188,51 @@ namespace WeWaiter.Controllers
                     string openid = resHandler.GetParameter("openid");
                     string total_fee = resHandler.GetParameter("total_fee");
                     string transaction_id = resHandler.GetParameter("transaction_id");
-
+                    string end_time = resHandler.GetParameter("time_end");
                     try
                     {
                         var order = _context.Order.FirstOrDefault(od => od.OrderID == out_trade_no);
                         if (order != null)
                         {
-                            order.TransactionId = transaction_id;
-                            order.ActPay = decimal.Parse(total_fee);
-                            order.OrderStatus = 1;
-                            order.PayType = "WeiXin";
-                            order.OpenID = openid;
-                            _context.Order.Update(order);
-                            _context.SaveChanges();
+                            if (order.OrderStatus == TradeState.NOTPAY || order.OrderStatus== TradeState.USERPAYING)
+                            {
+                                order.TransactionId = transaction_id;
+                                order.ActPay = decimal.Parse(total_fee);
+                                order.OrderStatus = TradeState.SUCCESS;
+                                order.PayType = "WeiXin";
+                                order.OpenID = openid;
+                                if (DateTime.TryParseExact(end_time, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out DateTime paydatetime_))
+                                {
+                                    order.PayDateTime = paydatetime_;
+                                }
+                                else
+                                {
+                                    order.PayDateTime = DateTime.Now;
+                                }
+                                _context.Order.Update(order);
+                                _context.SaveChanges();
+                                paySuccess = true;//正确的订单处理
+                            }
+                            else
+                            {
+                                return_code = "SUCCESS";
+                                return_msg = "订单已支付";
+                                paySuccess = true;
+                            }
                         }
-                        paySuccess = true;//正确的订单处理
+                        else
+                        {
+                            return_code = "FAIL";
+                            return_msg = "订单不存在";
+                            paySuccess = false;
+                        }
                     }
                     catch (Exception ex)
                     {
                         return_code = "FAIL";
-                        return_msg = "无法购买商品";
+                        return_msg = "服务器异常";
                         paySuccess = false;
-                        _logger.LogError(ex, "数据无法保存");
+                        _logger.LogError(ex, "数据无法保存" + ex.Message);
                     }
                 }
                 else
@@ -286,21 +314,112 @@ namespace WeWaiter.Controllers
         /// 小程序微信支付回调
         /// </summary>
         /// <returns></returns>
-        [HttpGet("PayNotifyUrlWxOpen")]
+        [HttpPost("PayNotifyUrlWxOpen")]
+        [AllowAnonymous]
         public IActionResult PayNotifyUrlWxOpen()
         {
             WeixinTrace.SendCustomLog("小程序微信支付回调", "TenPayV3Controller.PayNotifyUrlWxOpen()");
             return PayNotifyUrl_Ex(true);//调用正常的流程
 
         }
-
-
         #endregion
 
 
+        #region 订单及退款
 
+        /// <summary>
+        /// 订单查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Query")]
+        [Authorize]
+        public IActionResult  Query([FromRoute]string orderid)
+        {
+            IActionResult actionResult = NoContent();
+            string nonceStr = TenPayV3Util.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler(null);
+            try
+            {
+                var _order = _context.Order.FirstOrDefault(od => od.OrderID == orderid);
+                if (_order != null)
+                {
+                    //设置package订单参数
+                    packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);          //公众账号ID
+                    packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);         //商户号
+                    packageReqHandler.SetParameter("transaction_id", _order.TransactionId);       //填入微信订单号 
+                    packageReqHandler.SetParameter("out_trade_no", orderid);         //填入商家订单号
+                    packageReqHandler.SetParameter("nonce_str", nonceStr);             //随机字符串
+                    string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+                    packageReqHandler.SetParameter("sign", sign);                       //签名
+                    string data = packageReqHandler.ParseXML();
+                    var result = TenPayV3.OrderQuery(data);
+                    OrderQueryResult orderQueryResult = new OrderQueryResult(result);
+                    _order.TransactionId = orderQueryResult.transaction_id;
+                    _order.ActPay = decimal.Parse(orderQueryResult.total_fee);
+                    var trade_state = Enum.Parse<TradeState>(orderQueryResult.trade_state);
+                    _order.OrderStatus = trade_state;
+                    _order.PayType = orderQueryResult.fee_type;
+                    _order.OpenID = orderQueryResult.openid;
+                    _context.Order.Update(_order);
+                    _context.SaveChanges();
+                    actionResult = CreatedAtRoute("api/Orders", orderid);
+                }
+                else
+                {
+                    actionResult = Ok(new { code = 1014, msg = "订单不存在" });
+                    _logger.LogInformation($"订单{orderid}不存在");
+                }
+            }
+            catch (Exception ex)
+            {
+                actionResult = Ok(new {code=1005,msg=ex.Message });
+                _logger.LogError(ex, "查询订单时异常" + ex.Message);
+            }
+            return actionResult;
+      
+        }
 
+        /// <summary>
+        /// 关闭订单接口
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Close")]
+        [Authorize]
+        public IActionResult Close([FromRoute]string orderid)
+        {
+            IActionResult actionResult = NoContent();
+            string nonceStr = TenPayV3Util.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler(null);
 
+            //设置package订单参数
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
+            packageReqHandler.SetParameter("out_trade_no", orderid);                 //填入商家订单号
+            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+            string data = packageReqHandler.ParseXML();
+
+            var result = TenPayV3.CloseOrder(data);
+            var res =new  CloseOrderResult  (result);
+            if (res.result_code == WeXinUtils.SUCCESS)
+            {
+                var _order = _context.Order.FirstOrDefault(od => od.OrderID == orderid);
+                if (_order != null)
+                {
+                    _order.OrderStatus = TradeState.CLOSED;
+                }
+                _context.SaveChanges();
+                actionResult = Ok(new { code = 0, msg = "OK" });
+            }
+            else
+            {
+                actionResult = Ok(new { code = 1006, msg = "查询失败",  res.err_code,res.err_code_des  });
+            }
+            return actionResult;
+        }
+        #endregion
     }
 }
 

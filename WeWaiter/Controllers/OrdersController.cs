@@ -124,6 +124,7 @@ namespace WeWaiter.Controllers
                         _context.BuyItem.Add(a);
                         order.TotalPrice += a.Total;
                     });
+                    order.Payable = order.TotalPrice;//这里减去平台红包
                     int sellerordercount = await _context.Order.CountAsync(o => o.SellerID == order.SellerID && o.Create.Date.Equals(DateTime.Now.Date));
                     order.OrderIndex = sellerordercount + 1;
                     _context.Order.Add(order);
