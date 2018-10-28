@@ -387,3 +387,4 @@ selenium-debug.log
 .gitlab-ci.yml
 gitlab-ci.yml
 project.config.json
+/miniprogram_npm
