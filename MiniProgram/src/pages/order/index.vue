@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <block v-for="order in orderList" :key="order.id">
-      <order-item :order="order"></order-item>
+      <order-item :order="order" @pay-success="payOnSuccess"></order-item>
     </block>
   </div>
 </template>
@@ -24,6 +24,10 @@
         let orderListRes = await fly.get('Orders')
         console.log('getData@24', orderListRes.orders)
         this.orderList = orderListRes.orders
+      },
+      payOnSuccess () {
+        console.log('payOnSuccess@订单列表页：29 ==========> 订单支付成功')
+        this.getData()
       }
     },
     created () {

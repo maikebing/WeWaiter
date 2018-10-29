@@ -114,6 +114,9 @@ export default {
                     wx.showLoading({
                         title: res
                     })
+                  wx.redirectTo({
+                    url: `/pages/order-detail/main?id=${orderRes.order.orderID}`
+                  })
                 }
             })
 

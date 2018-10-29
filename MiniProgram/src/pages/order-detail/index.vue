@@ -3,11 +3,11 @@
     <order-status :status="order.orderStatus"></order-status>
     <table-number :status="order.orderStatus" :seller="seller"></table-number>
     <div class="we-order-btn-group">
-      <order-action :order="order"/>
+      <order-action :order="order" @pay-success="payOnSuccess"/>
     </div>
-    <div class="we-order-menu-list">
-      <menu-list :menu-list="buyItems" :total="order.totalPrice"></menu-list>
-    </div>
+    <!--<div class="we-order-menu-list">-->
+      <!--<menu-list :menu-list="buyItems" :total="order.totalPrice"></menu-list>-->
+    <!--</div>-->
   </div>
 </template>
 <script type="text/babel">
@@ -19,6 +19,7 @@
   export default {
     data () {
       return {
+        orderID: '',
         order: {},
         seller: {},
         foods: [],
@@ -58,13 +59,18 @@
         })
         console.log('items@55', items)
         this.buyItems = items
+      },
+      payOnSuccess () {
+        console.log('payOnSuccess@订单详情页:64 ==========> 订单支付成功')
+        this.getData(this.orderID)
       }
     },
     created () {
     },
     onLoad (options) {
       // this.order = this.getOrderData(options.id)
-      this.getData(options.id)
+      this.orderID = options.id
+      this.getData(this.orderID)
     },
     onShow() {
 

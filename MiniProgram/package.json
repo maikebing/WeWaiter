@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "better-scroll": "^1.12.1",
-    "mpvue": "^1.0.11",
+    "mpvue": "^1.0.13",
     "vuex": "^3.0.1",
     "minapp-api-promise": "^1.0.2"
   },
@@ -47,7 +47,7 @@
     "glob": "^7.1.2",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.18.0",
-    "mpvue-loader": "1.0.13",
+    "mpvue-loader": "1.1.2",
     "mpvue-template-compiler": "^1.0.11",
     "mpvue-webpack-target": "^1.0.0",
     "node-sass": "^4.9.2",

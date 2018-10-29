@@ -7,7 +7,7 @@
 		"minified": true,
 		"newFeature": true
 	},
-	"miniprogramRoot": "./dist/",
+	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
 	"appid": "wxb4fc708bde2cad63",
 	"projectname": "we-waiter",
@@ -53,7 +53,7 @@
 					"id": 3,
 					"name": "订单详情",
 					"pathName": "pages/order-detail/main",
-					"query": "id=0209ac99-b7d2-446a-a547-0a063de3bfc8"
+					"query": "id=a4ec059e6e8940198c670063c4933c96"
 				},
 				{
 					"id": -1,

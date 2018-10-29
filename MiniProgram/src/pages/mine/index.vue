@@ -1,11 +1,13 @@
 <template>
   <view class="user-card">
     <view class="avatar-wrapper">
-      <image :src="user.avatarUrl"></image>
+      <!--<image :src="user.avatarUrl"></image>-->
+      <open-data type="userAvatarUrl"></open-data>
     </view>
     <view class="detail">
       <view class="z-row">
-        <view class="name">{{user.nickName}}</view>
+        <!--<view class="name">{{user.nickName}}</view>-->
+        <open-data type="userNickName"></open-data>
         <!--<view class="border">档次:123</view>-->
       </view>
       <!--<view class="z-row">手机号：13999564234</view>-->

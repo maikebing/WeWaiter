@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="we-btn-group">
-        <order-action :order="order"></order-action>
+        <order-action :order="order.order" @pay-success="payOnSuccess"></order-action>
       </div>
     </div>
   </div>
@@ -63,6 +63,9 @@
         wx.navigateTo({
           url: '../meal/main'
         })
+      },
+      payOnSuccess () {
+        this.$emit('pay-success')
       }
     },
     computed: {

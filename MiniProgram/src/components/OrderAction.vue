@@ -2,8 +2,8 @@
   <div>
     <div
       class="we-btn we-btn-default"
-      v-if="order.status && order.status.code !== 0"
-      @click="onOneMoreOrder(order.id)">再来一单
+      v-if="order.orderStatus === 1"
+      @click="onOneMoreOrder(order.orderID)">再来一单
     </div>
     <!--<div-->
     <!--class="we-btn we-btn-default"-->
@@ -12,8 +12,8 @@
     <!--</div>-->
     <div
       class="we-btn we-btn-pay"
-      v-if="order.status && order.status.code === 0"
-      @click="onPay(order.id)">立即支付
+      v-if="order.orderStatus === 0"
+      @click="onPay(order.orderID)">立即支付
     </div>
   </div>
 </template>
@@ -32,11 +32,12 @@
         })
       },
       async onPay (id) {
+        let self = this
         wx.showLoading({
           title: '正在加载',
         })
         let payRes = await this.$http.get(`TenPayV3/JsApi/${id}/`)
-        wx.requestPaymen(
+        wx.requestPayment(
           {
             timeStamp: payRes.data.timeStamp,
             nonceStr: payRes.data.nonceStr,
@@ -46,7 +47,8 @@
             success: function (res) {
               // success
               console.log(res);
-              wx.navigateTo({url: `/pages/order-detail/main?id=${id}`});
+              // wx.navigateTo({url: `/pages/order-detail/main?id=${id}`});
+              self.$emit('pay-success');
             },
             fail: function (res) {
               // fail
