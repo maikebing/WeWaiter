@@ -6,9 +6,9 @@
       @click="onOneMoreOrder(order.id)">再来一单
     </div>
     <!--<div-->
-      <!--class="we-btn we-btn-default"-->
-      <!--v-if=" order.status &&  order.status.code === 0"-->
-      <!--@click="onOrderDishes(order.id)">加菜-->
+    <!--class="we-btn we-btn-default"-->
+    <!--v-if=" order.status &&  order.status.code === 0"-->
+    <!--@click="onOrderDishes(order.id)">加菜-->
     <!--</div>-->
     <div
       class="we-btn we-btn-pay"
@@ -39,27 +39,27 @@
         wx.requestPaymen(
           {
             timeStamp: payRes.data.timeStamp,
-                    nonceStr: payRes.data.nonceStr,
-                    package: payRes.data.package,
-                    signType: 'MD5',
-                    paySign: payRes.data.paySign,
-                    success: function (res) {
-                      // success
-                      console.log(res);
-                          wx.navigateTo({url: `/pages/order-detail/main?id=${id}`});
-                    },
-                    fail: function (res) {
-                      // fail
-                      console.log(res);
-                         wx.showLoading({
-          title: res,
-        });
-                    },
-                    complete: function (res) {
-                      // complete
-                      console.log(res);
-                        wx.hideLoading();
-                    }
+            nonceStr: payRes.data.nonceStr,
+            package: payRes.data.package,
+            signType: 'MD5',
+            paySign: payRes.data.paySign,
+            success: function (res) {
+              // success
+              console.log(res);
+              wx.navigateTo({url: `/pages/order-detail/main?id=${id}`});
+            },
+            fail: function (res) {
+              // fail
+              console.log(res);
+              wx.showLoading({
+                title: res,
+              });
+            },
+            complete: function (res) {
+              // complete
+              console.log(res);
+              wx.hideLoading();
+            }
           })
       },
       onOrderDishes (id) {
@@ -106,6 +106,5 @@
       background-color: transparent;
     }
   }
-
 
 </style>

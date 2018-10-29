@@ -1,5 +1,5 @@
 const apiHost = 'https://api.cokco.cn/api'
-const imgHost = 'https://image.cokco.cn/'
+const imgHost = wx.getStorageSync('imgHost') || ''
 const config = {
   apiHost,
   imgHost

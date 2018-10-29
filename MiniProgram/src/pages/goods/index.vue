@@ -57,7 +57,7 @@
           id: sellerId,
           seatid: seatId
         })
-        res.seller.seller.avatar = this.ossUrl + res.seller.avatar
+        res.seller.seller.avatar = this.ossUrl + res.seller.seller.avatar
         res.seller.goods = res.seller.catalogs.map(x => {
           console.log('@52', x)
           x.id = 'ww' + x.catalogID

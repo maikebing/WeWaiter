@@ -72,6 +72,7 @@
                   console.log('auth Res @91==========> ', authRes)
                   if (authRes.token) {
                     wx.setStorageSync('token', authRes.token)
+                    wx.setStorageSync('imgHost', authRes.imageHost)
                   }
                   resolve('token获取成功')
                 })
