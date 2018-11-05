@@ -5,9 +5,9 @@
     <div class="we-order-btn-group">
       <order-action :order="order" @pay-success="payOnSuccess"/>
     </div>
-    <!--<div class="we-order-menu-list">-->
-      <!--<menu-list :menu-list="buyItems" :total="order.totalPrice"></menu-list>-->
-    <!--</div>-->
+    <div class="we-order-menu-list">
+      <menu-list :menu-list="buyItems" :total="order.totalPrice"></menu-list>
+    </div>
   </div>
 </template>
 <script type="text/babel">
