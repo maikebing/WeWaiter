@@ -131,6 +131,7 @@ namespace WeWaiter.Controllers
                             paySign = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key)
                         };
                         _order.PrepayId = result.prepay_id;
+                        _order.OrderStatus = TradeState.USERPAYING;
                         _context.SaveChanges();
                         actionResult = Ok(new { code = 0, msg = "OK", data });
                     }
@@ -388,34 +389,40 @@ namespace WeWaiter.Controllers
         public IActionResult Close([FromRoute]string orderid)
         {
             IActionResult actionResult = NoContent();
-            string nonceStr = TenPayV3Util.GetNoncestr();
-            RequestHandler packageReqHandler = new RequestHandler(null);
-
-            //设置package订单参数
-            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-            packageReqHandler.SetParameter("out_trade_no", orderid);                 //填入商家订单号
-            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);	                    //签名
-
-            string data = packageReqHandler.ParseXML();
-
-            var result = TenPayV3.CloseOrder(data);
-            var res =new  CloseOrderResult  (result);
-            if (res.result_code == WeXinUtils.SUCCESS)
+            var _order = _context.Order.FirstOrDefault(od => od.OrderID == orderid);
+            if (_order != null)
             {
-                var _order = _context.Order.FirstOrDefault(od => od.OrderID == orderid);
-                if (_order != null)
+                string nonceStr = TenPayV3Util.GetNoncestr();
+                RequestHandler packageReqHandler = new RequestHandler(null);
+
+                //设置package订单参数
+                packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);          //公众账号ID
+                packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);         //商户号
+                packageReqHandler.SetParameter("out_trade_no", orderid);                 //填入商家订单号
+                packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+                string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+                packageReqHandler.SetParameter("sign", sign);                       //签名
+
+                string data = packageReqHandler.ParseXML();
+
+                var result = TenPayV3.CloseOrder(data);
+                var res = new CloseOrderResult(result);
+                if (res.result_code == WeXinUtils.SUCCESS)
                 {
+
                     _order.OrderStatus = TradeState.CLOSED;
+
+                    _context.SaveChanges();
+                    actionResult = Ok(new { code = 0, msg = "OK" });
                 }
-                _context.SaveChanges();
-                actionResult = Ok(new { code = 0, msg = "OK" });
+                else
+                {
+                    actionResult = Ok(new { code = 1006, msg = "查询失败", res.err_code, res.err_code_des });
+                }
             }
             else
             {
-                actionResult = Ok(new { code = 1006, msg = "查询失败",  res.err_code,res.err_code_des  });
+                actionResult = Ok(new { code = 1016, msg = $"订单{orderid}不存在" });
             }
             return actionResult;
         }
