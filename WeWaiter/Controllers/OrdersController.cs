@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using WeWaiter.DataBase;
+using WeWaiter.Data;
 using WeWaiter.Utils;
 
 namespace WeWaiter.Controllers

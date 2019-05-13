@@ -20,7 +20,7 @@ using Senparc.Weixin.WxOpen;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
-using WeWaiter.DataBase;
+using WeWaiter.Data;
 using WeWaiter.Utils;
 
 namespace WeWaiter

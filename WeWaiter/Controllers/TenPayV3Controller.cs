@@ -26,7 +26,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin;
 using WeWaiter.Utils;
-using WeWaiter.DataBase;
+using WeWaiter.Data;
 using Senparc.Weixin.TenPay;
 using Senparc.Weixin.MP;
 using Microsoft.AspNetCore.Authorization;

@@ -12,7 +12,7 @@ using System;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
-using WeWaiter.DataBase;
+using WeWaiter.Data;
 using System.Collections.Generic;
 using WeWaiter.Utils;
 using Microsoft.AspNetCore.Authorization;
@@ -102,7 +102,7 @@ namespace WeWaiter.Controllers
                     if (!_context.User.Any(u => u.OpenID == jsonResult.openid))
                     {
                         var userinfo = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessToken(WxOpenAppId), jsonResult.openid);
-                        var adduser = _context.User.Add(new WeWaiter.DataBase.User()
+                        var adduser = _context.User.Add(new WeWaiter.Data.User()
                         {
                             UserID = Guid.NewGuid().ToString().Replace("-", ""),
                             JoinIn = DateTime.Now,
