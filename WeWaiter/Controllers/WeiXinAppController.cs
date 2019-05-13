@@ -1,36 +1,34 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Helpers;
 using System;
-using Senparc.Weixin.TenPay.V3;
-using Senparc.Weixin.Entities;
-using Microsoft.Extensions.Options;
-using WeWaiter.Data;
-using System.Collections.Generic;
-using WeWaiter.Utils;
-using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
+using WeWaiter.Data;
 using WeWaiter.Models;
-using Senparc.Weixin.MP;
-using Senparc.Weixin;
+using WeWaiter.Utils;
 
 namespace WeWaiter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
-    public   class WeiXinAppController : ControllerBase
+    public class WeiXinAppController : ControllerBase
     {
         private readonly WeWaiterContext _context;
-        SenparcWeixinSetting _senparcWeixinSetting;
+        private SenparcWeixinSetting _senparcWeixinSetting;
 
         public string Token { get; }
         public string EncodingAESKey { get; }
@@ -38,7 +36,7 @@ namespace WeWaiter.Controllers
         public string WxOpenAppSecret { get; }
         private readonly AppSettings _appSettings;
 
-        public WeiXinAppController(IOptions<SenparcWeixinSetting> senparcWeixinSetting, WeWaiterContext context,IOptions<AppSettings> appSettings)
+        public WeiXinAppController(IOptions<SenparcWeixinSetting> senparcWeixinSetting, WeWaiterContext context, IOptions<AppSettings> appSettings)
         {
             _senparcWeixinSetting = senparcWeixinSetting.Value;
             Token = _senparcWeixinSetting.WxOpenToken;//与微信小程序后台的Token设置保持一致，区分大小写。
@@ -48,9 +46,6 @@ namespace WeWaiter.Controllers
             _context = context;
             _appSettings = appSettings.Value;
         }
-    
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
-
 
         /// <summary>
         /// GET请求用于处理微信小程序后台的URL验证
@@ -67,15 +62,13 @@ namespace WeWaiter.Controllers
             else
             {
                 return BadRequest("failed:" + postModel.Signature + "," + Senparc.Weixin.MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
-                    "如果你在浏览器中看到这句话，说明此地址可以被作为微信小程序后台的Url，请注意保持Token一致。"+ Token);
+                    "如果你在浏览器中看到这句话，说明此地址可以被作为微信小程序后台的Url，请注意保持Token一致。" + Token);
             }
         }
 
-       
-
         [HttpPost("RequestData")]
         [Authorize]
-        public    IActionResult RequestData([FromBody]string nickName)
+        public IActionResult RequestData([FromBody]string nickName)
         {
             var data = new
             {
@@ -100,7 +93,7 @@ namespace WeWaiter.Controllers
                 {
                     //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                     //使用SessionContainer管理登录信息（推荐）
-                    
+
                     if (!_context.User.Any(u => u.OpenID == jsonResult.openid))
                     {
                         var userinfo = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessToken(WxOpenAppId), jsonResult.openid);
@@ -128,9 +121,9 @@ namespace WeWaiter.Controllers
                     if (usr != null)
                     {
                         //https://github.com/aspnet/Home/issues/2193
-                        var token= usr.CreateJsonWebToken(_appSettings);
+                        var token = usr.CreateJsonWebToken(_appSettings);
                         var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, jsonResult.unionid);
-                        return Ok(new { code = 0, msg = "OK", token,ImageHost= Utils.Server.ImageHost });
+                        return Ok(new { code = 0, msg = "OK", token, ImageHost = Utils.Server.ImageHost });
                     }
                     else
                     {
@@ -173,6 +166,7 @@ namespace WeWaiter.Controllers
                         sessionId,
                         encryptedData, iv);
                     break;
+
                 default:
                     break;
             }
@@ -250,6 +244,7 @@ namespace WeWaiter.Controllers
                 return Ok(new { success = false, openId = openId, formId = formId, msg = ex.Message });
             }
         }
+
         [HttpPost("DecryptPhoneNumber")]
         public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
@@ -266,9 +261,9 @@ namespace WeWaiter.Controllers
             catch (Exception ex)
             {
                 return Ok(new { success = false, msg = ex.Message });
-
             }
         }
+
         [HttpPost("GetPrepayid")]
         public ActionResult GetPrepayid(string sessionId)
         {
@@ -276,7 +271,6 @@ namespace WeWaiter.Controllers
             {
                 var sessionBag = SessionContainer.GetSession(sessionId);
                 var openId = sessionBag.OpenId;
-
 
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
                 var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
@@ -322,7 +316,6 @@ namespace WeWaiter.Controllers
                     msg = ex.Message
                 });
             }
-
         }
     }
 }
