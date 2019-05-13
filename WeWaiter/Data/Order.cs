@@ -7,8 +7,10 @@ using System.Text;
 
 namespace WeWaiter.Data
 {
-  
-    ////     PAYERROR--支付失败(其他原因，如银行返回失败)
+
+    /// <summary>
+    ///   PAYERROR--支付失败(其他原因，如银行返回失败)
+    /// </summary>
     public enum TradeState : int
     {
         NOTPAY = 0,//—未支付
