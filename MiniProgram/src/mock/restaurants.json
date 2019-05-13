@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "name": "堕落小龙虾",
+      "score": 4.2,
+      "sales": 330,
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/15.png?raw=true",
+      "initial_price": 50,
+      "distribution_price": 3,
+      "distance": "3.3km",
+      "time": 56
+    },
+    {
+      "name": "廖总餐饮",
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/1.png?raw=true",
+      "score": 4,
+      "sales": 39,
+      "initial_price": 35,
+      "distribution_price": 3,
+      "distance": "3.1km",
+      "time": 44
+    },
+    {
+      "name": "大食头",
+      "score": 5,
+      "sales": 24,
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/2.png?raw=true",
+      "initial_price": 30,
+      "distribution_price": 1,
+      "distance": "2.6km",
+      "time": 44
+    },
+    {
+      "name": "辣椒炒肉",
+      "score": 4.5,
+      "sales": 37,
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/3.png?raw=true",
+      "initial_price": 58,
+      "distribution_price": 0,
+      "distance": "6.8km",
+      "time": 49
+    },
+    {
+      "name": "三叔公杂酱面馆",
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/4.png?raw=true",
+      "score": 4.5,
+      "sales": 641,
+      "initial_price": 0,
+      "distribution_price": 0,
+      "distance": "156m",
+      "time": 33
+    },
+    {
+      "name": "赣味小碗菜",
+      "score": 4.5,
+      "sales": 731,
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/5.png?raw=true",
+      "initial_price": 15,
+      "distribution_price": 0,
+      "distance": "1.3km",
+      "time": 52
+    },
+    {
+      "name": "过桥米线",
+      "score": 5,
+      "sales": 1161,
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/6.png?raw=true",
+      "initial_price": 20,
+      "distribution_price": 0,
+      "distance": "1.5km",
+      "time": 30
+    },
+    {
+      "name": "心灵鸡排",
+      "score": 4,
+      "sales": 330,
+      "src": "https://github.com/WsmDyj/mpvue/blob/master/image/7.png?raw=true",
+      "initial_price": 50,
+      "distribution_price": 3,
+      "distance": "3.3km",
+      "time": 56
+    }
+  ]
+}

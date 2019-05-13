@@ -1,0 +1,73 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"miniprogramRoot": "dist/",
+	"compileType": "miniprogram",
+	"appid": "wxb4fc708bde2cad63",
+	"projectname": "we-waiter",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 3,
+			"list": [
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/mine/main",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "商品列表",
+					"pathName": "pages/goods/main",
+					"query": "q=https%3A%2F%2Fapi.cokco.cn%2F%2Fapi%2Fqrcode%2F%3Fid%3D342c501a-3365-4c2f-816f-2aaf51ea7a39%26seatid%3D1"
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/index/main",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "订单详情",
+					"pathName": "pages/order-detail/main",
+					"query": "id=a4ec059e6e8940198c670063c4933c96"
+				},
+				{
+					"id": -1,
+					"name": "提交订单",
+					"pathName": "pages/checkout/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "订单列表",
+					"pathName": "pages/order/main",
+					"query": ""
+				}
+			]
+		}
+	}
+}
