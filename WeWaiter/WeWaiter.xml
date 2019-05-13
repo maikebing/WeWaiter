@@ -74,6 +74,11 @@
             微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://sdk.weixin.senparc.com/weixin
             </summary>
         </member>
+        <member name="T:WeWaiter.Data.TradeState">
+            <summary>
+              PAYERROR--支付失败(其他原因，如银行返回失败)
+            </summary>
+        </member>
         <member name="P:WeWaiter.Data.Order.OrderIndex">
             <summary>
             当天票号
@@ -149,11 +154,6 @@
             是否有人
             </summary>
         </member>
-        <member name="T:WeWaiter.AddAuthTokenHeaderParameter">
-            <summary>
-            this class is for swagger to generate AuthToken Header filed on swagger UI
-            </summary>
-        </member>
         <member name="P:WeWaiter.Utils.Server.WebRootPath">
             <summary>
             wwwroot文件夹目录（专供ASP.NET Core MVC使用）
@@ -161,6 +161,11 @@
         </member>
         <member name="M:WeWaiter.Utils.WeAppTokenValidata.ValidateToken(System.String,Microsoft.IdentityModel.Tokens.TokenValidationParameters,Microsoft.IdentityModel.Tokens.SecurityToken@)">
             验证securityToken
+        </member>
+        <member name="T:WeWaiter.AddAuthTokenHeaderParameter">
+            <summary>
+            this class is for swagger to generate AuthToken Header filed on swagger UI
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler">
             <summary>

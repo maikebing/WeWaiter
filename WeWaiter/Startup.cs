@@ -21,6 +21,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using WeWaiter.Data;
+using WeWaiter.Models;
 using WeWaiter.Utils;
 
 namespace WeWaiter
@@ -49,7 +50,8 @@ namespace WeWaiter
 
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WeWaiter.xml"));
             });
-
+         
+            services.Configure<AppSettings>(Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
 
@@ -59,15 +61,15 @@ namespace WeWaiter
             var connectionString = Configuration.GetConnectionString("WeWaiterContext");
             services.AddEntityFrameworkNpgsql().AddDbContext<WeWaiterContext>(options => options.UseNpgsql(connectionString));
             services.AddOptions();
-
-            services.ConfigureJwtAuthentication();
+            var appSettings = Configuration.Get<AppSettings>();
+            services.ConfigureJwtAuthentication(appSettings);
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
             });
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
-            Utils.Server.ImageHost = Configuration["ImageHostURL"];
+            Utils.Server.ImageHost = appSettings.ImageHostURL;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

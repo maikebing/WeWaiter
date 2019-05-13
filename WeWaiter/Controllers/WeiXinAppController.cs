@@ -36,8 +36,9 @@ namespace WeWaiter.Controllers
         public string EncodingAESKey { get; }
         public string WxOpenAppId { get; }
         public string WxOpenAppSecret { get; }
+        private readonly AppSettings _appSettings;
 
-        public WeiXinAppController(IOptions<SenparcWeixinSetting> senparcWeixinSetting, WeWaiterContext context)
+        public WeiXinAppController(IOptions<SenparcWeixinSetting> senparcWeixinSetting, WeWaiterContext context,IOptions<AppSettings> appSettings)
         {
             _senparcWeixinSetting = senparcWeixinSetting.Value;
             Token = _senparcWeixinSetting.WxOpenToken;//与微信小程序后台的Token设置保持一致，区分大小写。
@@ -45,6 +46,7 @@ namespace WeWaiter.Controllers
             WxOpenAppId = _senparcWeixinSetting.WxOpenAppId;//与微信小程序后台的AppId设置保持一致，区分大小写。
             WxOpenAppSecret = _senparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
             _context = context;
+            _appSettings = appSettings.Value;
         }
     
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
@@ -126,7 +128,7 @@ namespace WeWaiter.Controllers
                     if (usr != null)
                     {
                         //https://github.com/aspnet/Home/issues/2193
-                        var token = TokenBuilder.CreateJsonWebToken(usr.UserID, new List<string>() { "WeApp" }, "https://www.bonafortune.com", "https://www.bonafortune.com", Guid.NewGuid(), DateTime.UtcNow.AddMinutes(20));
+                        var token= usr.CreateJsonWebToken(_appSettings);
                         var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, jsonResult.unionid);
                         return Ok(new { code = 0, msg = "OK", token,ImageHost= Utils.Server.ImageHost });
                     }

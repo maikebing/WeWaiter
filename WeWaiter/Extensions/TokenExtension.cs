@@ -10,34 +10,36 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WeWaiter.Data;
+using WeWaiter.Models;
 
 namespace WeWaiter.Utils
 {
-    public static class TokenBuilder
+    public static class TokenExtension
     {
-        private const string keyString = "axQAIuSniEAgX8OTAAhruNvQIJw4RvpUYJjPdg1u96ODpRkkHBpHTmOsnV2t0kIcoKq2G36cv0F3blCsQaATPdeM4ieRPKnLhfhPPYq6z9dqF8RNtEAwdckx3JZ9d6n8sOLdIIuURwBtX7ebRXMFpehaMnzm7xI8TKgOwTV9NA6iqiVEEepUXAIHnGhtJrqMYy42RKsPaf7MCnW3M5xwPzZeXLUDQtCaYovxLJOej57utRTDaAT75BzPG5zIlRdy";
-        public static readonly byte[] symmetricKeyBytes = Encoding.ASCII.GetBytes(keyString);
-        public static readonly SymmetricSecurityKey symmetricKey = new SymmetricSecurityKey(symmetricKeyBytes);
-        public static readonly SigningCredentials signingCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
         internal static TokenValidationParameters tokenValidationParams;
+
+        public static SigningCredentials SigningCredentials = null;
+
         //Construct our JWT authentication paramaters then inject the parameters into the current TokenBuilder instance
         // If injecting an RSA key for signing use this method
         // Be weary of common jwt trips: https://trustfoundry.net/jwt-hacking-101/ and https://www.sjoerdlangkemper.nl/2016/09/28/attacking-jwt-authentication/
         //public static void ConfigureJwtAuthentication(this IServiceCollection services, RSAParameters rsaParams)
-        public static void ConfigureJwtAuthentication(this IServiceCollection services)
+        public static void ConfigureJwtAuthentication(this IServiceCollection services,  AppSettings appSettings)
         {
+            SigningCredentials=   new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(appSettings.JwtKey)), SecurityAlgorithms.HmacSha256);
             tokenValidationParams = new TokenValidationParameters()
             {
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = "https://www.bonafortune.com",
+                ValidIssuer = appSettings.JwtIssuer,
                 ValidateLifetime = true,
-                ValidAudience = "https://www.bonafortune.com",
+                ValidAudience =appSettings.JwtAudience,
                 ValidateAudience = true,
                 RequireSignedTokens = true,
                 // Use our signing credentials key here
                 // optionally we can inject an RSA key as
                 //IssuerSigningKey = new RsaSecurityKey(rsaParams),
-                IssuerSigningKey = signingCredentials.Key,
+                IssuerSigningKey = SigningCredentials.Key,
                 ClockSkew = TimeSpan.FromMinutes(0)
             };
             services.AddAuthentication(options =>
@@ -54,16 +56,10 @@ namespace WeWaiter.Utils
 #endif
             });
         }
-        public static string CreateJsonWebToken(
-               string userid,
-               IEnumerable<string> roles,
-               string audienceUri,
-               string issuerUri,
-               Guid applicationId,
-               DateTime expires,
-               string deviceId = null,
-               bool isReAuthToken = false)
+        public static string CreateJsonWebToken(this User user, AppSettings appSettings)
         {
+            IEnumerable<string> roles = new List<string>() { "WeApp" };
+            string userid = user.UserID;
             var claims = new List<Claim>();
             if (roles != null)
             {
@@ -72,8 +68,7 @@ namespace WeWaiter.Utils
                     claims.Add(new Claim(ClaimTypes.Role, role));
                 }
             }
-            var head = new JwtHeader();
-            var jwt = new JwtSecurityToken(issuerUri, audienceUri, claims, DateTime.UtcNow, expires, signingCredentials);
+            var jwt = new JwtSecurityToken(appSettings.JwtIssuer, appSettings.JwtAudience, claims, DateTime.UtcNow, DateTime.UtcNow.AddMinutes(appSettings.JwtExpireMinutes), SigningCredentials);
             jwt.Payload.AddClaims(claims.ToArray());
             jwt.Payload.Add("userid", userid);
             return new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -94,7 +89,7 @@ namespace WeWaiter.Utils
                 SecurityToken securityToken = null;
                 try
                 {
-                    principal = jwtSecurityTokenHandler.ValidateToken(jwToken, TokenBuilder.tokenValidationParams, out securityToken);
+                    principal = jwtSecurityTokenHandler.ValidateToken(jwToken, tokenValidationParams, out securityToken);
                 }
                 catch (Exception ex)
                 {
