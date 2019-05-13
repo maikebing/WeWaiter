@@ -18,8 +18,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
-using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
