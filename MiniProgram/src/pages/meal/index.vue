@@ -4,21 +4,20 @@
   </div>
 </template>
 <script>
-  import TableNumber from '@/components/MealTableNumber'
-  export default {
-    data () {
-      return {
-        tableNumber: 23
-      }
-    },
-    components: {
-      TableNumber
-    },
-    methods: {},
-    created () {
+import TableNumber from '@/components/MealTableNumber'
+export default {
+  data() {
+    return {
+      tableNumber: 23
     }
-  }
+  },
+  components: {
+    TableNumber
+  },
+  methods: {},
+  created() {}
+}
 </script>
 <style lang="scss" scoped>
-  @import "~@/styles/variable";
+@import '~@/styles/variable';
 </style>
