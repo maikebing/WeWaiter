@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：LocationService.cs
     文件功能描述：地理位置信息处理
@@ -7,6 +7,7 @@
     
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
+//DPBMARK_FILE MP
 
 using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities;
@@ -16,7 +17,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Entities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService
+namespace Senparc.Weixin.Sample.CommonService
 {
     public class LocationService
     {
@@ -84,8 +85,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             {
                 Title = "微信公众平台SDK 官网链接",
                 Description = "Senparc.Weixin.MK SDK地址",
-                PicUrl = "http://sdk.weixin.senparc.com/images/logo.jpg",
-                Url = "http://sdk.weixin.senparc.com"
+                PicUrl = "https://sdk.weixin.senparc.com/images/logo.jpg",
+                Url = "https://sdk.weixin.senparc.com"
             });
 
             return responseMessage;

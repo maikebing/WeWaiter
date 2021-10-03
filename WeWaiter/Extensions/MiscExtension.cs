@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.WindowsServices;
 using System;
 using System.Collections.Generic;
@@ -69,6 +69,7 @@ namespace WeWaiter.Extensions
             }
         }
 #endif 
+
         private static Process GetParent(Process child)
         {
             var parentId = 0;

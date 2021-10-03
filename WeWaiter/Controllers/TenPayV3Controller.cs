@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +10,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.BrowserUtility;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -20,7 +19,6 @@ using Senparc.Weixin.TenPay.V3;
 using ZXing;
 using ZXing.Common;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
@@ -34,8 +32,9 @@ using Microsoft.Extensions.Options;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Logging;
 using Senparc.Weixin.WxOpen.Containers;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.CO2NET.Cache;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage.WxOpen;
 using Swashbuckle.AspNetCore.Swagger;
 namespace WeWaiter.Controllers
 {
@@ -265,10 +264,7 @@ namespace WeWaiter.Controllers
                                                     "在线购买（小程序支付）测试", DateTime.Now, "小程序支付 | 注意：这条消息来自微信服务器异步回调，官方证明支付成功！ | prepay_id：" + unifedorderResult.prepay_id,
                                                    unifiedorderRequestData.OutTradeNo, unifiedorderRequestData.TotalFee, "400-031-8816", "https://weixin.senparc.com");
 
-                                Senparc.Weixin.WxOpen.AdvancedAPIs
-                                    .Template.TemplateApi
-                                    .SendTemplateMessage(
-                                        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, unifedorderResult.prepay_id, "pages/index/index", "图书", "#fff00");
+                                Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, "pages/index/index", unifedorderResult.prepay_id);
                             }
                             else
                             {

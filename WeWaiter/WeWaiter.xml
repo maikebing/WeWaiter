@@ -167,7 +167,33 @@
             this class is for swagger to generate AuthToken Header filed on swagger UI
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler">
+        <member name="P:Senparc.Weixin.Sample.CommonService.Download.Config.Versions">
+            <summary>
+            chm版
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Sample.CommonService.Download.Config.WebVersions">
+            <summary>
+            网页版
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Sample.CommonService.Download.ConfigHelper.GetConfig">
+            <summary>
+            获取配置文件
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Sample.CommonService.Download.ConfigHelper.GetQrCodeId">
+            <summary>
+            获取一个二维码场景标示（自增，唯一）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler">
+            <summary>
+            自定义MessageHandler
+            </summary>
             <summary>
             自定义MessageHandler
             </summary>
@@ -179,108 +205,126 @@
             自定义MessageHandler
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.TemplateMessageCollection">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_TemplateSendJobFinishRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish)">
             <summary>
-            模板消息集合（Key：checkCode，Value：OpenId）
+            【异步方法】事件之发送模板消息返回结果
+            </summary>
+            <param name="requestMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.GenerateMessageHandler">
+            <summary>
+            为中间件提供生成当前类的委托
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnTextRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.#ctor(System.IO.Stream,Senparc.Weixin.MP.Entities.Request.PostModel,System.Int32,System.Boolean,System.IServiceProvider)">
+            <summary>
+            自定义 MessageHandler
+            </summary>
+            <param name="provider">.NET Framework 可忽略</param>
+            <param name="inputStream"></param>
+            <param name="postModel"></param>
+            <param name="maxRecordCount"></param>
+            <param name="onlyAllowEncryptMessage"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnTextRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageText)">
             <summary>
             处理文字请求
             </summary>
+            <param name="requestMessage">请求消息</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLocationRequest(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLocationRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
             <summary>
             处理位置请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnImageRequest(Senparc.Weixin.MP.Entities.RequestMessageImage)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnImageRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageImage)">
             <summary>
             处理图片请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnVoiceRequest(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnVoiceRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
             <summary>
             处理语音请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageVideo)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnVideoRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageVideo)">
             <summary>
             处理视频请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLinkRequest(Senparc.Weixin.MP.Entities.RequestMessageLink)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLinkRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageLink)">
             <summary>
             处理链接消息请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEventRequestAsync(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
             <summary>
             处理事件请求（这个方法一般不用重写，这里仅作为示例出现。除非需要在判断具体Event类型以外对Event信息进行统一操作
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ClickRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Click)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ClickRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Click)">
             <summary>
             点击事件
             </summary>
-            <param name="requestMessage"></param>
+            <param name="requestMessage">请求消息</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_EnterRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_EnterRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter)">
             <summary>
             进入事件
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_LocationRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Location)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_LocationRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Location)">
             <summary>
             位置事件
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ScanRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ScanRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan)">
             <summary>
             通过二维码扫描关注扫描事件
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ViewRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_View)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ViewRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_View)">
             <summary>
             打开网页事件
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_MassSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_MassSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish)">
             <summary>
             群发完成事件
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_SubscribeRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_SubscribeRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe)">
             <summary>
             订阅（关注）事件
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_UnsubscribeRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_UnsubscribeRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe)">
             <summary>
             退订
             实际上用户无法收到非订阅账号的消息，所以这里可以随便写。
@@ -288,28 +332,28 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ScancodePushRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scancode_Push)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ScancodePushRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scancode_Push)">
             <summary>
             事件之扫码推事件(scancode_push)
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ScancodeWaitmsgRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scancode_Waitmsg)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_ScancodeWaitmsgRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scancode_Waitmsg)">
             <summary>
             事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Photo_Or_Album)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Photo_Or_Album)">
             <summary>
             事件之弹出拍照或者相册发图（pic_photo_or_album）
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_PicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Sysphoto)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_PicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Sysphoto)">
             <summary>
             事件之弹出系统拍照发图(pic_sysphoto)
             实际测试时发现微信并没有推送RequestMessageEvent_Pic_Sysphoto消息，只能接收到用户在微信中发送的图片消息。
@@ -317,89 +361,87 @@
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_PicWeixinRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Weixin)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_PicWeixinRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Weixin)">
             <summary>
             事件之弹出微信相册发图器(pic_weixin)
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_LocationSelectRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Location_Select)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_LocationSelectRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Location_Select)">
             <summary>
             事件之弹出地理位置选择器（location_select）
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnEvent_TemplateSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish)">
-            <summary>
-            事件之发送模板消息返回结果
-            </summary>
-            <param name="requestMessage"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.CustomMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.NeuChar.Context.WeixinContextRemovedEventArgs{Senparc.NeuChar.Entities.IRequestMessageBase,Senparc.NeuChar.Entities.IResponseMessageBase})">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.NeuChar.Context.WeixinContextRemovedEventArgs{Senparc.NeuChar.Entities.IRequestMessageBase,Senparc.NeuChar.Entities.IResponseMessageBase})">
             <summary>
             当上下文过期，被移除时触发的时间
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.NeuChar.Context.WeixinContextRemovedEventArgs{Senparc.NeuChar.Entities.IRequestMessageBase,Senparc.NeuChar.Entities.IResponseMessageBase})">
+        <member name="M:Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageContext.CustomMessageContext_MessageContextRemoved(System.Object,Senparc.NeuChar.Context.WeixinContextRemovedEventArgs{Senparc.NeuChar.Entities.IRequestMessageBase,Senparc.NeuChar.Entities.IResponseMessageBase})">
             <summary>
             当上下文过期，被移除时触发的时间
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="T:Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageHandler">
+        <member name="T:Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageHandler">
             <summary>
             自定义MessageHandler
             把MessageHandler作为基类，重写对应请求的处理方法
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageHandler.OnTextRequest(Senparc.Weixin.WxOpen.Entities.RequestMessageText)">
+        <member name="F:Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageHandler.GenerateMessageHandler">
+            <summary>
+            为中间件提供生成当前类的委托
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Sample.CommonService.WxOpenMessageHandler.CustomWxOpenMessageHandler.OnTextRequestAsync(Senparc.Weixin.WxOpen.Entities.RequestMessageText)">
             <summary>
             处理文字请求
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword1">
+        <member name="P:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword1">
             <summary>
             Time
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword2">
+        <member name="P:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword2">
             <summary>
             Host
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword3">
+        <member name="P:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword3">
             <summary>
             Service
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword4">
+        <member name="P:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword4">
             <summary>
             Status
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword5">
+        <member name="P:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_ExceptionAlert.keyword5">
             <summary>
             Message
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_PaySuccess">
+        <member name="T:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_PaySuccess">
             <summary>
             支付成功模板消息（购买成功通知）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WeixinTemplate_PaySuccess.remark">
+        <member name="P:Senparc.Weixin.Sample.CommonService.TemplateMessage.WeixinTemplate_PaySuccess.remark">
             <summary>
             Time
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen.WxOpenTemplateMessage_PaySuccessNotice.#ctor(System.String,System.DateTime,System.String,System.String,System.Decimal,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.TemplateMessage.WxOpen.WxOpenTemplateMessage_PaySuccessNotice.#ctor(System.String,System.DateTimeOffset,System.String,System.String,System.Decimal,System.String,System.String,System.String)">
             <summary>
             “购买成功通知”模板消息数据
             </summary>

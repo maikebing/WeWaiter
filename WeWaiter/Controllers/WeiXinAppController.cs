@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -7,7 +7,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
@@ -232,10 +232,10 @@ namespace WeWaiter.Controllers
 
             try
             {
-                Senparc.Weixin.WxOpen.AdvancedAPIs
-                    .Template.TemplateApi
+                Senparc.Weixin.MP.AdvancedAPIs
+                    .TemplateApi
                     .SendTemplateMessage(
-                        WxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
+                        WxOpenAppId, openId, data.TemplateId, "pages/index/index", data);
 
                 return Ok(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
