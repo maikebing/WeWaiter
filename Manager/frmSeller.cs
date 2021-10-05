@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -125,7 +125,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename = $"{pjt.SellerID}/Avatar{new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.UploadFile(openFileDialog.FileName,  filename))
+                    if (Utils.OSS.CopyFile(openFileDialog.FileName,  filename))
                     {
                         pjt.Avatar = filename;
                      //   gridView1.SetFocusedRowCellValue(colAvatar, filename);

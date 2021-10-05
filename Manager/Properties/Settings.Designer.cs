@@ -12,7 +12,7 @@ namespace WWM.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,17 +20,6 @@ namespace WWM.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Host=127.0.0.1;Database=WeWaiter;Username=postgres;Password=future;Persist Securi" +
-            "ty Info=True")]
-        public string PGDB {
-            get {
-                return ((string)(this["PGDB"]));
             }
         }
         
@@ -67,6 +56,26 @@ namespace WWM.Properties {
         public string AccessKeySecret {
             get {
                 return ((string)(this["AccessKeySecret"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Host=local.host;Database=WeWaiter;Username=postgres;Password=123456;Persist Secur" +
+            "ity Info=True")]
+        public string PGDB {
+            get {
+                return ((string)(this["PGDB"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:44389")]
+        public string ApiBaseUrl {
+            get {
+                return ((string)(this["ApiBaseUrl"]));
             }
         }
     }

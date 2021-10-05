@@ -53,7 +53,7 @@ namespace WeWaiter.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get([FromQuery]PostModel postModel, [FromQuery]string echostr)
+        public IActionResult Get([FromQuery] PostModel postModel, [FromQuery] string echostr)
         {
             if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, _senparcWeixinSetting.WxOpenToken))
             {
@@ -61,18 +61,17 @@ namespace WeWaiter.Controllers
             }
             else
             {
-                return BadRequest("failed:" + postModel.Signature + "," + Senparc.Weixin.MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
-                    "如果你在浏览器中看到这句话，说明此地址可以被作为微信小程序后台的Url，请注意保持Token一致。" + Token);
+                return BadRequest("failed:" + postModel.Signature + "," + Senparc.Weixin.MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" + "如果你在浏览器中看到这句话，说明此地址可以被作为微信小程序后台的Url，请注意保持Token一致。" + Token);
             }
         }
 
         [HttpPost("RequestData")]
         [Authorize]
-        public IActionResult RequestData([FromBody]string nickName)
+        public IActionResult RequestData([FromBody] string nickName)
         {
             var data = new
             {
-                msg = string.Format("服务器时间：{0}，昵称：{1}", DateTime.Now, nickName)
+                msg = $"服务器时间：{DateTime.Now}，昵称：{nickName}"
             };
             return Ok(data);
         }
@@ -88,7 +87,7 @@ namespace WeWaiter.Controllers
         {
             try
             {
-                var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, loginMode.code);
+                var jsonResult = await SnsApi.JsCode2JsonAsync(WxOpenAppId, WxOpenAppSecret, loginMode.code);
                 if (jsonResult.errcode == ReturnCode.请求成功)
                 {
                     //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
@@ -96,24 +95,25 @@ namespace WeWaiter.Controllers
 
                     if (!_context.User.Any(u => u.OpenID == jsonResult.openid))
                     {
-                        var userinfo = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessToken(WxOpenAppId), jsonResult.openid);
-                        var adduser = _context.User.Add(new WeWaiter.Data.User()
+                        //var token = await Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessTokenAsync(WxOpenAppId);
+                        //var userinfo = await Senparc.Weixin.MP.AdvancedAPIs.UserApi.InfoAsync(token, jsonResult.openid);
+                        _context.User.Add(new WeWaiter.Data.User()
                         {
-                            UserID = Guid.NewGuid().ToString().Replace("-", ""),
+                            UserID = Guid.NewGuid().ToString("N"),
                             JoinIn = DateTime.Now,
                             LastActive = DateTime.Now,
                             OpenID = jsonResult.openid,
-                            NickName = userinfo.nickname,
-                            Sex = userinfo.sex,
-                            City = userinfo.city,
-                            Country = userinfo.country,
-                            Language = userinfo.language,
-                            Province = userinfo.province,
-                            Subscribe = userinfo.subscribe,
-                            SubscribeScene = userinfo.subscribe_scene,
-                            SubscribeTime = userinfo.subscribe_time,
-                            UnionId = userinfo.unionid,
-                            Remark = userinfo.remark
+                            //NickName = userinfo.nickname,
+                            //Sex = userinfo.sex,
+                            //City = userinfo.city,
+                            //Country = userinfo.country,
+                            //Language = userinfo.language,
+                            //Province = userinfo.province,
+                            //Subscribe = userinfo.subscribe,
+                            //SubscribeScene = userinfo.subscribe_scene,
+                            //SubscribeTime = userinfo.subscribe_time,
+                            UnionId = jsonResult.unionid,
+                            //Remark = userinfo.remark
                         });
                         await _context.SaveChangesAsync();
                     }
@@ -122,8 +122,8 @@ namespace WeWaiter.Controllers
                     {
                         //https://github.com/aspnet/Home/issues/2193
                         var token = usr.CreateJsonWebToken(_appSettings);
-                        var sessionBag = SessionContainer.UpdateSession(usr.UserID, jsonResult.openid, jsonResult.session_key, jsonResult.unionid);
-                        return Ok(new { code = 0, msg = "OK", token, ImageHost = Utils.Server.ImageHost });
+                        await SessionContainer.UpdateSessionAsync(usr.UserID, jsonResult.openid, jsonResult.session_key, jsonResult.unionid);
+                        return Ok(new { code = 0, msg = "OK", token, ImageHost = string.IsNullOrEmpty(Utils.Server.ImageHost) ? $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/uploads/" : Utils.Server.ImageHost });
                     }
                     else
                     {
@@ -183,8 +183,7 @@ namespace WeWaiter.Controllers
             {
                 success = checkWartmark,
                 //decodedEntity = decodedEntity,
-                msg = string.Format("水印验证：{0}",
-                        checkWartmark ? "通过" : "不通过")
+                msg = $"水印验证：{(checkWartmark ? "通过" : "不通过")}"
             });
         }
 

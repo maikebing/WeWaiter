@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Senparc.CO2NET.AspNet;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
@@ -66,7 +67,10 @@ namespace WeWaiter
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WeWaiter.xml"));
             });
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
 
             services.AddDbContext<WeWaiterContext>(options =>
             {
@@ -237,7 +241,7 @@ namespace WeWaiter
                     weixinRegister
                             //注册公众号（可注册多个）                                                    -- DPBMARK MP
 
-                            .RegisterMpAccount(senparcWeixinSetting.Value, "鸿运博纳")     // DPBMARK_END
+                            .RegisterMpAccount(senparcWeixinSetting.Value, "WeWaiter")     // DPBMARK_END
 
                             //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
                             .RegisterWxOpenAccount(senparcWeixinSetting.Value, "WeWaiter")// DPBMARK_END
