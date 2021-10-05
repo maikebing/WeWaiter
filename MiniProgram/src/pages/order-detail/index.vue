@@ -41,7 +41,7 @@ export default {
       // let orderRes = await this.$http.get(`http://mock.eolinker.com/scQJzZz3b1d68053d700909597f57222c37b858e8b501de?uri=/order/${id}`)
       // let orderRes = await this.$http.get(`orders`)
       console.log('getData@49:index', orderRes)
-      orderRes.data.seller.avatar = this.ossUrl + orderRes.data.seller.avatar
+      orderRes.data.seller.avatar = orderRes.data.seller.avatar
       this.seller = orderRes.data.seller
       this.order = orderRes.data.order
       this.order.status = {
@@ -49,8 +49,8 @@ export default {
       }
       let items = orderRes.data.buyItems
       items = items.map(x => {
-        x.icon = this.ossUrl + x.icon
-        x.image = this.ossUrl + x.image
+        x.icon = x.icon
+        x.image = x.image
         x.name = x.goodsName
         x.id = x.goodsID
         x.count = x.amount

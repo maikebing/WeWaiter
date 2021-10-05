@@ -2,7 +2,7 @@
   <div class="header">
     <div class="content-wrapper">
       <div class="avatar">
-        <image :src="seller.avatar" />
+        <image :src="imgHost + seller.avatar" />
       </div>
       <div class="content">
         <div class="title">
@@ -30,7 +30,7 @@
       ><span class="bulletin-text">{{ seller.bulletin }}</span>
     </div>
     <div class="background">
-      <image :src="seller.avatar" width="100%" height="100%" />
+      <image :src="imgHost + seller.avatar" width="100%" height="100%" />
     </div>
     <div v-show="detailShow" class="detail">
       <div class="detail-wrapper clearfix">
@@ -77,6 +77,7 @@ import star from '../star/star.vue'
 export default {
   data() {
     return {
+      imgHost: this.$ossUrl,
       detailShow: false
     }
   },

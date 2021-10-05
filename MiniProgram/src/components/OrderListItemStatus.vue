@@ -80,29 +80,29 @@ export default {
 
 .we-status-box {
   width: 100%;
-  height: 104px;
+  height: 104rpx;
   display: flex;
-  margin-top: 8px;
+  margin-top: 8rpx;
   background-color: $primary-dark-gray;
   color: $primary-white;
   .we-status-text {
     height: 0;
-    width: 268px;
-    margin-top: -8px;
-    font-size: 42px;
-    line-height: 126px;
-    padding-left: 32px;
-    border-bottom: 115px solid $primary-grey;
-    border-right: 35px solid transparent;
+    width: 268rpx;
+    margin-top: -8rpx;
+    font-size: 42rpx;
+    line-height: 126rpx;
+    padding-left: 32rpx;
+    border-bottom: 115rpx solid $primary-grey;
+    border-right: 35rpx solid transparent;
   }
   .we-status-des {
     display: flex;
     align-items: center;
-    padding: 20px 30px;
-    font-size: 24px;
+    padding: 20rpx 30rpx;
+    font-size: 24rpx;
     .we-countdown {
-      margin-left: 42px;
-      font-size: 49px;
+      margin-left: 42rpx;
+      font-size: 49rpx;
       color: $primary-white;
     }
   }

@@ -39,7 +39,10 @@
           class="rating-wrapper"
         >
           <div class="avater">
-            <image :src="rating.avatar" style="width: 56rpx; height: 56rpx" />
+            <image
+              :src="imgHost + rating.avatar"
+              style="width: 56rpx; height: 56rpx"
+            />
           </div>
           <div class="content">
             <h1 class="name">{{ rating.username }}</h1>
@@ -69,6 +72,7 @@ import split from '../split/split.vue'
 export default {
   data() {
     return {
+      imgHost: this.$ossUrl,
       ratings: {}
     }
   },

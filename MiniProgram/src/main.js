@@ -8,7 +8,7 @@ import './weui.css'
 
 Vue.prototype.$store = store
 Vue.prototype.$http = fly // 将fly实例挂在vue原型上
-Vue.prototype.ossUrl = config.imgHost
+Vue.prototype.$ossUrl = config.imgHost
 
 Vue.config.productionTip = false
 App.mpType = 'app'

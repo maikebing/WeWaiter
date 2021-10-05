@@ -71,6 +71,7 @@ export default {
   data() {
     return {
       index: 0,
+      diningDetailsList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       radioItems: [
         { name: '店内用餐', value: '0' },
         { name: '打包带走', value: '1', checked: true }
@@ -102,28 +103,28 @@ export default {
 
 .dining-details-box {
   background-color: $primary-white;
-  padding: 0 30px 0;
+  padding: 0 30rpx 0;
   .dining-details {
-    padding: 30px 0;
-    border-bottom: 1px solid #d3d3d3;
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid #d3d3d3;
   }
 }
 
 .weui-select {
-  padding-right: 40px;
+  padding-right: 40rpx;
   border-right-width: 0;
   text-align: right;
   /* 2人: */
-  font-size: 36px;
+  font-size: 36rpx;
   color: #1f1f21;
 }
 
 .weui-label {
   /* 用餐人数: */
   width: auto;
-  font-size: 32px;
+  font-size: 32rpx;
   color: #1f1f21;
-  letter-spacing: -0.27px;
+  letter-spacing: -0.27rpx;
 }
 
 .weui-cells {
@@ -132,11 +133,11 @@ export default {
 }
 radio-group {
   display: flex;
-  padding: 38px 0 44px;
+  padding: 38rpx 0 44rpx;
   /* 店内用餐: */
-  font-size: 32px;
+  font-size: 32rpx;
   color: #1f1f21;
-  letter-spacing: -0.27px;
+  letter-spacing: -0.27rpx;
   flex-direction: row;
   align-items: center;
   justify-content: center;

@@ -10,7 +10,7 @@
   <div>
     <div class="we-menu-item-box">
       <div class="we-menu-graphic">
-        <img :src="menu.icon" />
+        <img :src="imgHost + menu.icon" />
         {{ menu.name }}
       </div>
       <div class="we-menu-other">
@@ -26,7 +26,9 @@
 export default {
   props: ['menu'],
   data() {
-    return {}
+    return {
+      imgHost: this.$ossUrl
+    }
   },
   methods: {},
   computed: {
@@ -51,34 +53,34 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 3px;
-  border-bottom: 1px solid $border-bottom-light;
-  font-size: 32px;
+  padding: 18rpx 3rpx;
+  border-bottom: 1rpx solid $border-bottom-light;
+  font-size: 32rpx;
   color: #1f1f21;
   .we-menu-graphic {
     display: flex;
     align-items: center;
     justify-content: space-between;
     img {
-      width: 104px;
-      height: 104px;
-      margin-right: 24px;
+      width: 104rpx;
+      height: 104rpx;
+      margin-right: 24rpx;
     }
   }
   .we-menu-other {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    line-height: 104px;
+    line-height: 104rpx;
     /* 大份: */
-    font-size: 28px;
+    font-size: 28rpx;
     color: #9b9b9b;
     .we-menu-norm {
-      margin-right: 40px;
+      margin-right: 40rpx;
     }
     .we-menu-price {
       /* ￥18: */
-      font-size: 36px;
+      font-size: 36rpx;
       color: #1f1f21;
     }
   }

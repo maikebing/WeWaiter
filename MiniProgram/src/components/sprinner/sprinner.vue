@@ -17,13 +17,13 @@ export default {}
   position: absolute;
   left: 280rpx;
   top: 0;
-  width: 70px;
+  width: 70rpx;
   text-align: center;
   display: inline-block;
 }
 .spinner view {
-  width: 7px;
-  height: 7px;
+  width: 7rpx;
+  height: 7rpx;
   background-color: #c0c0c0;
   border-radius: 50%;
   display: inline-block;

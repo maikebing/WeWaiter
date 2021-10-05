@@ -368,14 +368,14 @@ export default {
   .ball-container {
     .ball {
       position: fixed;
-      left: 32px;
-      bottom: 22px;
+      left: 32rpx;
+      bottom: 22rpx;
       z-index: 200;
       transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
 
       .inner {
-        width: 16px;
-        height: 16px;
+        width: 16rpx;
+        height: 16rpx;
         border-radius: 50%;
         background: #2b333b;
         transition: all 0.4s linear;

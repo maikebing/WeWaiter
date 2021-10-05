@@ -58,7 +58,7 @@
         <scroll-view scroll-x="true" style="height: 180rpx">
           <div class="item" v-for="(item, index) in seller.pics" :key="index">
             <image
-              :src="item"
+              :src="imgHost + item"
               style="width: 240rpx; height: 180rpx; display: inline-block"
             />
           </div>
@@ -87,6 +87,7 @@ import split from '../split/split.vue'
 export default {
   data() {
     return {
+      imgHost: this.$ossUrl,
       favorite: false
     }
   },

@@ -45,7 +45,7 @@
                 class="food-item border-1px"
               >
                 <div class="icon">
-                  <image :src="food.icon" style="width: 72px; height: 72px" />
+                  <image :src="imgHost + food.icon" style="width: 72px; height: 72px" />
                 </div>
                 <div class="content">
                   <h2 class="name">{{ food.name }}</h2>
@@ -78,7 +78,7 @@
     <div class="food border-1px" v-show="foodFlg">
       <div class="icon">
         <image
-          :src="selectedFood.image"
+          :src="imgHost + selectedFood.image"
           style="width: 670rpx; height: 500rpx"
         />
       </div>
@@ -113,6 +113,7 @@ export default {
   props: ['goods'],
   data() {
     return {
+      imgHost: this.$ossUrl,
       // goods: [],
       seller: {},
       changeGoods: 'hot',
@@ -181,8 +182,8 @@ export default {
   overflow: hidden;
 
   .menu-wrapp {
-    flex: 0 0 160px;
-    width: 160px;
+    flex: 0 0 160rpx;
+    width: 160rpx;
     background: red;
 
     .active {
@@ -190,8 +191,8 @@ export default {
       background: #ffffff !important;
       color: #ED5933;
       z-index: 10;
-      margin-top: -2px;
-      border-left: 2px solid #ED5933;
+      margin-top: -2rpx;
+      border-left: 2rpx solid #ED5933;
       font-weight: 700;
 
       .text {
@@ -201,18 +202,18 @@ export default {
 
     .menu-item {
       display: table;
-      height: 108px;
-      width: 112px;
-      line-height: 28px;
-      padding: 0 24px;
+      height: 108rpx;
+      width: 112rpx;
+      line-height: 28rpx;
+      padding: 0 24rpx;
       background: #F9F9F9;
 
       .icon {
-        width: 32px;
-        height: 32px;
+        width: 32rpx;
+        height: 32rrpx;
         vertical-align: top;
-        margin-right: 4px;
-        background-size: 32px 32px;
+        margin-right: 4rpx;
+        background-size: 32rpx 32rpx;
         background-repeat: no-repeat;
 
         &.decrease {

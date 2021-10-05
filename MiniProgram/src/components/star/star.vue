@@ -110,10 +110,10 @@ export default {
 
   &.star-24 {
     .star-item {
-      width: 10px;
-      height: 10px;
-      margin-right: 3px;
-      background-size: 10px 10px;
+      width: 10rpx;
+      height: 10rpx;
+      margin-right: 3rpx;
+      background-size: 10rpx 10rpx;
 
       &:last-child {
         margin-right: 0;

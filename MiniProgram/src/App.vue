@@ -38,7 +38,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   padding: 0;
   box-sizing: border-box;

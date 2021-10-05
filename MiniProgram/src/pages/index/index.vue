@@ -37,7 +37,7 @@ export default {
           wechat: e.mp.detail.userInfo
         }
         wx.setStorageSync('user', self.user)
-        this.onHandleScan()
+        this.onHandleScanTest()
       } else {
         wx.showModal({
           title: '温馨提示',
@@ -118,6 +118,16 @@ export default {
             })
           }
         }
+      })
+    },
+    onHandleScanTest() {
+      let self = this
+      self.$store.commit('SET_SEAT_ID', '1')
+      // self.$store.commit('SET_TABLE_NUMBER', result.tableNumber)
+      self.$store.commit('SET_SELLER_ID', 'dcef72558a124cd49f5033bdec56432a')
+      // navigate to goods
+      wx.navigateTo({
+        url: '../goods/main?id=1'
       })
     },
     getParameterByName(name, url) {

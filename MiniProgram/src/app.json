@@ -39,20 +39,6 @@
         "selectedIconPath": "static/tabs/me-active.png"
       }
     ],
-    "items": [
-      {
-        "name": "首页",
-        "pagePath": "pages/index/main",
-        "icon": "static/tabs/home.png",
-        "activeIcon": "static/tabs/home-active.png"
-      },
-      {
-        "name": "订单",
-        "pagePath": "pages/order/main",
-        "icon": "static/tabs/tips.png",
-        "activeIcon": "static/tabs/tips-active.png"
-      }
-    ],
     "position": "bottom"
   }
 }

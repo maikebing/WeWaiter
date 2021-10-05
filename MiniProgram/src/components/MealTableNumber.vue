@@ -11,7 +11,7 @@
     <div :class="['we-table-box', status === 1 ? 'status-paid-box' : '']">
       <div class="we-restaurant-des">
         <div class="we-icon-box">
-          <img :src="seller.avatar" class="we-icon" />
+          <img :src="imgHost + seller.avatar" class="we-icon" />
         </div>
         <div class="we-table-des">
           <text class="we-table-des-name">{{ seller.name }}</text>
@@ -33,7 +33,9 @@
 export default {
   props: ['status', 'seller'],
   data() {
-    return {}
+    return {
+      imgHost: this.$ossUrl
+    }
   },
   methods: {},
   computed: {
@@ -52,7 +54,7 @@ export default {
 }
 
 .we-table-box {
-  padding: 30px;
+  padding: 30rpx;
   display: flex;
   justify-content: space-between;
   background-color: $primary-grey;
@@ -60,29 +62,29 @@ export default {
   .we-restaurant-des {
     display: flex;
     .we-icon-box {
-      width: 120px;
-      height: 120px;
+      width: 120rpx;
+      height: 120rpx;
       display: flex;
       align-items: center;
       justify-content: center;
       background: $primary-white;
-      border-radius: 12px;
+      border-radius: 12rpx;
       .we-icon {
         /* Rectangle 9: */
-        width: 120px;
-        height: 120px;
+        width: 120rpx;
+        height: 120rpx;
       }
     }
     .we-table-des {
-      max-width: 370px;
-      margin-left: 22px;
+      max-width: 370rpx;
+      margin-left: 22rpx;
       .we-table-des-name {
         /* 一家人美味饭庄: */
         display: block;
         font-weight: 400;
-        font-size: 36px;
-        line-height: 42px;
-        letter-spacing: -0.3px;
+        font-size: 36rpx;
+        line-height: 42rpx;
+        letter-spacing: -0.3rpx;
       }
       .we-table-des-info {
         /* 餐厅描述: */
@@ -92,11 +94,11 @@ export default {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
-        margin-top: 8px;
-        font-size: 25px;
-        line-height: 35px;
+        margin-top: 8rpx;
+        font-size: 25rpx;
+        line-height: 35rpx;
         color: #9a9a9a;
-        letter-spacing: -0.2px;
+        letter-spacing: -0.2rpx;
       }
     }
   }
@@ -104,25 +106,25 @@ export default {
     /* 23: */
     display: flex;
     align-items: center;
-    font-size: 77px;
+    font-size: 77rpx;
     color: $primary-white;
-    letter-spacing: -1.2px;
+    letter-spacing: -1.2rpx;
     font-weight: 400;
     .we-text-box {
       display: flex;
       align-items: flex-end;
       flex-direction: column;
       justify-content: center;
-      margin-right: 11px;
+      margin-right: 11rpx;
       font-weight: normal;
     }
     .we-identifier {
       /* #: */
-      line-height: 30px;
+      line-height: 30rpx;
       opacity: 0.56;
-      font-size: 29px;
+      font-size: 29rpx;
       color: $primary-white;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.3rpx;
     }
   }
 }

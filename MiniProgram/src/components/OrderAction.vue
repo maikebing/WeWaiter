@@ -84,30 +84,30 @@ export default {
 @import '../styles/variable';
 
 .we-order-btn-group {
-  margin: 20px;
-  padding: 23px;
+  margin: 20rpx;
+  padding: 23rpx;
   background-color: $primary-white;
   .we-btn {
-    padding-left: 30px;
-    padding-right: 30px;
-    line-height: 80px;
-    font-size: 32px;
-    border-radius: 10px;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    border-radius: 10rpx;
   }
   .we-btn-pay {
     float: left;
     /* Rectangle 6: */
     position: static;
-    margin-right: 30px;
+    margin-right: 30rpx;
     background-image: linear-gradient(-94deg, #fe9270 0%, #f26032 100%);
     color: $primary-white;
   }
   .we-btn-default {
     float: left;
     position: static;
-    margin-right: 30px;
+    margin-right: 30rpx;
     color: $primary-black;
-    border: 1px solid #9b9b9b;
+    border: 1rpx solid #9b9b9b;
     background-color: transparent;
   }
 }

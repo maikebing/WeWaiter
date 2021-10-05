@@ -44,27 +44,27 @@ export default {
 
 .we-menu-list-box {
   background-color: $primary-white;
-  padding: 30px 30px 0;
+  padding: 30rpx 30rpx 0;
 }
 
 .we-menu-consumption-total {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 18px 30px;
+  padding: 18rpx 30rpx;
   background-color: $primary-white;
-  line-height: 104px;
+  line-height: 104rpx;
   text {
     /* 小计: */
-    font-size: 32px;
+    font-size: 32rpx;
     color: #1f1f21;
-    letter-spacing: -0.27px;
+    letter-spacing: -0.27rpx;
   }
   .total {
     /* ￥54: */
-    margin-left: 26px;
+    margin-left: 26rpx;
     font-weight: bold;
-    font-size: 42px;
+    font-size: 42rpx;
     color: #1f1f21;
   }
 }
