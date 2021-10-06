@@ -57,7 +57,7 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle, colSellerID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle, colSellerID, Guid.NewGuid().ToString("N"));
         }
 
         private void btnAdd_ItemClick(object sender, ItemClickEventArgs e)
@@ -112,7 +112,7 @@ namespace WWM
                 {
                     MdiParent = this.MdiParent,
                     SellerID = pjt.SellerID,
-                    Text = $"编辑[{pjt.Name}]的座位"
+                    Text = $"编辑[{pjt.Name}]的桌位"
                 }.Show();
             }
         }

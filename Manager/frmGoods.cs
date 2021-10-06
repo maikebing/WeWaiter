@@ -60,7 +60,7 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle,  colGoodsID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle,  colGoodsID, Guid.NewGuid().ToString("N"));
             gridView1.SetRowCellValue(e.RowHandle, colSeller,  SellerID);
         }
 

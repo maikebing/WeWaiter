@@ -1,4 +1,4 @@
-﻿namespace WWM
+namespace WWM
 {
     partial class frmCatalog
     {
@@ -40,13 +40,13 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.catalogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.colCatalogID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSellerID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCatalogName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOrderBy = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.catalogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -65,11 +65,12 @@
             this.btnEdit,
             this.btnSave});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbon.MaxItemId = 6;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbon.Size = new System.Drawing.Size(837, 183);
+            this.ribbon.Size = new System.Drawing.Size(732, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // btnLoad
@@ -117,7 +118,7 @@
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1});
             this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "座位管理";
+            this.ribbonPage1.Text = "分类管理";
             // 
             // ribbonPageGroup1
             // 
@@ -131,10 +132,11 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 401);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 310);
+            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(837, 37);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(732, 31);
             // 
             // repositoryItemSpinEdit1
             // 
@@ -161,6 +163,7 @@
             this.colCatalogName,
             this.colOrderBy,
             this.colDeleted});
+            this.gridView1.DetailHeight = 272;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditForm;
@@ -168,17 +171,66 @@
             this.gridView1.EditFormPrepared += new DevExpress.XtraGrid.Views.Grid.EditFormPreparedEventHandler(this.gridView1_EditFormPrepared);
             this.gridView1.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridView1_InitNewRow);
             // 
+            // colCatalogID
+            // 
+            this.colCatalogID.Caption = "分类编码";
+            this.colCatalogID.FieldName = "CatalogID";
+            this.colCatalogID.MinWidth = 17;
+            this.colCatalogID.Name = "colCatalogID";
+            this.colCatalogID.Visible = true;
+            this.colCatalogID.VisibleIndex = 0;
+            this.colCatalogID.Width = 66;
+            // 
+            // colSellerID
+            // 
+            this.colSellerID.FieldName = "SellerID";
+            this.colSellerID.MinWidth = 17;
+            this.colSellerID.Name = "colSellerID";
+            this.colSellerID.Width = 66;
+            // 
+            // colCatalogName
+            // 
+            this.colCatalogName.Caption = "分类名称";
+            this.colCatalogName.FieldName = "CatalogName";
+            this.colCatalogName.MinWidth = 17;
+            this.colCatalogName.Name = "colCatalogName";
+            this.colCatalogName.Visible = true;
+            this.colCatalogName.VisibleIndex = 1;
+            this.colCatalogName.Width = 66;
+            // 
+            // colOrderBy
+            // 
+            this.colOrderBy.Caption = "排序";
+            this.colOrderBy.FieldName = "OrderBy";
+            this.colOrderBy.MinWidth = 17;
+            this.colOrderBy.Name = "colOrderBy";
+            this.colOrderBy.Visible = true;
+            this.colOrderBy.VisibleIndex = 2;
+            this.colOrderBy.Width = 66;
+            // 
+            // colDeleted
+            // 
+            this.colDeleted.Caption = "删除状态";
+            this.colDeleted.FieldName = "Deleted";
+            this.colDeleted.MinWidth = 17;
+            this.colDeleted.Name = "colDeleted";
+            this.colDeleted.Visible = true;
+            this.colDeleted.VisibleIndex = 3;
+            this.colDeleted.Width = 66;
+            // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.catalogBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(0, 183);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gridControl1.Location = new System.Drawing.Point(0, 147);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridControl1.MenuManager = this.ribbon;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemSpinEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(837, 218);
+            this.gridControl1.Size = new System.Drawing.Size(732, 163);
             this.gridControl1.TabIndex = 2;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -187,53 +239,19 @@
             // 
             this.catalogBindingSource.DataSource = typeof(WWM.Database.Catalog);
             // 
-            // colCatalogID
-            // 
-            this.colCatalogID.FieldName = "CatalogID";
-            this.colCatalogID.Name = "colCatalogID";
-            this.colCatalogID.Visible = true;
-            this.colCatalogID.VisibleIndex = 0;
-            // 
-            // colSellerID
-            // 
-            this.colSellerID.FieldName = "SellerID";
-            this.colSellerID.Name = "colSellerID";
-            this.colSellerID.Visible = true;
-            this.colSellerID.VisibleIndex = 1;
-            // 
-            // colCatalogName
-            // 
-            this.colCatalogName.FieldName = "CatalogName";
-            this.colCatalogName.Name = "colCatalogName";
-            this.colCatalogName.Visible = true;
-            this.colCatalogName.VisibleIndex = 2;
-            // 
-            // colOrderBy
-            // 
-            this.colOrderBy.FieldName = "OrderBy";
-            this.colOrderBy.Name = "colOrderBy";
-            this.colOrderBy.Visible = true;
-            this.colOrderBy.VisibleIndex = 3;
-            // 
-            // colDeleted
-            // 
-            this.colDeleted.FieldName = "Deleted";
-            this.colDeleted.Name = "colDeleted";
-            this.colDeleted.Visible = true;
-            this.colDeleted.VisibleIndex = 4;
-            // 
             // frmCatalog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 438);
+            this.ClientSize = new System.Drawing.Size(732, 341);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmCatalog";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
-            this.Text = "座位管理";
+            this.Text = "分类管理";
             this.Load += new System.EventHandler(this.frmSeat_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).EndInit();

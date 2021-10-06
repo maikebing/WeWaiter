@@ -18,5 +18,6 @@ namespace WWM.Database
         public string Seller { get; set; }
         public int Seats { get; set; }
         public bool Sit { get; set; }
+        public int SeatNumber { get; set; }
     }
 }

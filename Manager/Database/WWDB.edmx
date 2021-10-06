@@ -80,6 +80,7 @@
           <Property Name="Seller" Type="text" />
           <Property Name="Seats" Type="int4" Nullable="false" />
           <Property Name="Sit" Type="bool" Nullable="false" />
+		  <Property Name="SeatNumber" Type="int4" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6005: 目标实体框架版本目前不支持数据类型“_text”；已排除表“WeWaiter.public.Seller”中的列“Pics”。-->
@@ -260,6 +261,7 @@
           <Property Name="Seller" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Seats" Type="Int32" Nullable="false" />
           <Property Name="Sit" Type="Boolean" Nullable="false" />
+		  <Property Name="SeatNumber" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Catalog">
           <Key>
@@ -387,6 +389,7 @@
           <EntitySetMapping Name="Seat">
             <EntityTypeMapping TypeName="WeWaiterModel.Seat">
               <MappingFragment StoreEntitySet="Seat">
+			    <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
                 <ScalarProperty Name="Sit" ColumnName="Sit" />
                 <ScalarProperty Name="Seats" ColumnName="Seats" />
                 <ScalarProperty Name="Seller" ColumnName="Seller" />

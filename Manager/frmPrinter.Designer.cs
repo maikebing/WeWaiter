@@ -1,4 +1,4 @@
-﻿namespace WWM
+namespace WWM
 {
     partial class frmPrinter
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnReload = new DevExpress.XtraBars.BarButtonItem();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -39,8 +40,8 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.printerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.printerBindingSource = new System.Windows.Forms.BindingSource();
             this.colPrinterID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPrinterType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -48,8 +49,8 @@
             this.colApiURL = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -63,11 +64,12 @@
             this.btnEdit,
             this.btnDelete});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbon.MaxItemId = 6;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.btnGoogls});
-            this.ribbon.Size = new System.Drawing.Size(833, 183);
+            this.ribbon.Size = new System.Drawing.Size(729, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // btnReload
@@ -115,7 +117,7 @@
             this.btnGoogls.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1});
             this.btnGoogls.Name = "btnGoogls";
-            this.btnGoogls.Text = "商家商品管理";
+            this.btnGoogls.Text = "商品管理";
             // 
             // ribbonPageGroup1
             // 
@@ -129,10 +131,11 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 470);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 363);
+            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(833, 37);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(729, 31);
             // 
             // ribbonPageGroup2
             // 
@@ -143,14 +146,20 @@
             // 
             this.gridControl1.DataSource = this.printerBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(0, 183);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gridControl1.Location = new System.Drawing.Point(0, 147);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridControl1.MenuManager = this.ribbon;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(833, 287);
+            this.gridControl1.Size = new System.Drawing.Size(729, 216);
             this.gridControl1.TabIndex = 5;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            // 
+            // printerBindingSource
+            // 
+            this.printerBindingSource.DataSource = typeof(WWM.Database.Printer);
             // 
             // gridView1
             // 
@@ -160,6 +169,7 @@
             this.colName,
             this.colDesc,
             this.colApiURL});
+            this.gridView1.DetailHeight = 272;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
@@ -167,60 +177,72 @@
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditForm;
             this.gridView1.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridView1_InitNewRow);
             // 
-            // printerBindingSource
-            // 
-            this.printerBindingSource.DataSource = typeof(WWM.Database.Printer);
-            // 
             // colPrinterID
             // 
+            this.colPrinterID.Caption = "打印机编码";
             this.colPrinterID.FieldName = "PrinterID";
+            this.colPrinterID.MinWidth = 17;
             this.colPrinterID.Name = "colPrinterID";
+            this.colPrinterID.Width = 66;
             // 
             // colPrinterType
             // 
+            this.colPrinterType.Caption = "打印机类型";
             this.colPrinterType.FieldName = "PrinterType";
+            this.colPrinterType.MinWidth = 17;
             this.colPrinterType.Name = "colPrinterType";
             this.colPrinterType.Visible = true;
             this.colPrinterType.VisibleIndex = 0;
+            this.colPrinterType.Width = 66;
             // 
             // colName
             // 
+            this.colName.Caption = "打印机名称";
             this.colName.FieldName = "Name";
+            this.colName.MinWidth = 17;
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
+            this.colName.Width = 66;
             // 
             // colDesc
             // 
+            this.colDesc.Caption = "打印机描述";
             this.colDesc.FieldName = "Desc";
+            this.colDesc.MinWidth = 17;
             this.colDesc.Name = "colDesc";
             this.colDesc.Visible = true;
             this.colDesc.VisibleIndex = 2;
+            this.colDesc.Width = 66;
             // 
             // colApiURL
             // 
+            this.colApiURL.Caption = "打印机服务地址";
             this.colApiURL.FieldName = "ApiURL";
+            this.colApiURL.MinWidth = 17;
             this.colApiURL.Name = "colApiURL";
             this.colApiURL.Visible = true;
             this.colApiURL.VisibleIndex = 3;
+            this.colApiURL.Width = 66;
             // 
             // frmPrinter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(833, 507);
+            this.ClientSize = new System.Drawing.Size(729, 394);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmPrinter";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
-            this.Text = "商家商品管理";
+            this.Text = "商品管理";
             this.Load += new System.EventHandler(this.frmPrinter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.printerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
