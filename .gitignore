@@ -262,3 +262,5 @@ paket-files/
 __pycache__/
 *.pyc
 /packages
+/Manager/Properties/licenses.licx.bak
+/Manager/Properties/licenses.licx

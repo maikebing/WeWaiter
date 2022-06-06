@@ -87,14 +87,8 @@ namespace WeWaiter.Utils
                 var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
                 ClaimsPrincipal principal = null;
                 SecurityToken securityToken = null;
-                try
-                {
-                    principal = jwtSecurityTokenHandler.ValidateToken(jwToken, tokenValidationParams, out securityToken);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                principal = jwtSecurityTokenHandler.ValidateToken(jwToken, tokenValidationParams, out securityToken);
+
                 if ((principal != null) && (principal.Claims != null))
                 {
                     result = securityToken as JwtSecurityToken;

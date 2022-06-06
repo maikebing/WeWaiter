@@ -181,7 +181,6 @@
             <summary>
             获取配置文件
             </summary>
-            <param name="context"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Sample.CommonService.Download.ConfigHelper.GetQrCodeId">
@@ -221,11 +220,11 @@
             <summary>
             自定义 MessageHandler
             </summary>
-            <param name="provider">.NET Framework 可忽略</param>
             <param name="inputStream"></param>
             <param name="postModel"></param>
             <param name="maxRecordCount"></param>
             <param name="onlyAllowEncryptMessage"></param>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnTextRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageText)">
             <summary>
@@ -234,21 +233,21 @@
             <param name="requestMessage">请求消息</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLocationRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLocationRequest(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
             <summary>
             处理位置请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnImageRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageImage)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnImageRequest(Senparc.Weixin.MP.Entities.RequestMessageImage)">
             <summary>
             处理图片请求
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnVoiceRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnVoiceRequest(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
             <summary>
             处理语音请求
             </summary>
@@ -262,7 +261,7 @@
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLinkRequestAsync(Senparc.Weixin.MP.Entities.RequestMessageLink)">
+        <member name="M:Senparc.Weixin.Sample.CommonService.CustomMessageHandler.CustomMessageHandler.OnLinkRequest(Senparc.Weixin.MP.Entities.RequestMessageLink)">
             <summary>
             处理链接消息请求
             </summary>

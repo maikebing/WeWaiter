@@ -100,7 +100,7 @@ namespace WeWaiter.Data
         [JsonIgnore]
         private new decimal ActPay { get; set; }
         [JsonIgnore]
-        private new string PayOrderID { get; set; }
+        private  string PayOrderID { get; set; }
         [JsonIgnore]
         private new string PayType { get; set; }
         [JsonIgnore]

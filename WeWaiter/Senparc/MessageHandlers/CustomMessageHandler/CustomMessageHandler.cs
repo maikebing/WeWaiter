@@ -86,11 +86,11 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// <summary>
         /// 自定义 MessageHandler
         /// </summary>
-        /// <param name="provider">.NET Framework 可忽略</param>
         /// <param name="inputStream"></param>
         /// <param name="postModel"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="onlyAllowEncryptMessage"></param>
+        /// <param name="serviceProvider"></param>
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null)
             : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider: serviceProvider)
         {
@@ -334,8 +334,8 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
                     var userInfo = MP.AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
 
                     defaultResponseMessage.Content = string.Format(
-                        "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
-                        requestMessage.FromUserName, userInfo.nickname, (WeixinSex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
+                        "您的OpenID为：{0}关注时间：{1}\r\n关注状态：{2}",
+                        requestMessage.FromUserName, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
                     return defaultResponseMessage;
                 })
                 .Keyword("EX", () =>
@@ -468,14 +468,14 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override async Task<IResponseMessageBase> OnLocationRequestAsync(RequestMessageLocation requestMessage)
+        public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
         {
             var locationService = new LocationService();
             var responseMessage = locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
             return responseMessage;
         }
 
-        public override async Task<IResponseMessageBase> OnShortVideoRequestAsync(RequestMessageShortVideo requestMessage)
+        public override IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您刚才发送的是小视频";
@@ -487,7 +487,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override async Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
+        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             //一隔一返回News或Image格式
             if (base.GlobalMessageContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
@@ -524,7 +524,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override async Task<IResponseMessageBase> OnVoiceRequestAsync(RequestMessageVoice requestMessage)
+        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
@@ -560,33 +560,27 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         {
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
-
             #region 上传素材并推送到客户端
+            try
+            {
+                //上传素材
+                var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
+                var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
+                var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
+                await CustomApi.SendVideoAsync(appId, base.OpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
+            }
+            catch (Exception ex)
+            {
+                WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", ex.Message);
 
-            _ = Task.Factory.StartNew(async () =>
-               {
-                 //上传素材
-                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
-                   var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
-                   var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
-                   await CustomApi.SendVideoAsync(appId, base.OpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
-               }).ContinueWith(async task =>
-               {
-                   if (task.Exception != null)
-                   {
-                       WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", task.Exception.Message);
-
-                       var msg = string.Format("上传素材出错：{0}\r\n{1}",
-                                  task.Exception.Message,
-                                  task.Exception.InnerException != null
-                                      ? task.Exception.InnerException.Message
-                                      : null);
-                       await CustomApi.SendTextAsync(appId, base.OpenId, msg);
-                   }
-               });
-
+                var msg = string.Format("上传素材出错：{0}\r\n{1}",
+                           ex.Message,
+                           ex.InnerException != null
+                               ? ex.InnerException.Message
+                               : null);
+                await CustomApi.SendTextAsync(appId, base.OpenId, msg);
+            }
             #endregion
-
             return responseMessage;
         }
 
@@ -596,7 +590,7 @@ namespace Senparc.Weixin.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override async Task<IResponseMessageBase> OnLinkRequestAsync(RequestMessageLink requestMessage)
+        public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = string.Format(@"您发送了一条连接信息：
@@ -606,7 +600,7 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
             return responseMessage;
         }
 
-        public override async Task<IResponseMessageBase> OnFileRequestAsync(RequestMessageFile requestMessage)
+        public override IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
         {
             var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = string.Format(@"您发送了一个文件：
@@ -644,7 +638,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         }
 
 
-        public override async Task<IResponseMessageBase> OnUnknownTypeRequestAsync(RequestMessageUnknownType requestMessage)
+        public override IResponseMessageBase OnUnknownTypeRequest(RequestMessageUnknownType requestMessage)
         {
             /*
              * 此方法用于应急处理SDK没有提供的消息类型，

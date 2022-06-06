@@ -208,7 +208,7 @@ namespace WeWaiter
                 #endregion
             }, true)
                 //使用 Senparc.Weixin SDK
-                .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
+                .UseSenparcWeixin(senparcWeixinSetting.Value,  ( weixinRegister, SenparcWeixinSetting) =>
                 {
                     #region 微信相关配置
 

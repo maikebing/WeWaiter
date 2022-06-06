@@ -349,8 +349,7 @@ namespace WeWaiter.Controllers
                     string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
                     packageReqHandler.SetParameter("sign", sign);                       //签名
                     string data = packageReqHandler.ParseXML();
-                    var result = TenPayV3.OrderQuery(data);
-                    OrderQueryResult orderQueryResult = new OrderQueryResult(result);
+                    var orderQueryResult = TenPayV3.OrderQuery( new TenPayV3OrderQueryRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, _order.TransactionId, nonceStr, orderid, TenPayV3Info.Key));
                     _order.TransactionId = orderQueryResult.transaction_id;
                     _order.ActPay = decimal.Parse(orderQueryResult.total_fee);
                     var trade_state = Enum.Parse<TradeState>(orderQueryResult.trade_state);
@@ -389,20 +388,8 @@ namespace WeWaiter.Controllers
             if (_order != null)
             {
                 string nonceStr = TenPayV3Util.GetNoncestr();
-                RequestHandler packageReqHandler = new RequestHandler(null);
 
-                //设置package订单参数
-                packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);          //公众账号ID
-                packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);         //商户号
-                packageReqHandler.SetParameter("out_trade_no", orderid);                 //填入商家订单号
-                packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-                string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-                packageReqHandler.SetParameter("sign", sign);                       //签名
-
-                string data = packageReqHandler.ParseXML();
-
-                var result = TenPayV3.CloseOrder(data);
-                var res = new CloseOrderResult(result);
+                var res = TenPayV3.CloseOrder(new TenPayV3CloseOrderRequestData(TenPayV3Info.AppId,TenPayV3Info.MchId,orderid,TenPayV3Info.Key,nonceStr));
                 if (res.result_code == WeXinUtils.SUCCESS)
                 {
 

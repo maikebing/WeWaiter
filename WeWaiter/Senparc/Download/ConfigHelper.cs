@@ -72,7 +72,6 @@ namespace Senparc.Weixin.Sample.CommonService.Download
         /// <summary>
         /// 获取配置文件
         /// </summary>
-        /// <param name="context"></param>
         /// <returns></returns>
         public Config GetConfig()
         {
