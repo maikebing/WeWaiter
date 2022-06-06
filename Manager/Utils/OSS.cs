@@ -29,7 +29,7 @@ namespace WWM.Utils
             return ok;
         }
 
-        public static bool CopyFile(string fileToUpload, string fileKey)
+        public static async Task<bool> CopyFile(string fileToUpload, string fileKey)
         {
             bool ok = false;
 
@@ -37,13 +37,13 @@ namespace WWM.Utils
             var client = new RestClient(Properties.Settings.Default.ApiBaseUrl);
             try
             {
-                var request = new RestRequest("/api/upload", Method.POST);
+                var request = new RestRequest("/api/upload", Method.Post);
                 //request.AddHeader("Content-Type", "application/json");
                 //request.AddHeader("Content-Type", "multipart/form-data");
                 request.AddFile("file", fileToUpload);
                 request.AddQueryParameter("fileKey", fileKey);
 
-                var result = client.Execute(request);
+                var result = await client.ExecuteAsync(request);
                 ok = result.StatusCode == System.Net.HttpStatusCode.OK;
                 Console.WriteLine("Copy object succeeded");
             }

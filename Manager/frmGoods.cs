@@ -93,7 +93,7 @@ namespace WWM
             LoadData();
         }
 
-        private void btnUploadIcon_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnUploadIcon_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (gridView1.GetFocusedRow() is Goods pjt)
             {
@@ -101,7 +101,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename =$"{pjt.Seller}/Goods/{pjt.GoodsID}_Icon{ new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.CopyFile(openFileDialog.FileName, filename))
+                    if (await Utils.OSS.CopyFile(openFileDialog.FileName, filename))
                     {
                         pjt.Icon = filename;
                         //   gridView1.SetFocusedRowCellValue(colAvatar, filename);
@@ -110,7 +110,7 @@ namespace WWM
             }
         }
 
-        private void btnUploadImage_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnUploadImage_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (gridView1.GetFocusedRow() is Goods pjt)
             {
@@ -118,7 +118,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename = $"{pjt.Seller}/Goods/{pjt.GoodsID}_Image{ new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.CopyFile(openFileDialog.FileName, filename))
+                    if (await Utils.OSS.CopyFile(openFileDialog.FileName, filename))
                     {
                         pjt.Image = filename;
                         //   gridView1.SetFocusedRowCellValue(colAvatar, filename);

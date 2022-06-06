@@ -117,7 +117,7 @@ namespace WWM
             }
         }
 
-        private void btnUploadHeadPic_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnUploadHeadPic_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (gridView1.GetFocusedRow() is Seller pjt)
             {
@@ -125,7 +125,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename = $"{pjt.SellerID}/Avatar{new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.CopyFile(openFileDialog.FileName,  filename))
+                    if (await Utils.OSS.CopyFile(openFileDialog.FileName,  filename))
                     {
                         pjt.Avatar = filename;
                      //   gridView1.SetFocusedRowCellValue(colAvatar, filename);
