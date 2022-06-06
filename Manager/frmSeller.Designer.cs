@@ -1,4 +1,4 @@
-﻿namespace WWM
+namespace WWM
 {
     partial class frmSeller
     {
@@ -85,11 +85,12 @@
             this.btnUploadHeadPic,
             this.btnCatalog});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbon.MaxItemId = 12;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbon.Size = new System.Drawing.Size(1038, 183);
+            this.ribbon.Size = new System.Drawing.Size(908, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // btnReload
@@ -148,7 +149,7 @@
             // 
             // btnAdminSeat
             // 
-            this.btnAdminSeat.Caption = "管理座位";
+            this.btnAdminSeat.Caption = "管理桌位";
             this.btnAdminSeat.Id = 8;
             this.btnAdminSeat.ImageOptions.Image = global::WWM.Properties.Resources.tablecellmargins_16x16;
             this.btnAdminSeat.ImageOptions.LargeImage = global::WWM.Properties.Resources.tablecellmargins_32x32;
@@ -165,7 +166,7 @@
             // 
             // btnUploadHeadPic
             // 
-            this.btnUploadHeadPic.Caption = "上传店铺顶部图片";
+            this.btnUploadHeadPic.Caption = "上传Logo";
             this.btnUploadHeadPic.Id = 10;
             this.btnUploadHeadPic.ImageOptions.Image = global::WWM.Properties.Resources.editwrappoints_16x16;
             this.btnUploadHeadPic.ImageOptions.LargeImage = global::WWM.Properties.Resources.editwrappoints_32x32;
@@ -174,7 +175,7 @@
             // 
             // btnCatalog
             // 
-            this.btnCatalog.Caption = "商家分类管理";
+            this.btnCatalog.Caption = "管理分类";
             this.btnCatalog.Id = 11;
             this.btnCatalog.ImageOptions.Image = global::WWM.Properties.Resources.cellsautoheight__16x16;
             this.btnCatalog.ImageOptions.LargeImage = global::WWM.Properties.Resources.cellsautoheight__32x32;
@@ -188,7 +189,7 @@
             this.ribbonPageGroup2,
             this.ribbonPageGroup3});
             this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "商家信息管理";
+            this.ribbonPage1.Text = "商户信息";
             // 
             // ribbonPageGroup1
             // 
@@ -217,20 +218,23 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 517);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 400);
+            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1038, 37);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(908, 31);
             // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.sellerBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(0, 183);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gridControl1.Location = new System.Drawing.Point(0, 147);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridControl1.MenuManager = this.ribbon;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1038, 334);
+            this.gridControl1.Size = new System.Drawing.Size(908, 253);
             this.gridControl1.TabIndex = 2;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -257,9 +261,10 @@
             this.colTableNumber,
             this.colDeleted,
             this.colPrintID});
+            this.gridView1.DetailHeight = 272;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
-            this.gridView1.NewItemRowText = "添加新卖家";
+            //this.gridView1.NewItemRowText = "添加商户";
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditForm;
             this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
             this.gridView1.OptionsEditForm.EditFormColumnCount = 2;
@@ -270,119 +275,165 @@
             // 
             // colSellerID
             // 
+            this.colSellerID.Caption = "商户编码";
             this.colSellerID.FieldName = "SellerID";
+            this.colSellerID.MinWidth = 17;
             this.colSellerID.Name = "colSellerID";
+            this.colSellerID.Width = 66;
             // 
             // colName
             // 
+            this.colName.Caption = "商户名称";
             this.colName.FieldName = "Name";
+            this.colName.MinWidth = 17;
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 0;
+            this.colName.Width = 66;
             // 
             // colDescription
             // 
+            this.colDescription.Caption = "商户描述";
             this.colDescription.FieldName = "Description";
+            this.colDescription.MinWidth = 17;
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
             this.colDescription.VisibleIndex = 1;
+            this.colDescription.Width = 66;
             // 
             // colBulletin
             // 
+            this.colBulletin.Caption = "商户公告";
             this.colBulletin.FieldName = "Bulletin";
+            this.colBulletin.MinWidth = 17;
             this.colBulletin.Name = "colBulletin";
             this.colBulletin.Visible = true;
             this.colBulletin.VisibleIndex = 2;
+            this.colBulletin.Width = 66;
             // 
             // colAvatar
             // 
+            this.colAvatar.Caption = "商户 Logo";
             this.colAvatar.FieldName = "Avatar";
+            this.colAvatar.MinWidth = 17;
             this.colAvatar.Name = "colAvatar";
             this.colAvatar.Visible = true;
             this.colAvatar.VisibleIndex = 3;
+            this.colAvatar.Width = 66;
             // 
             // colFoodScore
             // 
+            this.colFoodScore.Caption = "食物评分";
             this.colFoodScore.FieldName = "FoodScore";
+            this.colFoodScore.MinWidth = 17;
             this.colFoodScore.Name = "colFoodScore";
             this.colFoodScore.Visible = true;
             this.colFoodScore.VisibleIndex = 4;
+            this.colFoodScore.Width = 66;
             // 
             // colMinPrice
             // 
+            this.colMinPrice.Caption = "最低价格";
             this.colMinPrice.FieldName = "MinPrice";
+            this.colMinPrice.MinWidth = 17;
             this.colMinPrice.Name = "colMinPrice";
             this.colMinPrice.Visible = true;
             this.colMinPrice.VisibleIndex = 5;
+            this.colMinPrice.Width = 66;
             // 
             // colRankRate
             // 
+            this.colRankRate.Caption = "好评率";
             this.colRankRate.FieldName = "RankRate";
+            this.colRankRate.MinWidth = 17;
             this.colRankRate.Name = "colRankRate";
             this.colRankRate.Visible = true;
             this.colRankRate.VisibleIndex = 6;
+            this.colRankRate.Width = 66;
             // 
             // colRatingCount
             // 
+            this.colRatingCount.Caption = "评价总数";
             this.colRatingCount.FieldName = "RatingCount";
+            this.colRatingCount.MinWidth = 17;
             this.colRatingCount.Name = "colRatingCount";
             this.colRatingCount.Visible = true;
             this.colRatingCount.VisibleIndex = 7;
+            this.colRatingCount.Width = 66;
             // 
             // colScore
             // 
+            this.colScore.Caption = "综合评分";
             this.colScore.FieldName = "Score";
+            this.colScore.MinWidth = 17;
             this.colScore.Name = "colScore";
             this.colScore.Visible = true;
             this.colScore.VisibleIndex = 8;
+            this.colScore.Width = 66;
             // 
             // colSellCount
             // 
+            this.colSellCount.Caption = "月售数量";
             this.colSellCount.FieldName = "SellCount";
+            this.colSellCount.MinWidth = 17;
             this.colSellCount.Name = "colSellCount";
             this.colSellCount.Visible = true;
             this.colSellCount.VisibleIndex = 9;
+            this.colSellCount.Width = 66;
             // 
             // colServiceScore
             // 
+            this.colServiceScore.Caption = "服务评分";
             this.colServiceScore.FieldName = "ServiceScore";
+            this.colServiceScore.MinWidth = 17;
             this.colServiceScore.Name = "colServiceScore";
             this.colServiceScore.Visible = true;
             this.colServiceScore.VisibleIndex = 10;
+            this.colServiceScore.Width = 66;
             // 
             // colTableNumber
             // 
+            this.colTableNumber.Caption = "桌位数量";
             this.colTableNumber.FieldName = "TableNumber";
+            this.colTableNumber.MinWidth = 17;
             this.colTableNumber.Name = "colTableNumber";
             this.colTableNumber.Visible = true;
             this.colTableNumber.VisibleIndex = 11;
+            this.colTableNumber.Width = 66;
             // 
             // colDeleted
             // 
+            this.colDeleted.Caption = "删除状态";
             this.colDeleted.FieldName = "Deleted";
+            this.colDeleted.MinWidth = 17;
             this.colDeleted.Name = "colDeleted";
             this.colDeleted.Visible = true;
             this.colDeleted.VisibleIndex = 12;
+            this.colDeleted.Width = 66;
             // 
             // colPrintID
             // 
+            this.colPrintID.Caption = "打印机编码";
             this.colPrintID.FieldName = "PrintID";
+            this.colPrintID.MinWidth = 17;
             this.colPrintID.Name = "colPrintID";
             this.colPrintID.Visible = true;
             this.colPrintID.VisibleIndex = 13;
+            this.colPrintID.Width = 66;
             // 
             // frmSeller
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 554);
+            this.ClientSize = new System.Drawing.Size(908, 431);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmSeller";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
-            this.Text = "商家管理";
+            this.Text = "商户管理";
             this.Load += new System.EventHandler(this.frmSeller_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();

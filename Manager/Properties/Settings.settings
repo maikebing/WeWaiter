@@ -1,15 +1,7 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WWM.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="PGDB" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Host=127.0.0.1;Database=WeWaiter;Username=postgres;Password=future;Persist Security Info=True&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;Npgsql&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Host=127.0.0.1;Database=WeWaiter;Username=postgres;Password=future;Persist Security Info=True</Value>
-    </Setting>
     <Setting Name="BucketName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">wewaiter</Value>
     </Setting>
@@ -21,6 +13,17 @@
     </Setting>
     <Setting Name="AccessKeySecret" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PGDB" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Host=local.host;Database=WeWaiter;Username=postgres;Password=123456;Persist Security Info=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;Npgsql&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Host=local.host;Database=WeWaiter;Username=postgres;Password=123456;Persist Security Info=True</Value>
+    </Setting>
+    <Setting Name="ApiBaseUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://localhost:44389</Value>
     </Setting>
   </Settings>
 </SettingsFile>

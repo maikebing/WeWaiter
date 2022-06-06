@@ -1,4 +1,4 @@
-﻿namespace WWM
+namespace WWM
 {
     partial class frmSeat
     {
@@ -43,8 +43,9 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSeatId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSeller = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSeats = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSeatNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.colSeats = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSit = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -64,11 +65,12 @@
             this.btnEdit,
             this.btnSave});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbon.MaxItemId = 6;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbon.Size = new System.Drawing.Size(837, 183);
+            this.ribbon.Size = new System.Drawing.Size(732, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // btnLoad
@@ -116,7 +118,7 @@
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1});
             this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "座位管理";
+            this.ribbonPage1.Text = "桌位管理";
             // 
             // ribbonPageGroup1
             // 
@@ -130,22 +132,25 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 401);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 310);
+            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(837, 37);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(732, 31);
             // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.seatBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(0, 183);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gridControl1.Location = new System.Drawing.Point(0, 147);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridControl1.MenuManager = this.ribbon;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemSpinEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(837, 218);
+            this.gridControl1.Size = new System.Drawing.Size(732, 163);
             this.gridControl1.TabIndex = 2;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -159,8 +164,10 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colSeatId,
             this.colSeller,
+            this.colSeatNumber,
             this.colSeats,
             this.colSit});
+            this.gridView1.DetailHeight = 272;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditForm;
@@ -170,25 +177,30 @@
             // 
             // colSeatId
             // 
-            this.colSeatId.Caption = "座位编码";
+            this.colSeatId.Caption = "桌位编码";
             this.colSeatId.FieldName = "SeatId";
+            this.colSeatId.MinWidth = 17;
             this.colSeatId.Name = "colSeatId";
             this.colSeatId.Visible = true;
             this.colSeatId.VisibleIndex = 0;
+            this.colSeatId.Width = 66;
             // 
             // colSeller
             // 
             this.colSeller.FieldName = "Seller";
+            this.colSeller.MinWidth = 17;
             this.colSeller.Name = "colSeller";
+            this.colSeller.Width = 66;
             // 
-            // colSeats
+            // colSeatNumber
             // 
-            this.colSeats.Caption = "座位数量";
-            this.colSeats.ColumnEdit = this.repositoryItemSpinEdit1;
-            this.colSeats.FieldName = "Seats";
-            this.colSeats.Name = "colSeats";
-            this.colSeats.Visible = true;
-            this.colSeats.VisibleIndex = 1;
+            this.colSeatNumber.Caption = "桌位编号";
+            this.colSeatNumber.ColumnEdit = this.repositoryItemSpinEdit1;
+            this.colSeatNumber.FieldName = "SeatNumber";
+            this.colSeatNumber.Name = "colSeatNumber";
+            this.colSeatNumber.Visible = true;
+            this.colSeatNumber.VisibleIndex = 1;
+            this.colSeatNumber.Width = 66;
             // 
             // repositoryItemSpinEdit1
             // 
@@ -207,23 +219,37 @@
             0});
             this.repositoryItemSpinEdit1.Name = "repositoryItemSpinEdit1";
             // 
+            // colSeats
+            // 
+            this.colSeats.Caption = "坐位数量";
+            this.colSeats.ColumnEdit = this.repositoryItemSpinEdit1;
+            this.colSeats.FieldName = "Seats";
+            this.colSeats.MinWidth = 17;
+            this.colSeats.Name = "colSeats";
+            this.colSeats.Visible = true;
+            this.colSeats.VisibleIndex = 2;
+            this.colSeats.Width = 66;
+            // 
             // colSit
             // 
             this.colSit.FieldName = "Sit";
+            this.colSit.MinWidth = 17;
             this.colSit.Name = "colSit";
+            this.colSit.Width = 66;
             // 
             // frmSeat
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 438);
+            this.ClientSize = new System.Drawing.Size(732, 341);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmSeat";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
-            this.Text = "座位管理";
+            this.Text = "桌位管理";
             this.Load += new System.EventHandler(this.frmSeat_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
@@ -254,5 +280,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn colSit;
         private DevExpress.XtraBars.BarButtonItem btnSave;
+        private DevExpress.XtraGrid.Columns.GridColumn colSeatNumber;
     }
 }

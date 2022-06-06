@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -97,6 +97,7 @@ namespace WeWaiter.Utils
                 return context;
             }
         }
+
         public static string ImageHost { get; set; }
     }
 }

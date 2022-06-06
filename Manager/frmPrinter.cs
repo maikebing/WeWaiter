@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -55,7 +55,7 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle,  colPrinterID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle,  colPrinterID, Guid.NewGuid().ToString("N"));
         }
 
         private void btnAdd_ItemClick(object sender, ItemClickEventArgs e)

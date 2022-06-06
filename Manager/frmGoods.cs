@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -60,7 +60,7 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle,  colGoodsID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle,  colGoodsID, Guid.NewGuid().ToString("N"));
             gridView1.SetRowCellValue(e.RowHandle, colSeller,  SellerID);
         }
 
@@ -101,7 +101,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename =$"{pjt.Seller}/Goods/{pjt.GoodsID}_Icon{ new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.UploadFile(openFileDialog.FileName, filename))
+                    if (Utils.OSS.CopyFile(openFileDialog.FileName, filename))
                     {
                         pjt.Icon = filename;
                         //   gridView1.SetFocusedRowCellValue(colAvatar, filename);
@@ -118,7 +118,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename = $"{pjt.Seller}/Goods/{pjt.GoodsID}_Image{ new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.UploadFile(openFileDialog.FileName, filename))
+                    if (Utils.OSS.CopyFile(openFileDialog.FileName, filename))
                     {
                         pjt.Image = filename;
                         //   gridView1.SetFocusedRowCellValue(colAvatar, filename);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +27,7 @@ namespace WWM
             db = new EFDB();
             var gd = from g in db.Seat where g.Seller == SellerID orderby g.Seats select g;
             gd.Load();
-            this.seatBindingSource .DataSource = db.Seat.Local.ToBindingList();
+            this.seatBindingSource.DataSource = db.Seat.Local.ToBindingList();
         }
         private void btnLoad_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -56,7 +56,7 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle,  colSeatId , Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle,  colSeatId , Guid.NewGuid().ToString("N"));
             gridView1.SetRowCellValue(e.RowHandle, colSeller, SellerID);
         }
 

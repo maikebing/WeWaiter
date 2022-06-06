@@ -1,4 +1,4 @@
-﻿namespace WWM
+namespace WWM
 {
     partial class frmMain
     {
@@ -45,13 +45,13 @@
             this.ribbonControl1.ExpandCollapseItem,
             this.btnSellerAdmin});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ribbonControl1.MaxItemId = 2;
             this.ribbonControl1.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbonControl1.Size = new System.Drawing.Size(1152, 183);
+            this.ribbonControl1.Size = new System.Drawing.Size(1008, 147);
             // 
             // btnSellerAdmin
             // 
@@ -67,7 +67,7 @@
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1});
             this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "ribbonPage1";
+            this.ribbonPage1.Text = "首页";
             // 
             // ribbonPageGroup1
             // 
@@ -82,15 +82,15 @@
             // frmMain
             // 
             this.AllowMdiBar = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1152, 615);
+            this.ClientSize = new System.Drawing.Size(1008, 478);
             this.Controls.Add(this.ribbonControl1);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "frmMain";
             this.Ribbon = this.ribbonControl1;
-            this.Text = "Form1";
+            this.Text = "WeWaiter";
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManagerEX1)).EndInit();
             this.ResumeLayout(false);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +12,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Sample.CommonService.CustomMessageHandler;
 
 namespace WeWaiter.Controllers
 {

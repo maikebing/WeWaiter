@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,6 +19,8 @@ namespace WWM
             Application.SetCompatibleTextRenderingDefault(false);
 
             BonusSkins.Register();
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-Hans");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-Hans");
             Application.Run(new frmMain());
         }
     }

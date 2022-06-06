@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -57,7 +57,7 @@ namespace WWM
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
-            gridView1.SetRowCellValue(e.RowHandle, colSellerID, Guid.NewGuid().ToString().Replace("-", ""));
+            gridView1.SetRowCellValue(e.RowHandle, colSellerID, Guid.NewGuid().ToString("N"));
         }
 
         private void btnAdd_ItemClick(object sender, ItemClickEventArgs e)
@@ -112,7 +112,7 @@ namespace WWM
                 {
                     MdiParent = this.MdiParent,
                     SellerID = pjt.SellerID,
-                    Text = $"编辑[{pjt.Name}]的座位"
+                    Text = $"编辑[{pjt.Name}]的桌位"
                 }.Show();
             }
         }
@@ -125,7 +125,7 @@ namespace WWM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filename = $"{pjt.SellerID}/Avatar{new FileInfo(openFileDialog.FileName).Extension}";
-                    if (Utils.OSS.UploadFile(openFileDialog.FileName,  filename))
+                    if (Utils.OSS.CopyFile(openFileDialog.FileName,  filename))
                     {
                         pjt.Avatar = filename;
                      //   gridView1.SetFocusedRowCellValue(colAvatar, filename);

@@ -20,52 +20,52 @@
 </template>
 
 <script>
-  import MenuItem from '@/components/MealMenuListItem'
-  export default {
-    props: ['menuList', 'total'],
-    data () {
-      return {
-        menuList: this.menuList
-      }
-    },
-    components: {
-      MenuItem
-    },
-    methods: {},
-    created () {},
-    mounted () {
-      console.log('mounted@36', this.menuList)
+import MenuItem from '@/components/MealMenuListItem'
+export default {
+  props: ['menuList', 'total'],
+  data() {
+    return {
+      menuList: this.menuList
     }
+  },
+  components: {
+    MenuItem
+  },
+  methods: {},
+  created() {},
+  mounted() {
+    console.log('mounted@36', this.menuList)
   }
+}
 </script>
 
 <style lang="scss">
-  @import "~@/styles/variable";
+@import '~@/styles/variable';
 
-  .we-menu-list-box {
-    background-color: $primary-white;
-    padding: 30px 30px 0;
-  }
+.we-menu-list-box {
+  background-color: $primary-white;
+  padding: 30rpx 30rpx 0;
+}
 
-  .we-menu-consumption-total {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 18px 30px;
-    background-color: $primary-white;
-    line-height: 104px;
-    text {
-      /* 小计: */
-      font-size: 32px;
-      color: #1F1F21;
-      letter-spacing: -0.27px;
-    }
-    .total {
-      /* ￥54: */
-      margin-left: 26px;
-      font-weight: bold;
-      font-size: 42px;
-      color: #1F1F21;
-    }
+.we-menu-consumption-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 18rpx 30rpx;
+  background-color: $primary-white;
+  line-height: 104rpx;
+  text {
+    /* 小计: */
+    font-size: 32rpx;
+    color: #1f1f21;
+    letter-spacing: -0.27rpx;
   }
+  .total {
+    /* ￥54: */
+    margin-left: 26rpx;
+    font-weight: bold;
+    font-size: 42rpx;
+    color: #1f1f21;
+  }
+}
 </style>
